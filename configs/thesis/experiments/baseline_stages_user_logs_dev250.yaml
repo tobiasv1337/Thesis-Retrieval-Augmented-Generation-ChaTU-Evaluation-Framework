@@ -1,0 +1,45 @@
+schema_version: retrieval_experiment_suite_v3
+suite_id: baseline_stages_user_logs_development_250_v1
+questions:
+  manifest_path: data/logs/question_sets/3caad0a2b795e86a72ef9a5158c25765/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  query_limit: 250
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 2, 3, 4, 5, 10, 15, 20]
+      character_budgets: []
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+  - experiment_id: legacy_refreshed_nlu
+    system_config: configs/thesis/systems/legacy_refreshed_nlu.yaml
+    splits: [development]
+    evaluation:
+      stages:
+        - stage_id: vector_search
+          target_levels: [chunk]
+          include_in_pool: true
+          compute_metrics: true
+          depth: 20
+        - stage_id: intent_filter
+          target_levels: [chunk]
+          include_in_pool: true
+          compute_metrics: true
+          depth: 20
+        - stage_id: post_filters
+          variant_id: current
+          target_levels: [chunk]
+          include_in_pool: true
+          compute_metrics: true
+          depth: 20

@@ -1,0 +1,4 @@
+evidence_config_path: configs/thesis/evidence_sources.yaml
+benchmark_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+semantic_judge_id: relevance_judge:d45a7065247e31ae6e9d8722a982732b
+split: development

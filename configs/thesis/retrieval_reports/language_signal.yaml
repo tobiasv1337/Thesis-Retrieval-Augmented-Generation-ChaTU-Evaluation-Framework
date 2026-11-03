@@ -1,0 +1,77 @@
+schema_version: suite_report_config_v1
+report_config_id: thesis_language_signal_development_v1
+comparison_ids:
+  - signal_correct
+  - signal_always_de
+  - signal_always_en
+  - signal_swapped
+  - signal_query_complete_robustness
+  - signal_cross_lingual_robustness
+  - signal_cross_lingual_dedup_robustness
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: signal_correct
+    comparison_id: signal_correct
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_always_de
+    comparison_id: signal_always_de
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_always_en
+    comparison_id: signal_always_en
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_swapped
+    comparison_id: signal_swapped
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_query_complete_robustness
+    comparison_id: signal_query_complete_robustness
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_cross_lingual_robustness
+    comparison_id: signal_cross_lingual_robustness
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize
+  - policy_id: signal_cross_lingual_dedup_robustness
+    comparison_id: signal_cross_lingual_dedup_robustness
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 5
+    direction: maximize

@@ -1,0 +1,11 @@
+version: "3.1"
+# Only a Rasa schema example; ApiTransport has no fitting/training step.
+nlu:
+  - intent: rag_query
+    examples: |
+      - Eine Frage an das Sekretariat
+      - A question for the university
+  - intent: rag_action
+    examples: |
+      - /rag_action
+      - /rag_action{"token":"example"}

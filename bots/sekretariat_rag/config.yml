@@ -1,0 +1,9 @@
+recipe: default.v1
+language: de
+assistant_id: chatu-sekretariat-rag
+pipeline:
+  - name: bots.sekretariat_rag.transport.ApiTransport
+policies:
+  - name: RulePolicy
+    core_fallback_action_name: action_rag
+    enable_fallback_prediction: true

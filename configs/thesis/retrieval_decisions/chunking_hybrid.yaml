@@ -1,0 +1,26 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:e8a25ca711ea53a682972bb630df48f0
+report_config_hash: sha256:4103f1a4c23a060af9b88b1e3270bf6b5bb00c0fa6145628b91fecd04bfb2396
+decisions:
+  - policy_id: select_chunking_algorithm_800
+    selected_experiment_ids:
+      - chunker_section_preferred_800_hybrid
+      - chunker_fixed_hybrid
+    rationale: >-
+      At fixed 800/100, Section preferred leads paired Chunk and Page nDCG@5,
+      improves strict hits and pool-relative recall, and has the smallest index
+      and lowest p95 latency. Fixed is retained only as the simple
+      non-structural Validation control.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-08-30T09:42:09Z"
+
+  - policy_id: select_section_preferred_length
+    selected_experiment_ids:
+      - chunker_section_preferred_800_hybrid
+    rationale: >-
+      800/100 and 1000/100 are statistically indistinguishable on paired Chunk
+      nDCG@5. Although 1000/100 builds a smaller index, 800/100 is retained for
+      finer context, lower p95 retrieval latency, and its higher Page nDCG@5
+      point estimate.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-08-30T09:42:09Z"

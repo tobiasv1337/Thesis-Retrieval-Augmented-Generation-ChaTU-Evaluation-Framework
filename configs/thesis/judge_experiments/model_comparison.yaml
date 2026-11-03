@@ -1,0 +1,13 @@
+schema_version: relevance_judge_experiment_v1
+judge_experiment_id: thesis_qrel_judge_model_comparison_v1
+relevance_config_path: configs/thesis/relevance.yaml
+judge_ids:
+  - gemma4_31b
+  - qwen3_6_35b_a3b
+  - llama3_1_8b
+  - gemma4_e4b
+  - llama3_3_70b
+  - qwen3_6_27b
+  - gemma4_26b_a4b
+  - gpt_oss_20b
+  - qwen3_8_27b

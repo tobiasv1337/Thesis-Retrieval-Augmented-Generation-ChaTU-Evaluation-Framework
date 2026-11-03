@@ -1,0 +1,35 @@
+{
+    "intents": ["fallback_nlu", "last_choice", "no_match", "successful", "change", "further_results"],
+    "actions": ["action_extract_answer"],
+    "entities": ["original_intent", "confidence", "threshold", "original_message"],
+    "slots": {
+        "original_message": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "original_message"
+            }]
+        },
+        "original_intent": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "original_intent"
+            }]
+        },
+        "below_confidence": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "confidence"
+            }]
+        },
+        "threshold": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "threshold"
+            }]
+        }
+    }
+}

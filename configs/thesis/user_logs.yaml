@@ -1,0 +1,30 @@
+schema_version: user_log_import_config_v1
+dataset_id: sekretariat_user_logs
+delimiter: ','
+intent: sekretariat
+language_labels:
+  deutsch: de
+  english: en
+  de: de
+  en: en
+excluded_exact_texts:
+  - test
+  - bruh
+  - nein
+  - versager
+  - andere
+  - falsch
+  - hallo
+  - hi
+  - hello
+  - hey
+  - danke
+  - thanks
+  - thank you
+max_characters: null
+long_review_characters: 1000
+seed: 14731
+split_percentages:
+  development: 40
+  validation: 20
+  test: 40

@@ -1,0 +1,90 @@
+schema_version: retrieval_experiment_suite_v3
+suite_id: thesis_final_synthetic_test_v2
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+  artifact_name: questions_test
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams:
+    - items
+    - context_items
+    target_levels:
+    - page
+    - chunk
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 10
+      - 15
+      - 20
+      character_budgets: []
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+- experiment_id: legacy_refreshed_nlu
+  system_config: configs/thesis/systems/legacy_refreshed_nlu.yaml
+  splits:
+  - test
+- experiment_id: global_hybrid
+  system_config: configs/thesis/systems/parent_hybrid.yaml
+  splits:
+  - test
+- experiment_id: global_priority
+  system_config: configs/thesis/systems/parent_hybrid.yaml
+  splits:
+  - test
+  overrides:
+    settings.pipeline.protected_priority_slots: 3
+    settings.pipeline.priority_ordering: reranker
+    settings.pipeline.page_routing.enabled: true
+    settings.pipeline.page_routing.mode: fixed_pages
+    settings.pipeline.page_routing.include_global: true
+    settings.pipeline.page_routing.candidate_union:
+      priority_k: 25
+    settings.pipeline.page_routing.descendant_depth: 5
+    settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+- experiment_id: nlu_priority_nemotron
+  system_config: configs/thesis/systems/priority_hybrid.yaml
+  splits:
+  - test
+- experiment_id: nlu_priority_zerank
+  system_config: configs/thesis/systems/priority_hybrid.yaml
+  splits:
+  - test
+  overrides:
+    settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+    settings.pipeline.reranker.profile_id: zerank_2
+    settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+comparisons:
+- comparison_id: legacy_vs_modern
+  baseline_experiment_id: legacy_refreshed_nlu
+  candidate_experiment_ids:
+  - global_hybrid
+  - global_priority
+  - nlu_priority_nemotron
+  - nlu_priority_zerank
+- comparison_id: priority_effect
+  baseline_experiment_id: global_hybrid
+  candidate_experiment_ids:
+  - global_priority
+  - nlu_priority_nemotron
+- comparison_id: main_nlu_effect
+  baseline_experiment_id: global_priority
+  candidate_experiment_ids:
+  - nlu_priority_nemotron
+- comparison_id: deployment_reranker
+  baseline_experiment_id: nlu_priority_nemotron
+  candidate_experiment_ids:
+  - nlu_priority_zerank

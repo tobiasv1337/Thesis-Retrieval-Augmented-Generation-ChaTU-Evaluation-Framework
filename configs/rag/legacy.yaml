@@ -1,0 +1,16 @@
+version: rag_runtime_v1
+system_config: ../thesis/systems/legacy_refreshed_nlu.yaml
+artifact_root: ../..
+titles:
+  mapping_path: data/az/mapping.csv
+history_depth: 0
+top_k: 20
+context_top_k: 15
+generation:
+  provider: ollama
+  endpoint: http://127.0.0.1:11434
+  model: llama3.1:8b-instruct-fp16
+  tokenizer: Xenova/Meta-Llama-3.1-Tokenizer
+  tokenizer_revision: d49ea33e96b3fcf8738bb79ff9d85da81742fa82
+  prompt_version: legacy_sources_v1
+  max_tokens: 2048

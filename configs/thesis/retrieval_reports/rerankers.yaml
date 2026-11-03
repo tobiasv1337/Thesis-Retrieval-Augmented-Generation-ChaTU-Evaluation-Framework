@@ -1,0 +1,97 @@
+schema_version: suite_report_config_v1
+report_config_id: thesis_rerankers_development_v1
+comparison_ids: [rerankers, qwen_instructions, qwen06b_metadata, qwen4b_metadata, zerank_metadata, bge_metadata, nemotron_metadata, qwen8b_metadata, qwen4b_tu_metadata, qwen4b_metadata_instruction]
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: select_reranker
+    comparison_id: rerankers
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen_instructions
+    comparison_id: qwen_instructions
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen06b_metadata
+    comparison_id: qwen06b_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen4b_metadata
+    comparison_id: qwen4b_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_zerank_metadata
+    comparison_id: zerank_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_bge_metadata
+    comparison_id: bge_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_nemotron_metadata
+    comparison_id: nemotron_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen8b_metadata
+    comparison_id: qwen8b_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen4b_tu_metadata
+    comparison_id: qwen4b_tu_metadata
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_qwen4b_metadata_instruction
+    comparison_id: qwen4b_metadata_instruction
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize

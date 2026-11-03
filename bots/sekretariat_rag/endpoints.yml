@@ -1,0 +1,4 @@
+# Isolated development ports; configure the production endpoint separately.
+action_endpoint:
+  url: http://127.0.0.1:2351/webhook
+  timeout: 200

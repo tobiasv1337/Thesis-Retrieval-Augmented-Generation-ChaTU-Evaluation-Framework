@@ -1,0 +1,17 @@
+version: rag_runtime_v1
+system_config: ../thesis/systems/legacy_refreshed_nlu.yaml
+artifact_root: ../..
+titles:
+  mapping_path: data/az/mapping.csv
+history_depth: 0
+top_k: 20
+context_top_k: 15
+generation:
+  provider: ollama
+  endpoint: http://127.0.0.1:11434
+  model: qwen3.5:9b
+  tokenizer: Qwen/Qwen3.5-9B
+  tokenizer_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+  prompt_version: legacy_sources_v1
+  think: false
+  max_tokens: 2048

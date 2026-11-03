@@ -1,0 +1,24 @@
+version: "3.1"
+# The public bot identity remains "sekretariat".
+intents:
+  - rag_query
+  - rag_action
+entities:
+  - token
+slots:
+  language:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  rag_state:
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+actions:
+  - action_rag
+session_config:
+  # A frontend conversation ends on explicit reset, not on an idle timeout.
+  session_expiration_time: 0
+  carry_over_slots_to_new_session: true

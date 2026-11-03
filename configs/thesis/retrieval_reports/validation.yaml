@@ -1,0 +1,43 @@
+schema_version: suite_report_config_v1
+report_config_id: thesis_retrieval_validation_top20_v1
+comparison_ids: [reranking_transfer, reranker_quality_latency, chunking_transfer, legacy_baseline_vs_modern]
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: confirm_reranking
+    comparison_id: reranking_transfer
+    judgment_view_label: gemma4_31b:hybrid
+    split: validation
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: confirm_reranker_quality_latency
+    comparison_id: reranker_quality_latency
+    judgment_view_label: gemma4_31b:hybrid
+    split: validation
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: confirm_chunking
+    comparison_id: chunking_transfer
+    judgment_view_label: gemma4_31b:hybrid
+    split: validation
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: confirm_legacy_comparison
+    comparison_id: legacy_baseline_vs_modern
+    judgment_view_label: gemma4_31b:hybrid
+    split: validation
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 20
+    direction: maximize

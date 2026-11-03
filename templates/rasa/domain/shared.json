@@ -1,0 +1,42 @@
+{
+    "version": "3.1",
+    "config": {
+        "store_entities_as_slots": true
+    },
+    "session_config": {
+        "carry_over_slots_to_new_session": true
+    },
+    "entities": ["language", "debug"],
+    "intents": [],
+    "slots": {
+        "debug": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "initial_value": false,
+            "mappings": [
+                {
+                    "type": "from_entity",
+                    "entity": "debug"
+                }
+            ]
+        },
+        "language": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "initial_value": "deutsch",
+            "mappings": [
+                {
+                    "type": "from_entity",
+                    "entity": "language"
+                }
+            ]
+        },
+        "data": {
+            "type": "rasa.shared.core.slots.AnySlot",
+            "initial_value": null,
+            "mappings": [
+                {
+                    "type": "custom"
+                }
+            ]
+        }
+    }
+}

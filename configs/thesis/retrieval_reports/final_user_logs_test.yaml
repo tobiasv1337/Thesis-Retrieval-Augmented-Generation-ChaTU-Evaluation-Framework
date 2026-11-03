@@ -1,0 +1,16 @@
+schema_version: suite_report_config_v1
+report_config_id: final_user_logs_test_v2
+comparison_ids:
+- legacy_vs_modern
+- priority_effect
+- main_nlu_effect
+- deployment_reranker
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies: []
+primary_judgment_view: gemma4_31b:judged_only
+priority_pages:
+  descendant_depth: 5
+  manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  manifest_hash: sha256:da8f1dabd389ddd3131352e98a90a10deb0530123c4a67c1ef4e2f1f6035357d

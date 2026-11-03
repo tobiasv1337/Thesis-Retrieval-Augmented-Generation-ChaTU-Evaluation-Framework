@@ -1,0 +1,124 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_retrieval_chunking_hybrid_top5_context_development
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 5
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 3, 5]
+      character_budgets: [1000, 2000, 4000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+
+experiments:
+  - experiment_id: chunker_fixed_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: fixed_char_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+  - experiment_id: chunker_recursive_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+      settings.pipeline.representation.chunker_id: recursive_page_800_100
+
+  - experiment_id: chunker_section_strict_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+      settings.pipeline.representation.chunker_id: section_strict_800_100
+
+  - experiment_id: chunker_section_preferred_800_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+
+  - experiment_id: chunker_section_preferred_600_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+      settings.pipeline.representation.chunker_id: section_preferred_600_100
+      settings.pipeline.representation.chunk_artifact_set_manifest_path: data/thesis/corpus/chunk_sets/section_preferred_lengths.json
+
+  - experiment_id: chunker_section_preferred_1000_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.candidate_k: 100
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+      settings.pipeline.representation.chunker_id: section_preferred_1000_100
+      settings.pipeline.representation.chunk_artifact_set_manifest_path: data/thesis/corpus/chunk_sets/section_preferred_lengths.json
+
+comparisons:
+  - comparison_id: chunker_algorithm_800
+    experiment_ids:
+      - chunker_fixed_hybrid
+      - chunker_recursive_hybrid
+      - chunker_section_strict_hybrid
+      - chunker_section_preferred_800_hybrid
+
+  - comparison_id: section_preferred_length
+    experiment_ids:
+      - chunker_section_preferred_600_hybrid
+      - chunker_section_preferred_800_hybrid
+      - chunker_section_preferred_1000_hybrid

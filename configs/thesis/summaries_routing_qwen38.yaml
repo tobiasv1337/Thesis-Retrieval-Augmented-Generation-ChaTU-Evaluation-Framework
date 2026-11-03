@@ -1,0 +1,25 @@
+mode: local-llm
+eligible_only: true
+targets: [page, context_group]
+allowed_modes: [none, extractive, local-llm]
+source_passthrough_max_chars: 200
+page_passthrough_max_chars: 200
+prompts:
+  page:
+    prompt_id: page_routing_summary_v2
+    path: configs/thesis/prompts/page_routing_summary.md
+  context_group:
+    prompt_id: group_routing_summary_v2
+    path: configs/thesis/prompts/group_routing_summary.md
+output_dir: data/thesis/summaries/routing
+local_llm:
+  backend: ollama
+  context_window: 32768
+  model_id: qwen3.8:27b
+  model_revision: sha256:22130167c4c20e20c7b71454612966ca8e8171e9b3cc8ab6ce8aa6cbfec79643
+  endpoint: http://127.0.0.1:11434
+  temperature: 0
+  reasoning_effort: none
+  max_tokens: 1500
+  max_input_chars: 12000
+  timeout_seconds: 600

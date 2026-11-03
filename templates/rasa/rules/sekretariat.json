@@ -1,0 +1,46 @@
+{
+    "rules": [
+        {
+            "rule": "fallback_nlu",
+            "steps": [
+                {"intent": "fallback_nlu"},
+                {"action": "action_extract_answer"}
+            ]
+        },
+        {
+            "rule": "last_choice",
+            "steps": [
+                {"intent": "last_choice"},
+                {"action": "action_extract_answer"}
+            ]
+        },
+        {
+            "rule": "no_match",
+            "steps": [
+                {"intent": "no_match"},
+                {"action": "action_extract_answer"}
+            ]
+        },
+        {
+            "rule": "successful",
+            "steps": [
+                {"intent": "successful"},
+                {"action": "action_extract_answer"}
+            ]
+        },
+        {
+            "rule": "change",
+            "steps": [
+                {"intent": "change"},
+                {"action": "action_extract_answer"}
+            ]
+        },
+        {
+            "rule": "further_results",
+            "steps": [
+                {"intent": "further_results"},
+                {"action": "action_extract_answer"}
+            ]
+        }
+    ]
+}

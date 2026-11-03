@@ -1,0 +1,13 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:ee805f6db3c49ee7a496d52bb030bc71
+report_config_hash: sha256:a4f54df1a5a8701ea1f48446e94df2d3dccc6e1698b8c52f59cf8edc14855817
+decisions:
+  - policy_id: compare_main_nlu_effect
+    selected_experiment_ids: [global_hybrid, main_nlu_additive]
+    rationale: >-
+      Retain Global Hybrid + Nemotron as the main reference. RRF had nearly
+      unchanged Chunk nDCG@20 and Page hits on synthetic Development, so keep
+      it for the final paired NLU comparison. Drop hard routing because it
+      reduced both Chunk and Page coverage.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-27T13:52:45Z"

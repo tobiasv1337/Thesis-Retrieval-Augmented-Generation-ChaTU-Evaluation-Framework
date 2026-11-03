@@ -1,0 +1,4 @@
+# Isolated development master action server.
+action_endpoint:
+  url: http://127.0.0.1:2350/webhook
+  timeout: 240

@@ -1,0 +1,183 @@
+version: "3.1"
+nlu:
+- intent: switch
+  examples: |
+    - Ich meinte den anderen Bot
+    - Ich will mit [Sekretariat](bot) reden
+    - Ich meine [Sekretariat](bot)
+    - [Sekretariat](bot)!!!
+    - switch den bot
+    - anderer Bot
+    - anderer Chatbot
+    - Ich glaube der kennt meine Antwort nicht
+    - Ich glaube dieser Chatbot kennt meine Antwort nicht
+    - Chatbot wechseln
+    - Warum hat dieser Bot geantwortet?
+    - Warum hat nicht der andere Bot geantwortet?
+    - Ich will mit MOSES reden
+    - Ich will mit dem Mentor reden
+- intent: language
+  examples: |
+    - andere Sprache
+    - Sprache ändern
+    - ich verstehe nicht
+    - I don't understand
+    - can you speak [english](language)
+    - kannst du [deutsch](language) sprechen?
+    - [english](language) please
+    - [deutsch](language) bitte
+    - [english](language)
+    - [deutsch](language)
+    - [English](language)
+    - [Deutsch](language)
+    - I want [English](language)
+    - Ich will [Deutsch](language)
+    - [Englisch](language) bitte
+    - [Englisch](language) sprechen bitte
+    - rede mal [deutsch](language)!
+    - geht das auch auf [deutsch](language)?
+    - Sprache wechseln
+    - Ich möchte die Sprache ändern
+    - Ich möchte auf [deutsch](language) schreiben
+- intent: help
+  examples: |
+    - Hilfe
+    - hilfe
+    - HILFE
+    - Ich brauche hilfe
+    - help
+    - Help
+    - usage
+    - Wie funktioniert [Mentor](bot)?
+    - Wie rede ich mit [Sekretariat](bot)?
+    - Wie benutze ich [Mentor](bot)?
+    - Ich weiß nicht wie den [Moses](bot) Bot zu nutzen
+    - How does [Mentor](bot) bot work?
+    - Wie verwendet man den [Sekretariat](bot) ?
+    - Gebrauchsanleitung
+    - wie stelle ich Fragen an [Mentor](bot)?
+    - Wie kann ich mich mit [Smalltalk](bot) unterhalten?
+    - How can I chat with [Smalltalk](bot)?
+    - What can the [moses](bot) bot do?
+    - How do I get started with [sekretariat](bot) bot?
+    - Can you show me some examples of how to use [MOSES](bot) bot?
+    - Do you have a user guide or tutorial that I can access?
+    - Can you walk me through the steps for using [Sekretariat](bot) bot?
+    - Are there any specific commands or keywords I should use to interact with [mentor](bot)?
+    - How can I customize my experience with the [small talk](bot) bot?
+    - Is there a specific way I should format my questions or requests?
+    - Can you provide me with some tips for getting the most out of the [smalltalk](bot)?
+    - Is there anything else I should know about using [sekretariat](bot)?
+    - Welche Funktionen oder Dienstleistungen bietet der [Mentor](bot) an?
+    - Wie fange ich an, [Sekretariat](bot) zu verwenden?
+    - Kannst du mir einige Beispiele dafür geben, was der [Mentor] Bot tun kann?
+    - Gibt es eine Anleitung oder ein Tutorial, das erklärt, wie man [Moses](bot) Bot verwendet?
+    - Kannst du mir durch den Prozess der Verwendung von [Sekretariat](bot) führen?
+    - Gibt es bestimmte Befehle oder Schlüsselwörter, die ich verwenden sollte, um mit [Mentor](bot) zu interagieren?
+    - Wie kann ich mein Erlebnis mit [Smalltalk](bot) personalisieren?
+    - Soll ich Fragen oder Anfragen in einem bestimmten Format stellen?
+    - Könntest du mir einige Tipps geben, wie ich das Beste aus dem [Sekretariat](bot) Bot machen kann?
+    - Gibt es noch etwas, worüber ich Bescheid wissen sollte, wenn ich den [Mentor](bot) verwende?
+- intent: who
+  examples: |
+    - wer bist du
+    - was kannst du machen
+    - was kennst du?
+    - welche Fragen kannst du beantworten?
+    - Was ist dein Job?
+    - Worum geht deine Aufgabe?
+    - Wozu dienst du?
+    - Welche Probleme kannst du lösen?
+    - Was für ein Bot bist du?
+    - Was ist dein Job?
+    - was tust du?
+    - was kannst du tun?
+    - What are you able to?
+    - What is your job?
+    - For which kind of questions can I ask you?
+    - What is your task?
+    - are you a bot?
+    - what are you?
+    - who are you?
+    - whom am I talking to?
+    - Wer bist du?
+    - Wer sind Sie?
+    - Wie heißt du?
+    - Wie ist dein Name?
+    - Wie ist Ihr Name?
+    - What's your name?
+    - What is ur name?
+    - was kannst du machen?
+    - what can u do?
+    - was ist deine Aufgabe?
+    - can you describe yourself?
+    - what are the duties of each bot?
+    - what can each bot do?
+    - Can you explain each bot?
+    - What are the bots?
+    - I will wissen wer kann was
+    - Wer ist [Mentor](bot)?
+    - Wer ist [Sekretariat](bot)?
+    - Wer ist [Smalltalk](bot)?
+    - Wer ist [Moses](bot) bot?
+    - Rede ich mit [Mentor](bot)?
+    - Welche Fragen kann [Mentor](bot) beantworten?
+    - Was kann der [Small talk](bot) bot tun?
+    - Was kennt der [Sekretariat](bot) bot?
+    - Für welche Fragen kann ich mich an [Moses](bot) wenden?
+    - Was sind die Aufgaben des [Sekretariat](bot) bots?
+    - was kann [Sekretariat](bot) machen?
+    - Wer seid ihr [mentor](bot), [master](bot)?
+    - Wer bist du [Chatu](bot)
+    - Wer bist du [Chatu](bot)
+    - Wer seid ihr [Mentor](bot), [Chatu](bot), [Sekretariat](bot)?
+
+- intent: feedback_good
+  examples: |
+    - auch gut
+    - gut danke
+    - good
+    - Auch gut
+    - Sehr gut
+    - Bravo
+    - very good
+    - bestens
+    - Good
+    - great
+    - not bad
+    - mega gut
+    - bestens
+    - gut
+    - sehr gut, danke
+    - oh cool
+    - gut gemacht
+    - gute Nachricht
+    - awesome
+    - das hast du super gemacht
+    - du warst eine super hilfe
+    - danke für die hilfe
+    - richtig gut
+
+- intent: feedback_bad
+  examples: |
+    - schlecht
+    - nicht gut
+    - bad
+    - sehr schlecht
+    - nicht so gut
+    - schlimm
+    - sehr schlimm
+    - das ist scheiße
+    - blödsinn
+    - was für eine kacke
+    - richtig schlecht
+    - you are so stupid
+    - du bist dumm
+    - dumb ass
+    - schlechte Antwort
+    - kannst du nicht richtig sprechen?
+    - das war ja dumm
+    - scheiß KI
+    - you really cannot do anything
+    - du kannst nichts
+    - meh nicht gut

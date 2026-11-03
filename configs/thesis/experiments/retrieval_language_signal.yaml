@@ -1,0 +1,174 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_retrieval_language_signal_top5_development
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 5
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: query_complete_correct
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: correct
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: query_language_complete
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: query_complete_always_de
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_de
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: query_language_complete
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: query_complete_always_en
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_en
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: query_language_complete
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: query_complete_swapped
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: swapped
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: query_language_complete
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_correct
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: correct
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_always_de
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_de
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_always_en
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_en
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_swapped
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: swapped
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+  - experiment_id: cross_lingual_dedup_correct
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: correct
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_dedup_always_de
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_de
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_dedup_always_en
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: always_en
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+  - experiment_id: cross_lingual_dedup_swapped
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.query_language_signal: swapped
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+comparisons:
+  - comparison_id: signal_correct
+    experiment_ids: [cross_lingual_correct, query_complete_correct, cross_lingual_dedup_correct]
+  - comparison_id: signal_always_de
+    experiment_ids: [cross_lingual_always_de, query_complete_always_de, cross_lingual_dedup_always_de]
+  - comparison_id: signal_always_en
+    experiment_ids: [cross_lingual_always_en, query_complete_always_en, cross_lingual_dedup_always_en]
+  - comparison_id: signal_swapped
+    experiment_ids: [cross_lingual_swapped, query_complete_swapped, cross_lingual_dedup_swapped]
+  - comparison_id: signal_query_complete_robustness
+    baseline_experiment_id: query_complete_correct
+    candidate_experiment_ids: [query_complete_always_de, query_complete_always_en, query_complete_swapped]
+  - comparison_id: signal_cross_lingual_robustness
+    baseline_experiment_id: cross_lingual_correct
+    candidate_experiment_ids: [cross_lingual_always_de, cross_lingual_always_en, cross_lingual_swapped]
+  - comparison_id: signal_cross_lingual_dedup_robustness
+    baseline_experiment_id: cross_lingual_dedup_correct
+    candidate_experiment_ids: [cross_lingual_dedup_always_de, cross_lingual_dedup_always_en, cross_lingual_dedup_swapped]

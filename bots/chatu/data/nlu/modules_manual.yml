@@ -1,0 +1,193 @@
+version: '3.1'
+nlu:
+- intent: studyprograms
+  examples: |
+    - Placeholder
+    
+- intent: mts
+  examples: |
+    - Is Machine Learning 1 an elective module for computer science masters?
+    - How much HP does Machine Learning 1 have?
+    - Search Module Machine Learning 1.
+    - How many LPs does Machine Learning 1 have?
+    - How many modules does Prof. Manfred Hauswirth have in WiSe23/24?
+    - Which modules does Manfred Hauswirth have in WiSe23/24?
+    - Which modules does Klaus-Robert Müller have in WiSe23/24?
+    - Where is the module Machine Learning 1 hold?
+    - In which room is the module Machine Learning 1 held?
+    - what is the room number where the module Machine Learning 1 hold?
+    - what is the email address of the person who is responsible for Machine Learning 1?
+    - pls give some information about Machine Learning 1
+    - Current elective modules in biochemistry WS 23/24
+    - Which elective modules are there in the Biochemistry course WS 23/24?
+    - List of elective modules in the Biochemistry course WS 23/24?
+    - List of lectures in the Aerospace Engineering degree program with credit points
+    - Credit points for lectures in the aerospace engineering course
+    - LTS Lectures Aerospace Engineering
+    - LP lecture on aerospace engineering
+    - What events are there in the Mathematics (BSc) degree program?
+    - Which courses are currently running in the Mathematics (Bsc) degree program?
+    - Current courses WS 23/24 in the mathematics course
+    - Which modules does Tu offer for the computer science course?
+    - Module display for computer science
+    - Module overview for computer science
+    - What subject modules does the Computer Science degree program have in 2024?
+    - What different modules does the Department of Computer Science have in 2024
+    - how many modules does the university offer in total?
+    - Number of modules in Tu total 2024
+    - Credit points from the Fundamentals of the Internet course
+    - How many credit points do I get for the Fundamentals of the Internet course?
+    - Is the Fundamentals of the Internet course available?
+    - Where does the course take place?
+    - Where does the Fundamentals of the Internet course take place?
+    - list for the area of media design
+    - Which media design applications can I learn in my media studies studies?
+    - Which media applications can be learned while studying media studies?
+    - When do statistics courses take place?
+    - When is there a basic statistics course?
+    - what time does the basic statistics course take place?
+    - where is my TV series lecture?
+    - What gender studies modules are there?
+    - Can you tell me all the modules in this area?
+    - Can you list all the gender studies modules for me?
+    - Is there a gender studies module for MINT courses?
+    - When does the introduction to programming lecture take place?
+    - I need information about the Introduction to Programming module
+    - What modules are there in the Media Informatics degree program?
+    - How is the Bachelor of Media Informatics structured?
+    - Which modules should I choose for my degree program in electrical engineering with a specialization in power electronics?
+    - Which modules should I choose for my degree program in electrical engineering with a specialization in power electronics?
+    - Which modules are there in the electronics degree program with a specialization in power electronics?
+    - Could you offer me more information about the TET2 module?
+    - In which semester does the TET2 lecture take place?
+    - Do you have more information about the battery technology module?
+    - The power electronics module is taught by which professor?
+    - Which modules are compulsory in the electrical engineering degree program?
+    - How many credit points from elective modules in electrical engineering?
+    - How many LPs are there for a project?
+    - Which modules have 6 LPs?
+    - What courses are there in Falkutät IV?
+    - I'm looking for the "Comparative European Studies" module.
+    - I'm looking for a seminar that deals with comparative European politics.
+    - How many credit points does the module “the political system of the Federal Republic of Germany” bring?
+    - And how many credit points does this module give?
+    - How many credit points does the module “political system of the Federal Republic of Germany” have?
+    - In which semester is the “International Relations” lecture offered?
+    - Is the “International Relations” lecture offered in the summer or winter semester?
+    - Module list from lecturer Holger Stark
+    - think this is the semester of the math module for physicists
+    - In which semester does the module “math for physicists” take place?
+    - What free choice modules are there for physicists
+    - do physics students have a free choice of field? Which modules are possible?
+    - Are there modules of free choice in the physics course
+    - Course of study: physics, module: free choice, which option
+    - which modules in the Bachelor of Mechanical Engineering are in English?
+    - show me the module directory for the Human Factors course
+    - page of the human factors course
+    - study program "human factors"
+    - human-machine interaction course
+    - course Faculty 5
+    - I'm looking for a module with 3 LP
+    - I meant 3 credit points
+    - Are there modules from Professor Möller?
+    - contact person = Möller, Sebastian!
+    - contact person = Möller, Sebastian!
+    - Are there modules from Professor Möller?
+    - I'm looking for a module with 3 LP
+    - I'm looking for modules that are offered by the Machine Learning Department and have 6 credit points and are on Monday
+    - is there the Fine Art course at the Institute of Architecture?
+    - no, the institute is called Architecture
+    - Department of Architecture!!
+    - I want to find a course in the topic of Data Science
+    - I am interested in data science
+    - contact person = Möller, Sebastian!
+    - I need a module with 3 credit points
+    - I need a module with 3 credit points
+    - modules by Sebastian Möller with 6 ECTS
+    - modules by Sebastian Möller with 6 ECTS
+    - I'm looking for modules from Sebastian Möller
+    - I'm looking for a module with 6 LP
+    - How often is Module 20 offered per semester?
+    - No, I mean module 20 from the computer science course
+    - I apologize for my module 20 in medicine at the Charité
+    - how is this offered during the semester
+    - can you see the Charité's Moses system?
+    - I mean the mathematics course
+    - exactly in the mathematics course
+    - contact person for the ecology module
+    - I would like to be the type contact person
+    - I'm looking for the contact person for a module
+    - When is the first date of the System Technology IV module
+    - when are the dates of this?
+    - when are the dates for the system technology module?
+    - List of elective modules with 6 CP in the Human Factors degree program
+    - List of compulsory elective modules with 6 CP in the mechanical engineering course
+    - Which modules are taught by Linda Onnasch?
+    - Hi, I'm doing my Master's in Philosophy and would like to take 30 ECTS next semester, can you tell me the options I have for this?
+    - which introductory seminars can I take in my bachelor's degree in philosophy?
+    - I'm looking for the machine learning 1 module
+    - Is the Human Spaceflight module taking place this semester?
+    - Does the Human Spaceflight module take place in the winter semester?
+    - Which compulsory modules in Human Factors are offered in the summer semester?
+    - Compulsory modules, summer semester, human factors
+    - Which elective modules are offered in the summer semester in Human Factors?
+    - please give me a list of the current modules from the human factors degree program
+    - A module list from the “Human Factors” degree program
+    - which modules can I take if I study human factors
+    - in which room does the Trust in Human Robot Teams seminar take place?
+    - What is the name of the professor who teaches medical technology 1?
+    - Give me the name of the professor who gives the Medical Technology 1 lecture
+    - How many credit points do I get for medical technology 1
+    - how many credit points does the module “Medical Technology 1” bring?
+    - how many ects do I get for the module “medical technology 1”
+    - I would like to take a seminar that earns at least 6 credit points. please give me suggestions.
+    - I would like to take a seminar that earns at least 6 credit points. please make me a list of suggestions
+    - which modules are compulsory in the human factors degree program?
+    - which modules are compulsory in the electrical engineering course
+    - what courses are available at the university?
+    - when and where are the lectures of Construction Theory II taking place?
+    - time and location of this module
+    - time and location of Construction Theory II
+    - when are the lectures of module: Construction Theory II taking place
+    - Location of module Construction Theory II
+    - Information about module Analysis I
+    - Contact person forr Module Analysis I
+    - professor analysis I
+    - Content from the Analysis I module
+    - Compulsory subjects from the mechanical engineering course
+    - study examination regulations: a list of all courses to be taken for study program mechanical engineering
+    - hey can you provide me a list of the Free Choice Modules for Mechanical Engineering Bachelor?
+    - hey can you provide me a list of the focus modules for Mechanical Engineering Bachelor?
+    - give me a list of courses with only 3 ECTS
+    - database management courses
+    - which programs have lectures/modules on database management
+    - which tu programs/courses have database management systems in their content
+    - provide me the timetable for the first semester of a course
+    - give me first semester plan for course
+    - module Polish linguistics
+    - Polish linguistics
+    - polish course
+    - Module: Baberowski
+    - History Russia Jörg Baberowski
+    - all modules Jörg Baberowski
+    - Language Center Russian course advanced credit points
+    - Russian course advanced credit points
+    - elective module mathematics course
+    - Russian language course credit points
+    - What exam performance does the child and adolescent psychiatry module have?
+    - What exams are there in the Clinical Psychology module?
+    - Does the Clinical Psychology module have an exam?
+    - Is the exam written or oral?
+    - How many ECTS does the General Psychology module give?
+    - How many credits does the module have?
+    - How much does the module count?
+    - Which seminar in the Bachelor of Psychology has 5 ETCS?
+    - What is the name of the course?
+    - Please give me a module overview for the Master's Ecology and Environmental Planning for the coming summer semester.
+    - Are there specific entry requirements for the Ecological Fundamentals module?
+    - When is the Uran Soils module currently taking place?
+
+- intent: sekretariat
+  examples: |
+    - i want to apply to a master program, what is the latest date
+    - if i have not finished my bahcelor can i still apply for a master

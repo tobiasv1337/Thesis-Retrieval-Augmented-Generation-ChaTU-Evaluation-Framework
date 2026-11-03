@@ -1,0 +1,10 @@
+schema_version: routing_table_config_v1
+snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+output_dir: data/thesis/routing/metadata_v2
+preprocessing_version: parent_metadata_v2
+page_keyword_limit: 24
+group_keyword_limit: 16
+heading_token_budget: 1024
+representation_token_limit: 6144
+tokenizer_id: BAAI/bge-m3
+tokenizer_revision: 5617a9f61b028005a4858fdac845db406aefb181

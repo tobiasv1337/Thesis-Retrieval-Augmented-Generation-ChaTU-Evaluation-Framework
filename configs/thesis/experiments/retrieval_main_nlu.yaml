@@ -1,0 +1,41 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_main_nlu_development_v2
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 2, 3, 4, 5, 10, 15, 20]
+      character_budgets: [1000, 2000, 4000, 8000, 16000, 32000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+  - experiment_id: global_hybrid
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+  - experiment_id: main_nlu_hard
+    system_config: configs/thesis/systems/main_nlu_hybrid.yaml
+    splits: [development]
+  - experiment_id: main_nlu_additive
+    system_config: configs/thesis/systems/main_nlu_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.main_nlu_routing.mode: additive
+
+comparisons:
+  - comparison_id: main_nlu_effect
+    baseline_experiment_id: global_hybrid
+    candidate_experiment_ids: [main_nlu_hard, main_nlu_additive]
+  - comparison_id: nlu_routing_mode
+    baseline_experiment_id: main_nlu_hard
+    candidate_experiment_ids: [main_nlu_additive]

@@ -1,0 +1,139 @@
+schema_version: corpus_config_v5
+corpus_id: az_thesis_snapshot
+source_root: data/az/scraper/topics
+mapping_path: data/az/mapping.csv
+manual_utterances_path: data/az/manual_utterances.csv
+output_dir: data/thesis/corpus
+languages:
+  - de
+  - en
+additional_files:
+  - path: data/az/blacklist.csv
+    role: az_blacklist
+    required: true
+  - path: data/az/overwrite_topics.csv
+    role: az_overwrite_topics
+    required: true
+  - path: data/az/translations.json
+    role: az_translations
+    required: true
+snapshot:
+  include_versions: true
+  include_page_html: true
+  archive_path: data/thesis/corpus/raw_source_archive.tar.zst
+  source_manifest_path: data/thesis/corpus/source_files.jsonl
+  manifest_path: data/thesis/corpus/snapshot_manifest.json
+parser:
+  content_files:
+    de: content.html
+    en: content_english.html
+  page_files:
+    de: page.html
+    en: page_english.html
+  fallback_section_heading: __page__
+section_context_groups:
+  output_path: data/thesis/corpus/section_context_groups.jsonl
+  micro_max_effective_chars: 200
+  target_group_effective_chars: 400
+  max_group_effective_chars: 1600
+  max_focus_sections: 4
+  lead_in_max_chars: 120
+titles:
+  resolution_order:
+    - manual
+    - page_html
+    - extracted
+    - intent
+  generated_titles_enabled: false
+keywords:
+  limit: 12
+  ngram_range:
+    - 1
+    - 3
+  max_features: 50000
+chunking:
+  output_dir: data/thesis/corpus/chunks
+  chunkers:
+  - chunker_id: fixed_char_800_100
+    mode: fixed_char
+    output_path: data/thesis/corpus/chunks/fixed_char_800_100.jsonl
+    target_chars: 800
+    overlap_chars: 100
+  - chunker_id: recursive_page_800_100
+    mode: recursive_page
+    output_path: data/thesis/corpus/chunks/recursive_page_800_100.jsonl
+    target_chars: 800
+    overlap_chars: 100
+    preferred_min_chars: 400
+    hard_max_chars: 1000
+  - chunker_id: section_strict_800_100
+    mode: section_strict
+    output_path: data/thesis/corpus/chunks/section_strict_800_100.jsonl
+    target_chars: 800
+    overlap_chars: 100
+    preferred_min_chars: 400
+    hard_max_chars: 1000
+  - chunker_id: section_preferred_800_100
+    mode: section_preferred
+    output_path: data/thesis/corpus/chunks/section_preferred_800_100.jsonl
+    target_chars: 800
+    overlap_chars: 100
+    preferred_min_chars: 400
+    hard_max_chars: 1000
+tables:
+  extract: true
+  output_path: data/thesis/corpus/tables.jsonl
+media:
+  extract_images: true
+  extract_videos: true
+  images_output_path: data/thesis/corpus/images.jsonl
+  media_descriptions_output_path: data/thesis/corpus/media_descriptions.jsonl
+summaries:
+  mode: none
+  targets:
+    - page
+    - context_group
+  source_passthrough_max_chars: 200
+  allowed_modes:
+    - none
+    - extractive
+    - local-llm
+  prompts:
+    page:
+      prompt_id: page_summary_v4
+      path: configs/thesis/prompts/page_summary.md
+    context_group:
+      prompt_id: context_group_summary_v2
+      path: configs/thesis/prompts/context_group_summary.md
+  output_dir: data/thesis/summaries
+  local_llm:
+    required_for_thesis_results: false
+    model_id: qwen3.6:35b
+    model_revision: sha256:07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522
+    endpoint: http://localhost:11434/v1
+    temperature: 0.2
+    reasoning_effort: low
+    max_tokens: 4000
+    # Direct-first source budget. Larger outliers use lossless map-reduce windows.
+    max_input_chars: 48000
+page_table:
+  output_path: data/thesis/corpus/page_table.jsonl
+section_table:
+  output_path: data/thesis/corpus/section_table.jsonl
+quality:
+  output_path: data/thesis/corpus/page_quality.jsonl
+  report_path: data/thesis/corpus/corpus_quality_report.json
+  short_text_threshold: 200
+  error_template_phrases:
+    - Page not found
+    - Share not found
+    - Loading...
+    - Seite nicht gefunden
+    - Seite existiert nicht mehr
+    - Die Seite wurde nicht gefunden
+    - nicht mehr existierende Seite
+    - The requested page could not be found
+    - Die angeforderte Seite konnte nicht gefunden werden
+    - The page you're looking for might have been renamed, moved or archived
+  count_change_review_fraction: 0.1
+  large_duplicate_cluster_threshold: 10

@@ -1,0 +1,29 @@
+{
+  "deutsch": {
+    "header": "## Sekretariat Ergebnisse\nNachricht: <message>\n\nAnzahl der Ergebnisse: <result_count>",
+    "content": {
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/1920px-Markdown-mark.svg.png",
+      "url": "<link>",
+      "card_description": "### [<title>](<link>)\n\n***\n\n<preview>\n\n***\n\n- _Auszug aus der Website_",
+      "table": {
+        "Titel": "<title>",
+        "Link": "<link>",
+        "Vorschau": "<preview>"
+      }
+    },
+    "column_order": ["Titel", "Link", "Vorschau"]
+  },
+  "english": {
+    "header": "## Sekretariat Results\nMessage: <message>\n\nnResult Count: <result_count>",
+    "content": {
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/1920px-Markdown-mark.svg.png",
+      "url": "<link>",
+      "card_description": "### [<title>](<link>)\n\n***\n\n<preview>\n\n***\n\n- _excerpt from website_",
+      "table": {
+        "title": "<title>",
+        "link": "<link>",
+        "preview": "<preview>"
+      }
+    }
+  }
+}

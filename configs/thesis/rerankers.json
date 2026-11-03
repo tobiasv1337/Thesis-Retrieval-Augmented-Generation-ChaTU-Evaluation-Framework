@@ -1,0 +1,128 @@
+{
+  "minilm": {
+    "model_id": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+    "scoring": "sequence_classification",
+    "dtype": "float16",
+    "max_length": 512
+  },
+  "bge_v2_m3": {
+    "model_id": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "scoring": "sequence_classification",
+    "dtype": "float16",
+    "max_length": 2048
+  },
+  "qwen3_06b": {
+    "model_id": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a web search query, retrieve relevant passages that answer the query"
+  },
+  "qwen3_4b": {
+    "model_id": "Qwen/Qwen3-Reranker-4B",
+    "revision": "22e683669bc0f0bd69640a1354a6d0aebcfeede5",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a web search query, retrieve relevant passages that answer the query"
+  },
+  "qwen3_8b": {
+    "model_id": "Qwen/Qwen3-Reranker-8B",
+    "revision": "77d193c791ed757ca307ee72715aa132723da912",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a web search query, retrieve relevant passages that answer the query"
+  },
+  "qwen3_06b_tu": {
+    "model_id": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a question about Technische Universit\u00e4t Berlin (TU Berlin), judge whether the passage contains information that directly helps answer the question. Topical similarity alone is insufficient."
+  },
+  "qwen3_4b_tu": {
+    "model_id": "Qwen/Qwen3-Reranker-4B",
+    "revision": "22e683669bc0f0bd69640a1354a6d0aebcfeede5",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a question about Technische Universit\u00e4t Berlin (TU Berlin), judge whether the passage contains information that directly helps answer the question. Topical similarity alone is insufficient."
+  },
+  "qwen3_8b_tu": {
+    "model_id": "Qwen/Qwen3-Reranker-8B",
+    "revision": "77d193c791ed757ca307ee72715aa132723da912",
+    "scoring": "qwen_yes_no",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "instruction": "Given a question about Technische Universit\u00e4t Berlin (TU Berlin), judge whether the passage contains information that directly helps answer the question. Topical similarity alone is insufficient."
+  },
+  "mixedbread_base": {
+    "model_id": "mixedbread-ai/mxbai-rerank-base-v2",
+    "revision": "3ea9d4dffa7d12a4f366be8e275c349de9fc9865",
+    "scoring": "mixedbread",
+    "dtype": "bfloat16",
+    "max_length": 2048
+  },
+  "mixedbread_large": {
+    "model_id": "mixedbread-ai/mxbai-rerank-large-v2",
+    "revision": "ca7e1ee484c37c0ddd8d178a9a5c33cec575c5e6",
+    "scoring": "mixedbread",
+    "dtype": "bfloat16",
+    "max_length": 2048
+  },
+  "querit_4b": {
+    "model_id": "Querit/Querit-4B",
+    "revision": "e557bb5ce6555f16b33dbb7d2ca62e8d27c14c13",
+    "scoring": "querit_cls",
+    "dtype": "bfloat16",
+    "max_length": 2048
+  },
+  "querit_moe": {
+    "model_id": "Querit/Querit",
+    "revision": "e50d4d8183ccec6923ac2b256c755ddd3ed24066",
+    "scoring": "querit_moe",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "code_repo": "Querit/Querit",
+    "code_revision": "e50d4d8183ccec6923ac2b256c755ddd3ed24066"
+  },
+  "zerank_2": {
+    "model_id": "zeroentropy/zerank-2-reranker",
+    "revision": "5eae30d5ee3c6b2df2ef6d723bde45172d761c4c",
+    "scoring": "zerank",
+    "dtype": "bfloat16",
+    "max_length": 2048
+  },
+  "jina_v35": {
+    "model_id": "jinaai/jina-reranker-v3.5",
+    "revision": "e8a93f33f0b22108f8c2364f8484ce3422552fbc",
+    "scoring": "jina_listwise",
+    "dtype": "bfloat16",
+    "max_length": 131072,
+    "code_repo": "jinaai/jina-reranker-v3.5",
+    "code_revision": "e8a93f33f0b22108f8c2364f8484ce3422552fbc"
+  },
+  "gte_multilingual": {
+    "model_id": "Alibaba-NLP/gte-multilingual-reranker-base",
+    "revision": "8215cf04918ba6f7b6a62bb44238ce2953d8831c",
+    "scoring": "sequence_classification",
+    "dtype": "float16",
+    "max_length": 2048,
+    "code_repo": "Alibaba-NLP/new-impl",
+    "code_revision": "40ced75c3017eb27626c9d4ea981bde21a2662f4"
+  },
+  "nemotron_1b": {
+    "model_id": "nvidia/llama-nemotron-rerank-1b-v2",
+    "revision": "828765652b05bd439c9789d2a6d093db1caa1443",
+    "scoring": "nemotron",
+    "dtype": "bfloat16",
+    "max_length": 2048,
+    "code_repo": "nvidia/llama-nemotron-rerank-1b-v2",
+    "code_revision": "828765652b05bd439c9789d2a6d093db1caa1443"
+  }
+}

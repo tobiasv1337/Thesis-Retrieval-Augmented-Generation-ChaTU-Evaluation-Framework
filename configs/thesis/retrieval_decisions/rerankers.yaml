@@ -1,0 +1,30 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:38a3e91fd9ff381709dadf5134288665
+report_config_hash: sha256:1fae5aded63ce65ea9ac16464f6e4a216775591fa17ef1f4b1d07d1c0faeca96
+decisions:
+  - policy_id: select_reranker
+    selected_experiment_ids: [reranker_zerank_2]
+    rationale: >-
+      ZeRank-2 achieved the highest hybrid Chunk nDCG@20 in the text-only
+      model comparison. Page-family metrics and judged-only results support
+      the same choice. Metadata is assessed in a separate paired comparison.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-18T02:14:49Z"
+  - policy_id: compare_zerank_metadata
+    selected_experiment_ids: [reranker_zerank_2_metadata]
+    rationale: >-
+      Retain ZeRank-2 with titles and headings as the quality candidate.
+      Hybrid Chunk nDCG@20 increased from 0.7379 to 0.7556; the paired
+      95% interval for the increase was [0.0140, 0.0215]. Online retrieval
+      p95 was 4.83 seconds.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-18T02:14:49Z"
+  - policy_id: compare_nemotron_metadata
+    selected_experiment_ids: [reranker_nemotron_1b_metadata]
+    rationale: >-
+      Retain Nemotron with titles and headings as the faster Validation
+      candidate: hybrid Chunk nDCG@20 was 0.7261 and online retrieval p95
+      was 1.41 seconds. Metadata improved Chunk nDCG but reduced Page-family
+      nDCG.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-18T02:14:49Z"

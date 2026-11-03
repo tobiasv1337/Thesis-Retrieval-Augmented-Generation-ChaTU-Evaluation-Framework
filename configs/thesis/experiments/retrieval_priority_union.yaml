@@ -1,0 +1,68 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_priority_union_development_v1
+questions:
+  manifest_path: data/logs/question_sets/priority-development/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  selection_seed: 14731
+  stage_evaluation_depth: 20
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 2, 3, 4, 5, 10, 15, 20]
+      character_budgets: [1000, 2000, 4000, 8000, 16000, 32000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+  - experiment_id: global_hybrid
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.trace_all_candidates: true
+  - experiment_id: fixed_topic_rrf_2_1
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.trace_all_candidates: true
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: fixed_pages
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.fusion_weights: {global_weight: 2, priority_weight: 1}
+      settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: priority_union_25
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.trace_all_candidates: true
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: fixed_pages
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.candidate_union: {priority_k: 25}
+      settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: priority_union_100
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.trace_all_candidates: true
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: fixed_pages
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.candidate_union: {priority_k: 100}
+      settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+comparisons:
+  - comparison_id: priority_union_effect
+    baseline_experiment_id: global_hybrid
+    candidate_experiment_ids: [fixed_topic_rrf_2_1, priority_union_25, priority_union_100]
+  - comparison_id: union_vs_rrf
+    baseline_experiment_id: fixed_topic_rrf_2_1
+    candidate_experiment_ids: [priority_union_25, priority_union_100]
+  - comparison_id: union_depth
+    baseline_experiment_id: priority_union_25
+    candidate_experiment_ids: [priority_union_100]

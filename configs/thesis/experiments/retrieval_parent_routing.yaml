@@ -1,0 +1,117 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_parent_routing_development_v1
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 2, 3, 4, 5, 10, 15, 20]
+      character_budgets: [1000, 2000, 4000, 8000, 16000, 32000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+  - experiment_id: global_hybrid
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+  - experiment_id: hybrid_page_metadata
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: page
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: false
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/metadata_v2/manifest.json
+  - experiment_id: hybrid_page_summary
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: page
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: hybrid_group_metadata
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: group
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: false
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/metadata_v2/manifest.json
+  - experiment_id: hybrid_group_summary
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: group
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: page_only
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: page
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: group_only
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: group
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: page_group
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: parallel
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: hybrid_page_group
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: parallel
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: hierarchical
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: hierarchical
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+
+comparisons:
+  - comparison_id: routing_methods
+    baseline_experiment_id: global_hybrid
+    candidate_experiment_ids: [hybrid_page_metadata, hybrid_page_summary, hybrid_group_metadata, hybrid_group_summary, page_only, group_only, page_group, hybrid_page_group, hierarchical]
+  - comparison_id: page_summary_effect
+    baseline_experiment_id: hybrid_page_metadata
+    candidate_experiment_ids: [hybrid_page_summary]
+  - comparison_id: group_summary_effect
+    baseline_experiment_id: hybrid_group_metadata
+    candidate_experiment_ids: [hybrid_group_summary]

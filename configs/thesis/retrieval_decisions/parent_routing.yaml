@@ -1,0 +1,13 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:c0200b360444b106467dd7bbec119f00
+report_config_hash: sha256:d2670448b9e596f3625be5379b97dc5183fd2bef4253158268829dc3887e7229
+decisions:
+  - policy_id: compare_routing_methods
+    selected_experiment_ids: [global_hybrid, hybrid_group_summary, hybrid_page_summary]
+    rationale: >-
+      Retain global Hybrid + Nemotron as the simpler reference and Hybrid +
+      Group Summary + Nemotron as the highest-scoring hybrid Chunk nDCG@20
+      candidate. Retain Hybrid + Page Summary + Nemotron as an exploratory
+      higher-abstraction potential alternative for broader user queries.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-24T12:48:09Z"

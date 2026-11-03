@@ -1,0 +1,25 @@
+[project]
+name = "chatu-private-reranker"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "torch==2.14.0",
+  # GTE's pinned custom model uses attention-mask helpers removed in v5.
+  "transformers==4.57.6",
+  "accelerate==1.15.0",
+  # Imported by Querit's published model implementations.
+  "pandas==3.0.5",
+  "fastapi==0.141.1",
+  "uvicorn==0.52.4",
+]
+
+[tool.uv]
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }

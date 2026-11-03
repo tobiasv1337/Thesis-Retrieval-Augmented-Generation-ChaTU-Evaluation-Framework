@@ -1,0 +1,30 @@
+schema_version: judge_selection_decision_config_v1
+decision_id: thesis_relevance_v1_default_judge
+judge_experiment_id: thesis_qrel_judge_model_comparison_v1
+comparison_report_id: judge_comparison_report:ecb4c02eca35a72dd0fb28f2b98ed055
+judge_analysis_id: judge_analysis:d7bf09e15e5a714e6a72b39ece1ce0ec
+selected_default_judge_id: gemma4_31b
+robustness_judge_ids:
+  - qwen3_8_27b
+  - llama3_3_70b
+selection_rule: >-
+  Prefer human-referenced QWK, confirmed by exact and within-one-grade
+  agreement, binary and grade-3 F1, MAE, paired query-cluster intervals, and
+  slice stability. Use two other model families for robustness.
+rationale: >-
+  Gemma 4 31B leads the nine-model comparison on QWK, exact agreement,
+  grade-3 F1, and MAE. Qwen 3.8 27B is the strongest non-Gemma judge, with no
+  stable paired difference from Gemma on the reported core metrics. Llama 3.3
+  70B adds a third model family.
+limitations:
+  - >-
+    Calibration covers 20 query clusters and 432 pooled targets with one Human
+    reference; the intervals do not measure annotator uncertainty.
+  - >-
+    Qwen 3.8 was added after the initial eight-model results, so its comparison
+    is exploratory. No Human labels were changed after model inspection.
+  - >-
+    Named-entity, link-context, and ambiguous-query errors remain known limits
+    of relevance_v1.
+decided_by: tobias_veselsky
+decided_at_utc: "2026-08-27T11:40:33Z"

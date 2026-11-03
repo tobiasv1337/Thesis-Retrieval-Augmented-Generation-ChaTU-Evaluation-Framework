@@ -1,0 +1,245 @@
+schema_version: question_config_v26
+question_config_id: thesis_questions_v34
+output_dir: data/thesis/eval
+
+source_artifacts:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+  pages_path: data/thesis/corpus/pages.jsonl
+  sections_path: data/thesis/corpus/sections.jsonl
+  section_context_groups_path: data/thesis/corpus/section_context_groups.jsonl
+  page_quality_path: data/thesis/corpus/page_quality.jsonl
+  source_relationships_path: data/thesis/corpus/source_relationships.jsonl
+  page_table_path: data/thesis/corpus/page_table.jsonl
+  section_table_path: data/thesis/corpus/section_table.jsonl
+  tables_path: data/thesis/corpus/tables.jsonl
+
+artifact_paths:
+  source_families: data/thesis/eval/source_families.jsonl
+  generation_units: data/thesis/eval/generation_units.jsonl
+  generation_unit_planning_report: data/thesis/eval/generation_unit_planning_report.json
+  generation_batch_manifests: data/thesis/eval/generation_batch_manifests.jsonl
+  generation_attempt_results: data/thesis/eval/generation_attempt_results.jsonl
+  question_candidates_raw: data/thesis/eval/question_candidates_raw.jsonl
+  question_candidates_filtered: data/thesis/eval/question_candidates_filtered.jsonl
+  question_review_events: data/thesis/eval/question_review_events.jsonl
+  human_question_review_events: data/thesis/eval/human_question_review_events.jsonl
+  question_dedup_clusters: data/thesis/eval/question_dedup_clusters.jsonl
+  question_dedup_report: data/thesis/eval/question_dedup_report.json
+  question_dedup_manual_decisions: data/thesis/eval/question_dedup_manual_decisions.jsonl
+  questions_llm_reviewed: data/thesis/eval/questions_llm_reviewed.jsonl
+  questions_human_reviewed: data/thesis/eval/questions_human_reviewed.jsonl
+  questions_test_human_reviewed: data/thesis/eval/questions_test_human_reviewed.jsonl
+  questions_double_reviewed: data/thesis/eval/questions_double_reviewed.jsonl
+  questions_test_double_accepted: data/thesis/eval/questions_test_double_accepted.jsonl
+  questions_dev: data/thesis/eval/questions_dev.jsonl
+  questions_validation: data/thesis/eval/questions_validation.jsonl
+  questions_test: data/thesis/eval/questions_test.jsonl
+  questions_smoke: data/thesis/eval/questions_smoke.jsonl
+  questions_manual_utterance_diagnostic: data/thesis/eval/questions_manual_utterance_diagnostic.jsonl
+  human_review_plan: data/thesis/eval/question_human_review_plan.json
+  human_review_sampling_report: data/thesis/eval/question_human_review_sampling_report.json
+  human_review_agreement: data/thesis/eval/question_human_review_agreement.json
+  base_question_set_manifest: data/thesis/eval/base_question_set_manifest.json
+  base_question_set_archive: data/thesis/eval/base_question_set_archive.tar.gz
+  human_question_set_manifest: data/thesis/eval/human_question_set_manifest.json
+  human_question_set_archive: data/thesis/eval/human_question_set_archive.tar.gz
+  split_manifest: data/thesis/eval/split_manifest.json
+
+identity:
+  source_family_rule_version: source_family_rules_v2
+  generation_unit_rule_version: generation_unit_rules_v7
+  question_candidate_rule_version: question_candidate_rules_v7
+  dedup_rule_version: question_dedup_rules_v11
+  question_review_guideline_version: question_review_v26
+  relevance_guideline_version: relevance_v1
+
+splits:
+  random_seed: 311037
+  target_counts:
+    accepted_total: 2500
+    final_test: 1000
+    final_test_human_reviewed: 250
+    human_reviewed_total: 270
+    double_reviewed_final_test: 100
+    double_accepted_final_test: 100
+  large_benchmark:
+    development: 1000
+    validation: 500
+    test: 1000
+  human_core:
+    development: 20
+    validation: 0
+    test: 250
+  smoke:
+    development_human_reviewed_subset: 20
+
+generation:
+  base_seed: 732451
+  response_cache_dir: outputs/thesis/cache/question_generation
+  languages:
+    - de
+    - en
+  source_selection:
+    minimum_context_group_focus_chars: 400
+    low_priority_below_page_chars: 600
+    low_priority_url_substrings:
+      - /aktuelles/
+      - /berichte/
+      - /interviews/
+      - /magazin
+      - /news
+    # For a fresh artifact lineage, consider also marking the following archive
+    # families as low priority before rebuilding generation units and every
+    # downstream question artifact:
+    #   - /nachrichtenueberblick
+    #   - /rueckblicke/
+    #   - /vergangene-semester
+    #   - /past-semester
+    #   - /drei-fragen-an/
+    max_candidates_per_source_family: 8
+    max_candidates_per_page_record: 3
+    suppress_contained_fragments_by_default: true
+  generation_units:
+    context_group:
+      enabled: true
+      max_input_chars: 3500
+      max_question_budget: 2
+      window_overlap_chars: 200
+    table_context:
+      enabled: true
+      max_input_chars: 4500
+      max_question_budget: 2
+    page_synthesis:
+      enabled: true
+      max_context_groups: 12
+      max_input_chars: 9000
+      max_question_budget: 2
+  surface_form_targets:
+    complete_question: 0.30
+    conversational_short: 0.55
+    telegraphic_keywords: 0.15
+  evidence_scope_targets:
+    localized_share: 0.85
+    same_page_multi_section_share: 0.15
+  student_role_targets:
+    inclusive_minimum_share: 0.70
+    student_only_minimum_share_within_student: 0.30
+  query_variation_targets:
+    natural_paraphrase_minimum_share: 0.20
+    situational_request_minimum_share: 0.15
+  backfill:
+    expected_accepted_yield: 0.50
+    minimum_attempts_per_cell: 10
+  local_model:
+    required_for_canonical_results: true
+    model_id: qwen3.6:35b
+    model_revision: null
+    model_path: null
+    model_digest: sha256:07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522
+    endpoint: http://localhost:11434/v1
+    structured_output_mode: json_schema
+    temperature: 0.2
+    max_tokens: 8000
+    timeout_seconds: 3600
+    max_retries: 2
+  prompts:
+    de:
+      prompt_id: question_generation_de_v21
+      path: configs/thesis/prompts/question_generation_de.md
+    en:
+      prompt_id: question_generation_en_v21
+      path: configs/thesis/prompts/question_generation_en.md
+  temporal_policy:
+    allowed_temporal_classes:
+      - stable_or_recurring
+      - snapshot_qualified
+      - not_temporal
+    rejected_temporal_classes:
+      - highly_volatile
+      - expired_event_or_news
+
+deterministic_filters:
+  maximum_question_chars: 200
+  maximum_evidence_quote_chars: 900
+  telegraphic_keywords_soft_max_tokens: 8
+  lexical_overlap:
+    low_max: 0.249
+    medium_max: 0.499
+
+review:
+  question_guideline_version: question_review_v26
+  relevance_guideline_version: relevance_v1
+  prompt:
+    prompt_id: question_review_v26
+    path: configs/thesis/prompts/question_review.md
+  local_llm:
+    required_for_canonical_results: true
+    model_id: gemma4:31b-review-32k
+    model_revision: null
+    model_path: null
+    model_digest: sha256:36f5ca871cd0cecd37bc056f276caf9c984c5fb6827135dbe164a9103c25935c
+    endpoint: http://localhost:11434/v1
+    structured_output_mode: json_schema
+    reasoning_effort: medium
+    temperature: 0.0
+    max_tokens: 8000
+    timeout_seconds: 180
+    max_retries: 2
+  anchor_grades:
+    "0": irrelevant
+    "1": topical_only
+    "2": partially_useful
+    "3": sufficient
+deduplication:
+  normalized_exact:
+    enabled: true
+  lexical:
+    token_jaccard_review_at: 0.72
+    char_ngram_review_at: 0.84
+    auto_duplicate_at: 0.96
+    char_ngram_size: 3
+  semantic:
+    enabled: true
+    model_id: bge-m3:latest
+    model_revision: null
+    model_digest: sha256:7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab
+    endpoint: http://localhost:11434/v1
+    cache_dir: outputs/thesis/cache/question_dedup_embeddings
+    batch_size: 32
+    review_at: 0.68
+    answer_review_at: 0.68
+    question_only_review_at: 0.78
+    answer_rescue_question_review_at: 0.50
+    answer_rescue_answer_review_at: 0.84
+    cross_language_question_review_at: 0.65
+    cross_language_answer_review_at: 0.75
+  split_leakage:
+    block_unresolved_cross_split: true
+  translation_equivalents:
+    keep_useful_pairs: true
+  adjudication:
+    enabled: true
+    prompt:
+      prompt_id: question_dedup_adjudication_v6
+      path: configs/thesis/prompts/question_dedup_adjudication.md
+    cache_dir: outputs/thesis/cache/question_dedup_adjudication
+    batch_size: 5
+    maximum_adjudication_pairs: 1600
+    local_llm:
+      required_for_canonical_results: true
+      model_id: gemma4:31b-review-32k
+      model_revision: null
+      model_path: null
+      model_digest: sha256:36f5ca871cd0cecd37bc056f276caf9c984c5fb6827135dbe164a9103c25935c
+      endpoint: http://localhost:11434/v1
+      structured_output_mode: json_schema
+      temperature: 0.0
+      max_tokens: 8000
+      timeout_seconds: 600
+      max_retries: 2
+      reasoning_effort: none
+
+manual_utterance_diagnostic:
+  enabled: true
+  training_seen_by_legacy_nlu: true
+  exclude_from_primary_validation_and_test: true

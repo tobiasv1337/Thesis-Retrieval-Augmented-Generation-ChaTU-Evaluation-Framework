@@ -1,0 +1,492 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_retrieval_rerankers_development
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: reranker_none
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+
+  - experiment_id: reranker_bge_v2_m3
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_bge_v2_m3_v1
+      settings.pipeline.reranker.profile_id: bge_v2_m3
+      settings.pipeline.reranker.expected_profile_hash: sha256:6c35862474b6d04cc262e4af3fae9c5a732353fe3a801aab94b1bfb8c5bff6dd
+
+  - experiment_id: reranker_qwen3_06b
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_06b_v1
+      settings.pipeline.reranker.profile_id: qwen3_06b
+      settings.pipeline.reranker.expected_profile_hash: sha256:d012040781a11ac8bf21efe3d4c00dd152bf6cc684b86a662b59ce232a4f5880
+
+  - experiment_id: reranker_qwen3_4b
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_4b_v1
+      settings.pipeline.reranker.profile_id: qwen3_4b
+      settings.pipeline.reranker.expected_profile_hash: sha256:a18c66b1e1891b13e11db59bc4f3e41b7c37e2705432766400912305fc0333b8
+
+  - experiment_id: reranker_qwen3_8b
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_8b_v1
+      settings.pipeline.reranker.profile_id: qwen3_8b
+      settings.pipeline.reranker.expected_profile_hash: sha256:54f6702a400a88e60d86fb4502d89b43c591da7cfdab907388bdadb44c1bb67e
+
+  - experiment_id: reranker_querit_4b
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_querit_4b_v1
+      settings.pipeline.reranker.profile_id: querit_4b
+      settings.pipeline.reranker.expected_profile_hash: sha256:d79e2ef9db72316aa6d7e673a3346dbfeb8413ab71738c3e46e8d4dda2f424d5
+
+  - experiment_id: reranker_gte_multilingual
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_gte_multilingual_v1
+      settings.pipeline.reranker.profile_id: gte_multilingual
+      settings.pipeline.reranker.expected_profile_hash: sha256:f1fb39e2f69f3fc05a0577c087218dbf5219add93e00e2713bfbeab6f0144da5
+
+  - experiment_id: reranker_nemotron_1b
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+
+  - experiment_id: reranker_minilm
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_minilm_v1
+      settings.pipeline.reranker.profile_id: minilm
+      settings.pipeline.reranker.expected_profile_hash: sha256:d429dfdd2e206be66b4be0969139c1149bff56583e7e7c313df3f145df141e0c
+
+  - experiment_id: reranker_qwen3_06b_tu
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_06b_tu_v1
+      settings.pipeline.reranker.profile_id: qwen3_06b_tu
+      settings.pipeline.reranker.expected_profile_hash: sha256:2df9f9d06dec87b55d2551b5492343588ab1e7a3de782911aadaf460858b0c7d
+
+  - experiment_id: reranker_qwen3_4b_tu
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_4b_tu_v1
+      settings.pipeline.reranker.profile_id: qwen3_4b_tu
+      settings.pipeline.reranker.expected_profile_hash: sha256:1eef9d2d4553784319bc9fe9dea6a08e8dec77d8835f4b98afac0cddd1d85126
+
+  - experiment_id: reranker_qwen3_8b_tu
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_8b_tu_v1
+      settings.pipeline.reranker.profile_id: qwen3_8b_tu
+      settings.pipeline.reranker.expected_profile_hash: sha256:2bee180bdaecefe5fff1df08a8742e67f20e19dd145824ac4797fc5c8694342f
+
+  - experiment_id: reranker_mixedbread_base
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_mixedbread_base_v1
+      settings.pipeline.reranker.profile_id: mixedbread_base
+      settings.pipeline.reranker.expected_profile_hash: sha256:93a61b99669e629db572c371c0c06913f1b859765ed640658b4957d92082209b
+
+  - experiment_id: reranker_mixedbread_large
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_mixedbread_large_v1
+      settings.pipeline.reranker.profile_id: mixedbread_large
+      settings.pipeline.reranker.expected_profile_hash: sha256:ca48323aa6d8ca6223f2af002756dee1086bbd14e10302f00649ab07d8533d22
+
+  - experiment_id: reranker_querit_moe
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_querit_moe_v1
+      settings.pipeline.reranker.profile_id: querit_moe
+      settings.pipeline.reranker.expected_profile_hash: sha256:7cb41e080b52387d2d7257c55fbe78c8e49fb86c9820e1650c481ba6e46a6c35
+
+  - experiment_id: reranker_jina_v35
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_jina_v35_v1
+      settings.pipeline.reranker.profile_id: jina_v35
+      settings.pipeline.reranker.expected_profile_hash: sha256:364ffd99b17eea1cac0a9d79073302eeb53890424940a31e2bfa7e9450b33040
+
+  - experiment_id: reranker_zerank_2
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+
+  - experiment_id: reranker_qwen3_06b_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_06b_v1
+      settings.pipeline.reranker.profile_id: qwen3_06b
+      settings.pipeline.reranker.expected_profile_hash: sha256:d012040781a11ac8bf21efe3d4c00dd152bf6cc684b86a662b59ce232a4f5880
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_qwen3_4b_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_4b_v1
+      settings.pipeline.reranker.profile_id: qwen3_4b
+      settings.pipeline.reranker.expected_profile_hash: sha256:a18c66b1e1891b13e11db59bc4f3e41b7c37e2705432766400912305fc0333b8
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_zerank_2_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_bge_v2_m3_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_bge_v2_m3_v1
+      settings.pipeline.reranker.profile_id: bge_v2_m3
+      settings.pipeline.reranker.expected_profile_hash: sha256:6c35862474b6d04cc262e4af3fae9c5a732353fe3a801aab94b1bfb8c5bff6dd
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_nemotron_1b_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_qwen3_4b_tu_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_4b_tu_v1
+      settings.pipeline.reranker.profile_id: qwen3_4b_tu
+      settings.pipeline.reranker.expected_profile_hash: sha256:1eef9d2d4553784319bc9fe9dea6a08e8dec77d8835f4b98afac0cddd1d85126
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_qwen3_8b_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_qwen3_8b_v1
+      settings.pipeline.reranker.profile_id: qwen3_8b
+      settings.pipeline.reranker.expected_profile_hash: sha256:54f6702a400a88e60d86fb4502d89b43c591da7cfdab907388bdadb44c1bb67e
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+comparisons:
+  - comparison_id: rerankers
+    baseline_experiment_id: reranker_none
+    candidate_experiment_ids:
+      - reranker_minilm
+      - reranker_gte_multilingual
+      - reranker_bge_v2_m3
+      - reranker_qwen3_06b
+      - reranker_qwen3_4b
+      - reranker_qwen3_8b
+      - reranker_qwen3_06b_tu
+      - reranker_qwen3_4b_tu
+      - reranker_qwen3_8b_tu
+      - reranker_mixedbread_base
+      - reranker_mixedbread_large
+      - reranker_querit_4b
+      - reranker_querit_moe
+      - reranker_nemotron_1b
+      - reranker_jina_v35
+      - reranker_zerank_2
+  - comparison_id: qwen_instructions
+    experiment_ids: [reranker_qwen3_06b, reranker_qwen3_06b_tu, reranker_qwen3_4b, reranker_qwen3_4b_tu, reranker_qwen3_8b, reranker_qwen3_8b_tu]
+  - comparison_id: qwen06b_metadata
+    experiment_ids: [reranker_qwen3_06b, reranker_qwen3_06b_metadata]
+  - comparison_id: qwen4b_metadata
+    experiment_ids: [reranker_qwen3_4b, reranker_qwen3_4b_metadata]
+  - comparison_id: zerank_metadata
+    experiment_ids: [reranker_zerank_2, reranker_zerank_2_metadata]
+  - comparison_id: bge_metadata
+    experiment_ids: [reranker_bge_v2_m3, reranker_bge_v2_m3_metadata]
+  - comparison_id: nemotron_metadata
+    experiment_ids: [reranker_nemotron_1b, reranker_nemotron_1b_metadata]
+  - comparison_id: qwen8b_metadata
+    experiment_ids: [reranker_qwen3_8b, reranker_qwen3_8b_metadata]
+  - comparison_id: qwen4b_tu_metadata
+    experiment_ids: [reranker_qwen3_4b_tu, reranker_qwen3_4b_tu_metadata]
+  - comparison_id: qwen4b_metadata_instruction
+    experiment_ids: [reranker_qwen3_4b_metadata, reranker_qwen3_4b_tu_metadata]

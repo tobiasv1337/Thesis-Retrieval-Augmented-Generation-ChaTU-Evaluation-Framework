@@ -1,0 +1,38 @@
+schema_version: evidence_sources_v1
+sources:
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:03deea8a792716106413eadd3ac56960/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:03deea8a792716106413eadd3ac56960/judge/views/judgment_view:61308757cec9a3766fa8c6fcdf901d2f/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:308ca72c0f9bc51c4f8766ee28f853f8/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:308ca72c0f9bc51c4f8766ee28f853f8/judge/views/judgment_view:4d6f8a854d8631aebb1a025671fb3fd4/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:4e7ff9629c5798c84dbce6388837594e/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:4e7ff9629c5798c84dbce6388837594e/judge/views/judgment_view:223f34e77767fa380ba5c1ff05ebd2da/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:50500a3aa26a1c0a8acdf06e098c8dff/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:50500a3aa26a1c0a8acdf06e098c8dff/judge/views/judgment_view:be0decc5718366a6556b8e7a476316d6/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:5a666d12019cb887b81eb0d4e42cd5c7/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:5a666d12019cb887b81eb0d4e42cd5c7/judge/views/judgment_view:b5638b24ff1912db3551f185b15b0de9/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:5c22a9b022f65aa21f6a210980a9557d/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:5c22a9b022f65aa21f6a210980a9557d/judge/views/judgment_view:3b88bef90fa88a79342f146611f3029b/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:773e48518cbd93837bda61c093084af9/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:773e48518cbd93837bda61c093084af9/judge/views/judgment_view:920a9595f33035b0bb89a0a4eb40b897/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:bb20a26b5c0f5a27a5cf6516f1db56da/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:bb20a26b5c0f5a27a5cf6516f1db56da/judge/views/judgment_view:8b32c334d821a173c01d42552f3794cd/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:c3d9706b8ac27580b002a50160bf4d1d/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:c3d9706b8ac27580b002a50160bf4d1d/judge/views/judgment_view:60a33383134c7835fdc1c1c382f4c205/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:cd808cbde0f29438dbea9fc5c17a50ea/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:cd808cbde0f29438dbea9fc5c17a50ea/judge/views/judgment_view:0e149626e39a014ac8b2d5ba545248c5/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:dfeac87e7e3e0825a1a1212f3132ee04/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:dfeac87e7e3e0825a1a1212f3132ee04/judge/views/judgment_view:d3b24e5f5e0098709515e319055845f7/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:e5ee1133dc09a39cbb145bd7c34c9801/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:e5ee1133dc09a39cbb145bd7c34c9801/judge/views/judgment_view:5ee738bd3e79057ef7c5b282ca3bcc7c/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:ef2046403994b8a8a7f28aa36599336f/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:ef2046403994b8a8a7f28aa36599336f/judge/views/judgment_view:601b770023249d239d54a4bde4c25581/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:d95b6329e6cbf62c1b3264c85f219f59/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:d95b6329e6cbf62c1b3264c85f219f59/judge/views/judgment_view:c4a8431eeb9f235b007a4191397d81cc/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:1bf0ac873beedd07cbd2266aa3d46204/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:1bf0ac873beedd07cbd2266aa3d46204/judge/views/judgment_view:4cedfdf022618a8edc259fb142d8c20f/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:3b9c0af07cf42eb3dafedda3a47cd537/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:3b9c0af07cf42eb3dafedda3a47cd537/judge/views/judgment_view:e2716cc4d42d4ea4cca808f578abe22f/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:47ca14979b9692f1287d1e98fa3ba749/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:47ca14979b9692f1287d1e98fa3ba749/judge/views/judgment_view:bf6a3b89dbd300a9497d408c026d96f8/manifest.json
+  - suite_manifest_path: outputs/thesis/suites/retrieval_suite:724ec1a7686ae3bc1443fcfe9d9191ba/manifest.json
+    judgment_view_manifest_path: outputs/thesis/suites/retrieval_suite:724ec1a7686ae3bc1443fcfe9d9191ba/judge/views/judgment_view:51c5588878769c91c8675178c19d227d/manifest.json

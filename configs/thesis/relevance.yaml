@@ -1,0 +1,288 @@
+schema_version: relevance_config_v8
+relevance_config_id: thesis_relevance_v8
+relevance_guideline_version: relevance_v1
+
+inputs:
+  question_config_path: configs/thesis/questions.yaml
+  corpus_config_path: configs/thesis/corpus.yaml
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+  questions_path: data/thesis/eval/questions_llm_reviewed.jsonl
+  manual_judgments_path: data/thesis/eval/relevance_manual_judgments.jsonl
+
+target_spaces:
+  include_pages: true
+  include_sections: true
+  include_context_groups: false
+  chunker_ids: []
+
+projection:
+  rule_version: anchor_projection_rules_v3
+
+pooling:
+  retrieval_top_k: 20
+  include_information_need_cluster_sources: true
+  fallback_seconds_per_judgment: 10.0
+
+judging:
+  default_judge_id: gemma4_31b
+  prompt:
+    prompt_id: chatu_rag_relevance_v1
+    path: configs/thesis/prompts/relevance_judge.md
+  cache_dir: outputs/thesis/cache/relevance_judgments
+  seed: 14731
+  limited_selection_seed: 14731
+  query_selection_seed: 14731
+  generation:
+    structured_output_mode: json_schema
+    reasoning_effort: none
+    temperature: 0.0
+    max_tokens: 2000
+  judges:
+    gemma4_31b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: google/gemma-4-31B-it
+        model_revision: gemma-4-31B-it
+        expected_digest: sha256:36f5ca871cd0cecd37bc056f276caf9c984c5fb6827135dbe164a9103c25935c
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: gemma4:31b-review-32k
+          declared_base_model_id: google/gemma-4-31B-it
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              parameter_size: 31.3B
+              quantization_level: Q4_K_M
+            expected_parameters:
+              num_ctx: "32768"
+              temperature: "1"
+              top_k: "64"
+              top_p: "0.95"
+          provider_routing: null
+      default_slots: [ollama_local]
+    qwen3_6_35b_a3b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: Qwen/Qwen3.6-35B-A3B
+        model_revision: Qwen3.6-35B-A3B
+        expected_digest: sha256:07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: qwen3.6:35b-a3b
+          declared_base_model_id: Qwen/Qwen3.6-35B-A3B
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              parameter_size: 36.0B
+              quantization_level: Q4_K_M
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    llama3_1_8b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: meta-llama/Llama-3.1-8B-Instruct
+        model_revision: Llama-3.1-8B-Instruct
+        expected_digest: sha256:46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: llama3.1:8b-instruct-q4_K_M
+          declared_base_model_id: meta-llama/Llama-3.1-8B-Instruct
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              parameter_size: 8.0B
+              quantization_level: Q4_K_M
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    gemma4_e4b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: google/gemma-4-E4B-it
+        model_revision: gemma-4-E4B-it
+        expected_digest: sha256:c6eb396dbd5992bbe3f5cdb947e8bbc0ee413d7c17e2beaae69f5d569cf982eb
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: gemma4:e4b
+          declared_base_model_id: google/gemma-4-E4B-it
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              parameter_size: 8.0B
+              quantization_level: Q4_K_M
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    llama3_3_70b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: meta-llama/Llama-3.3-70B-Instruct
+        model_revision: Llama-3.3-70B-Instruct
+        expected_digest: sha256:a6eb4748fd2990ad2952b2335a95a7f952d1a06119a0aa6a2df6cd052a93a3fa
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: llama3.3:70b
+          declared_base_model_id: meta-llama/Llama-3.3-70B-Instruct
+          api_key_env: null
+          timeout_seconds: 1800
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              parameter_size: 70.6B
+              quantization_level: Q4_K_M
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    qwen3_6_27b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: Qwen/Qwen3.6-27B
+        model_revision: Qwen3.6-27B
+        expected_digest: sha256:9d5803d493a991af27b9441c098aa56f2ed7bbd260877f075ec09b575c049bc3
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: qwen3.6:27b
+          declared_base_model_id: Qwen/Qwen3.6-27B
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              family: qwen35
+              parameter_size: 27.3B
+              quantization_level: Q4_K_M
+              context_length: 262144
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    qwen3_8_27b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: Qwen/Qwen3.8-27B
+        model_revision: Qwen3.8-27B
+        expected_digest: sha256:22130167c4c20e20c7b71454612966ca8e8171e9b3cc8ab6ce8aa6cbfec79643
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: qwen3.8:27b
+          declared_base_model_id: Qwen/Qwen3.8-27B
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              family: qwen35
+              parameter_size: 27.3B
+              quantization_level: Q4_K_M
+              context_length: 262144
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    gemma4_26b_a4b:
+      enabled: true
+      default_assurance: strict_digest
+      model:
+        declared_base_model_id: google/gemma-4-26B-A4B-it
+        model_revision: gemma-4-26B-A4B-it
+        expected_digest: sha256:08ae7ec1744bd7f451c4a530afb39d2673ad9d07a8369b8a33a3613b41212a68
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: gemma4:26b
+          declared_base_model_id: google/gemma-4-26B-A4B-it
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              family: gemma4
+              parameter_size: 25.2B
+              quantization_level: Q4_K_M
+              context_length: 262144
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+    gpt_oss_20b:
+      enabled: true
+      default_assurance: strict_digest
+      reasoning_effort: low
+      model:
+        declared_base_model_id: openai/gpt-oss-20b
+        model_revision: gpt-oss-20b
+        expected_digest: sha256:17052f91a42e97930aa6e28a6c6c06a983e6a58dbb00434885a0cf5313e376f7
+        required_for_canonical_results: true
+      endpoint_profiles:
+        ollama_local:
+          service: ollama
+          endpoint: http://localhost:11434/v1
+          request_model_id: gpt-oss:20b
+          declared_base_model_id: openai/gpt-oss-20b
+          api_key_env: null
+          timeout_seconds: 900
+          max_retries: 2
+          deployment_fingerprint: null
+          ollama_preflight:
+            expected_details:
+              family: gptoss
+              parameter_size: 20.9B
+              quantization_level: MXFP4
+              context_length: 131072
+            expected_parameters: {}
+          provider_routing: null
+      default_slots: [ollama_local]
+
+metrics:
+  minimum_judgment_coverage: 1.0
+  cutoffs:
+    - 1
+    - 3
+    - 5
+    - 10
+    - 15
+    - 20

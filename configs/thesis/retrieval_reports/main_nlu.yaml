@@ -1,0 +1,25 @@
+schema_version: suite_report_config_v1
+report_config_id: main_nlu_development_v1
+comparison_ids: [main_nlu_effect, nlu_routing_mode]
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: compare_main_nlu_effect
+    comparison_id: main_nlu_effect
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_nlu_routing_mode
+    comparison_id: nlu_routing_mode
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize

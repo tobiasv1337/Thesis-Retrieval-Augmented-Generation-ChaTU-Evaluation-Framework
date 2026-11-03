@@ -1,0 +1,92 @@
+schema_version: retrieval_experiment_suite_v3
+suite_id: thesis_user_logs_development_250_v1
+questions:
+  manifest_path: data/logs/question_sets/139ba127328094351321c013b5a1bc55/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  query_limit: 1000
+  evaluation_query_limit: 250
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 2, 3, 4, 5, 10, 15, 20]
+      character_budgets: [1000, 2000, 4000, 8000, 16000, 32000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+experiments:
+  - experiment_id: legacy_refreshed_nlu
+    system_config: configs/thesis/systems/legacy_refreshed_nlu.yaml
+    splits: [development]
+  - experiment_id: legacy_no_routing
+    system_config: configs/thesis/systems/legacy_no_routing.yaml
+    splits: [development]
+  - experiment_id: hybrid_without_reranker
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.reranker.enabled: false
+  - experiment_id: global_hybrid
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+  - experiment_id: hybrid_zerank
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+  - experiment_id: hybrid_group_summary
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: group
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: hybrid_page_summary
+    system_config: configs/thesis/systems/parent_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: page
+      settings.pipeline.page_routing.include_global: true
+      settings.pipeline.page_routing.include_summary: true
+      settings.pipeline.page_routing.manifest_path: data/thesis/routing/with_summaries/manifest.json
+  - experiment_id: main_nlu_hard
+    system_config: configs/thesis/systems/main_nlu_hybrid.yaml
+    splits: [development]
+  - experiment_id: main_nlu_additive
+    system_config: configs/thesis/systems/main_nlu_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.main_nlu_routing.mode: additive
+
+comparisons:
+  - comparison_id: legacy_routing_ablation
+    baseline_experiment_id: legacy_refreshed_nlu
+    candidate_experiment_ids: [legacy_no_routing]
+  - comparison_id: main_nlu_effect
+    baseline_experiment_id: global_hybrid
+    candidate_experiment_ids: [main_nlu_hard, main_nlu_additive]
+  - comparison_id: nlu_routing_mode
+    baseline_experiment_id: main_nlu_hard
+    candidate_experiment_ids: [main_nlu_additive]
+  - comparison_id: reranker_effect
+    baseline_experiment_id: hybrid_without_reranker
+    candidate_experiment_ids: [global_hybrid, hybrid_zerank]
+  - comparison_id: parent_routing_effect
+    baseline_experiment_id: global_hybrid
+    candidate_experiment_ids: [hybrid_group_summary, hybrid_page_summary]
+  - comparison_id: legacy_vs_modern
+    baseline_experiment_id: legacy_refreshed_nlu
+    candidate_experiment_ids: [hybrid_without_reranker, global_hybrid, hybrid_zerank, hybrid_group_summary, hybrid_page_summary, main_nlu_hard, main_nlu_additive]

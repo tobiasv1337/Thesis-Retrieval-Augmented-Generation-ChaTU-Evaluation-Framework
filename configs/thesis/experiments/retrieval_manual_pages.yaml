@@ -1,0 +1,70 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_manual_page_navigation_v3
+
+questions:
+  manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page]
+    include_in_pool: false
+    compute_metrics: true
+
+experiments:
+  - experiment_id: backup_full
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [diagnostic]
+  - experiment_id: modern_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+  - experiment_id: modern_dense_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.sparse_global.enabled: false
+      settings.pipeline.content_rrf.enabled: false
+  - experiment_id: modern_bm25_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.dense_global.enabled: false
+      settings.pipeline.content_rrf.enabled: false
+  - experiment_id: backup_restricted
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.scope: restricted
+      settings.model_manifest_path: outputs/thesis/nlu/manual_backup/manifest.json
+  - experiment_id: modern_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: modern_dense_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.pipeline.sparse_global.enabled: false
+      settings.pipeline.content_rrf.enabled: false
+  - experiment_id: modern_bm25_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.pipeline.dense_global.enabled: false
+      settings.pipeline.content_rrf.enabled: false
+
+comparisons:
+  - comparison_id: full_corpus
+    baseline_experiment_id: backup_full
+    candidate_experiment_ids: [modern_dense_full, modern_bm25_full, modern_full]
+  - comparison_id: restricted_corpus
+    baseline_experiment_id: backup_restricted
+    candidate_experiment_ids: [modern_dense_restricted, modern_bm25_restricted, modern_restricted]

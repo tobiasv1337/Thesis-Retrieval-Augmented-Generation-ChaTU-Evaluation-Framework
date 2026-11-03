@@ -1,0 +1,34 @@
+schema_version: suite_report_config_v1
+report_config_id: parent_routing_development_v1
+comparison_ids: [routing_methods, page_summary_effect, group_summary_effect]
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: compare_routing_methods
+    comparison_id: routing_methods
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_page_summary_effect
+    comparison_id: page_summary_effect
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_group_summary_effect
+    comparison_id: group_summary_effect
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize

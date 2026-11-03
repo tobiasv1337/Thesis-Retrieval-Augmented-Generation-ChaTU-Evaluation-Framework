@@ -1,0 +1,74 @@
+[project]
+name = "chatu-thesis-rag"
+version = "0.1.0"
+description = "Reusable local RAG evaluation framework for the ChaTU bachelor thesis."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "pydantic>=2.12.0,<3",
+    "pyyaml>=6.0.2",
+    "rich>=13.9.4",
+    "scipy>=1.15.0",
+    "stopwordsiso>=0.6.1",
+    "typer>=0.15.1",
+]
+
+[project.scripts]
+thesis-rag = "thesis_rag.cli:app"
+chatu-rag = "thesis_rag.service.cli:app"
+
+[dependency-groups]
+build = [
+    "scikit-learn>=1.7.0",
+]
+runtime = [
+    "huggingface-hub>=1.0,<2",
+    "jinja2>=3.1.6",
+    { include-group = "retrieval" },
+    "fastapi==0.141.1",
+    "uvicorn==0.52.4",
+    "httpx>=0.28.1,<1",
+]
+retrieval = [
+    "numpy>=2.1.0",
+    "tokenizers>=0.22.0,<1",
+]
+observability = [
+    "opentelemetry-api>=1.29.0",
+]
+local-llm = [
+    "openai>=1.99.0",
+]
+analysis = [
+    "jinja2>=3.1.6",
+    "kaleido>=1,<2",
+    "matplotlib>=3.10.0,<3.11",
+    "pandas>=2.2.3",
+    "plotly>=6.1.1,<7",
+    "seaborn>=0.13.2",
+]
+test = [
+    { include-group = "local-llm" },
+    { include-group = "analysis" },
+    { include-group = "build" },
+    { include-group = "runtime" },
+    "pytest>=8.3.4",
+    "httpx2>=2.12.0",
+]
+
+[tool.uv]
+# Keep existing checkout-based corpus commands working. A running API uses
+# --no-default-groups --group runtime and does not install the build tools.
+default-groups = ["build"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["thesis_rag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

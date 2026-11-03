@@ -1,0 +1,6 @@
+schema_version: manual_page_benchmark_config_v1
+snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+manual_utterances_path: data/az/manual_utterances.csv
+rasa_snapshot_manifest_path: data/thesis/rasa/model-snapshot/rasa_snapshot_manifest.json
+rasa_runtime_root: data/thesis/rasa/runtime
+output_dir: data/thesis/eval/manual_page_benchmark

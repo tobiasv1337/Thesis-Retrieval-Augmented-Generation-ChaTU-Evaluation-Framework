@@ -1,0 +1,11 @@
+version: "3.1"
+# Both events delegate to the same RAG adapter.
+rules:
+  - rule: Forward question
+    steps:
+      - intent: rag_query
+      - action: action_rag
+  - rule: Handle source selection
+    steps:
+      - intent: rag_action
+      - action: action_rag

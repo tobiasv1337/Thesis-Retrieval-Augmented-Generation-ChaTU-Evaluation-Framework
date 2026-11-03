@@ -1,0 +1,25 @@
+schema_version: question_language_swap_config_v1
+config_id: thesis_question_language_swap_v1
+base_manifest_path: data/thesis/eval/base_question_set_manifest.json
+question_config_path: configs/thesis/questions.yaml
+source_artifact_name: questions_llm_reviewed
+
+prompt:
+  prompt_id: question_language_swap_v1
+  path: configs/thesis/prompts/question_language_swap.md
+
+output:
+  manifest: data/thesis/eval/language_swap_question_set_manifest.json
+  question_translations: data/thesis/eval/question_translations.jsonl
+  questions_language_swapped: data/thesis/eval/questions_language_swapped.jsonl
+  questions_fallback: data/thesis/eval/questions_language_swap_fallback.jsonl
+  questions_counterpart_available: data/thesis/eval/questions_language_swap_counterpart.jsonl
+  questions_unpaired: data/thesis/eval/questions_language_swap_unpaired.jsonl
+  cache_dir: outputs/thesis/cache/question_language_swap
+
+batch_size: 20
+temperature: 0.0
+reasoning_effort: none
+max_tokens: 4000
+minimum_length_ratio: 0.4
+maximum_length_ratio: 2.5

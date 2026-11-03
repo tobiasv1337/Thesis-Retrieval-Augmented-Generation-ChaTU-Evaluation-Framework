@@ -1,0 +1,107 @@
+schema_version: retrieval_experiment_suite_v2
+suite_id: thesis_retrieval_validation_top20
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items, context_items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+    context:
+      rank_cutoffs: [1, 3, 5, 10, 15, 20]
+      character_budgets: [1000, 2000, 4000, 8000, 16000, 32000]
+      include_full_context: true
+      compute_mixed_metrics: true
+      compute_reference_anchor_diagnostics: true
+
+experiments:
+  - experiment_id: modern_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [validation]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+
+  - experiment_id: reranker_zerank_2_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [validation]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: reranker_nemotron_1b_metadata
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [validation]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+
+  - experiment_id: modern_fixed_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [validation]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: fixed_char_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 20
+
+  - experiment_id: legacy_refreshed_nlu
+    system_config: configs/thesis/systems/legacy_refreshed_nlu.yaml
+    splits: [validation]
+
+comparisons:
+  - comparison_id: reranking_transfer
+    baseline_experiment_id: modern_hybrid
+    candidate_experiment_ids: [reranker_zerank_2_metadata, reranker_nemotron_1b_metadata]
+  - comparison_id: reranker_quality_latency
+    experiment_ids: [reranker_zerank_2_metadata, reranker_nemotron_1b_metadata]
+  - comparison_id: chunking_transfer
+    baseline_experiment_id: modern_fixed_hybrid
+    candidate_experiment_ids: [modern_hybrid]
+  - comparison_id: legacy_baseline_vs_modern
+    baseline_experiment_id: legacy_refreshed_nlu
+    candidate_experiment_ids: [modern_hybrid, reranker_zerank_2_metadata, reranker_nemotron_1b_metadata]

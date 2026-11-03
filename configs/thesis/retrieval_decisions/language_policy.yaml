@@ -1,0 +1,16 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:132c32c80df21b4ba4332defd3b080f2
+report_config_hash: sha256:8a679ac8e76662d208819e0649dc3edbec0768638ab85608c75a74e3a3dc6c3d
+decisions:
+  - policy_id: select_language_policy
+    selected_experiment_ids:
+      - language_query_complete_hybrid
+    rationale: >-
+      I select Query-language complete because it removes duplicate bilingual
+      results and still searches pages that exist only in the other language.
+      It achieved the highest overall Page-family nDCG@5. The difference from
+      final counterpart dedup is not statistically clear, and Cross-lingual
+      achieved higher exact Chunk nDCG@5 but not Page-family nDCG@5 which is
+      the more informative metric here.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-08-31T17:32:55Z"

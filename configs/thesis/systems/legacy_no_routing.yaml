@@ -1,0 +1,41 @@
+schema_version: system_config_v2
+system_id: legacy_no_routing
+class_path: thesis_rag.adapters.legacy_baseline.LegacyBaselineSystem
+settings:
+  mode: legacy_no_routing
+  runtime:
+    conda_executable: conda
+    conda_environment: rasa3.x
+    worker_script: scripts/thesis/legacy_baseline_worker.py
+    startup_timeout_seconds: 1800
+    request_timeout_seconds: 600
+  artifacts:
+    main_model_path: data/thesis/rasa/runtime/bots/sekretariat/models
+    fallback_model_path: data/thesis/rasa/runtime/bots/az/models
+    index_path: indexes/thesis/legacy_faiss
+    source_dir: data/az/scraper/topics
+    mapping_path: data/az/mapping.csv
+    current_mapping_path: data/az/current_sekretariat_mapping.csv
+    domain_path: data/thesis/rasa/runtime/bots/sekretariat/domain.yml
+    keyword_artifact_paths:
+      - data/az/cache/keyword_vectorizer_deutsch.pickle
+      - data/az/cache/keyword_vectorizer_english.pickle
+    corpus_manifest_path: data/thesis/corpus/snapshot_manifest.json
+    rasa_model_manifest_path: data/thesis/rasa/model-snapshot/rasa_snapshot_manifest.json
+  routing:
+    main_confidence_threshold: 0.99
+    fallback_confidence_threshold: 0.1
+    upper_confidence_threshold: 1.0
+    display_intent_limit: 5
+    descendant_depth: 5
+  retrieval:
+    embedding_model_id: sentence-transformers/all-MiniLM-L6-v2
+    chunk_size: 800
+    chunk_overlap: 100
+    minimum_chunk_chars: 200
+    native_k_per_variant: 30
+    overfetch_multiplier: 50
+    keyword_filter: true
+    context_top_k: 15
+    trace_level: decision_lineage
+    empty_context_retry: true

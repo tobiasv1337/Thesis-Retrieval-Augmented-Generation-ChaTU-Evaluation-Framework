@@ -1,0 +1,65 @@
+# Parameter reference; effective settings match local.yaml.
+version: rag_runtime_v1
+system_config: ../thesis/systems/parent_hybrid.yaml
+artifact_root: ../..
+titles:
+  mapping_path: data/az/mapping.csv     # Optional; relative to artifact_root.
+  pills: [manual, extracted, corpus]
+  panels: [manual, corpus, extracted]   # Also the source table; not the LLM context.
+system_overrides: {}
+# Optional settings.* leaf overrides, e.g.:
+#   settings.pipeline.reranker.endpoint: http://127.0.0.1:8010
+# Use a matching system_config for Main-NLU or parent-routing variants.
+history_depth: 3                 # Fusion depth and model fallback; Legacy requires 0.
+dialog:
+  strategy: history_fusion             # query_rewrite: see local_rewrite.yaml.
+  candidate_fusion: current_priority   # rrf retains the previous fusion.
+  current_slots: 2                     # Admission before reranking, not final rank priority.
+  rerank_query_format: current_first   # history_prompt retains the previous format.
+top_k: 50                       # Returned retrieval results, grouped into UI pages.
+context_top_k: 20               # Maximum original chunks sent to generation.
+context:
+  enabled: true
+  format: plain                # plain | markdown
+  expansion:
+    - {level: section, top_k: 20, max_unit_tokens: 2000}
+    - {level: context_group, top_k: 10, max_unit_tokens: 3000}
+    - {level: page, top_k: 3, max_unit_tokens: 5000}
+request_timeout_seconds: 180.0
+
+retrieval_capacity:
+  concurrency: 4
+  max_waiting: 8
+  queue_timeout_seconds: 30.0
+embedding_capacity:
+  concurrency: 4
+  max_waiting: 8
+  queue_timeout_seconds: 30.0
+reranker:
+  mode: external                # managed_local is reserved, not implemented.
+reranker_capacity:
+  concurrency: 1
+  max_waiting: 8
+  queue_timeout_seconds: 30.0
+
+generation:
+  history_depth: null           # Override previous user turns; null inherits history_depth.
+  mode: external
+  provider: legacy               # ollama | openai | legacy (/generate protocol)
+  endpoint: http://127.0.0.1:15001/generate
+  # openai: http://127.0.0.1:8000/v1; legacy: http://127.0.0.1:5001/generate
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  tokenizer: Xenova/Meta-Llama-3.1-Tokenizer
+  tokenizer_revision: d49ea33e96b3fcf8738bb79ff9d85da81742fa82
+  prompt_version: legacy_plain_sources_v2  # Exact legacy wording, user reminder, localized plain sources.
+  model_revision: null          # Optional recorded declaration, not verification.
+  api_key_env: null             # Name of an environment variable, never the key.
+  temperature: 0.0
+  max_tokens: 2048
+  context_window: 32768
+  timeout_seconds: 120.0
+  think: null                   # Native Ollama only: null (omit), false or true.
+  capacity:
+    concurrency: 1
+    max_waiting: 8
+    queue_timeout_seconds: 30.0

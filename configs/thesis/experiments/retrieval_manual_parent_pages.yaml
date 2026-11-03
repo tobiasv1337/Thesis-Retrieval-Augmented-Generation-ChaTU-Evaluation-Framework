@@ -1,0 +1,61 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_manual_parent_navigation_v1
+questions:
+  manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page]
+    include_in_pool: false
+    compute_metrics: true
+experiments:
+  - experiment_id: backup_full
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [diagnostic]
+  - experiment_id: modern_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+  - experiment_id: page_metadata_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [diagnostic]
+  - experiment_id: page_summary_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+  - experiment_id: backup_restricted
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.scope: restricted
+      settings.model_manifest_path: outputs/thesis/nlu/manual_backup/manifest.json
+  - experiment_id: modern_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: page_metadata_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: page_summary_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [diagnostic]
+    overrides:
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+comparisons:
+  - comparison_id: full_corpus
+    baseline_experiment_id: backup_full
+    candidate_experiment_ids: [modern_full, page_metadata_full, page_summary_full]
+  - comparison_id: restricted_corpus
+    baseline_experiment_id: backup_restricted
+    candidate_experiment_ids: [modern_restricted, page_metadata_restricted, page_summary_restricted]

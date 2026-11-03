@@ -1,0 +1,13 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:9928e0d69f75f48d2dc28aab9c044065
+report_config_hash: sha256:c588bdacba1f353729f5334312e05d53ec3a515e165b254749dac7da67b7b58a
+decisions:
+  - policy_id: select_content_rrf_constant_dedup_top20
+    selected_experiment_ids:
+      - content_rrf_dedup_k30
+    rationale: >-
+      k=30 had the highest hybrid Chunk nDCG@20. k=60 performed similarly.
+      The paired 95% confidence interval did not establish an advantage
+      over k=60.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-09T09:51:14Z"

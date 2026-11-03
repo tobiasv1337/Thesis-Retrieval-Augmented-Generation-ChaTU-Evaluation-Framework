@@ -1,0 +1,24 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_relevance_judge_calibration_development_v2
+
+questions:
+  manifest_path: data/thesis/eval/development_calibration_cohorts/development_calibration_cohort:4f6a469b13844a0b09250bba3778ebe7/manifest.json
+  artifact_name: questions_smoke
+
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, section]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: judge_calibration_fixed_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]

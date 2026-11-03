@@ -1,0 +1,16 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:771fb7f9baa91e4c6302b0ae4107cc1b
+report_config_hash: sha256:af8ec6413717f60d173ec951806c6ea7c049d43846dead55e0e20295e96e5a2c
+decisions:
+  - policy_id: signal_correct
+    selected_experiment_ids:
+      - cross_lingual_dedup_correct
+    rationale: >-
+      Use cross-lingual retrieval with counterpart deduplication when user
+      language settings are unreliable. Its quality is unchanged across all
+      four signals. Query Complete has higher Page-family nDCG with correct
+      signals, but lower scores under each incorrect-signal condition.
+      Choosing robustness for a TU chatbot is more important here for 
+      real-world performance.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-08T10:58:25Z"

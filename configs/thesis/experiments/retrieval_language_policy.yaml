@@ -1,0 +1,52 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_retrieval_language_policy_top5_development
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 5
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: language_same_only_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: same_language_only
+
+  - experiment_id: language_cross_lingual_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+
+  - experiment_id: language_query_complete_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: query_language_complete
+
+  - experiment_id: language_cross_lingual_counterpart_dedup_hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+
+comparisons:
+  - comparison_id: language_policy
+    experiment_ids:
+      - language_same_only_hybrid
+      - language_cross_lingual_hybrid
+      - language_query_complete_hybrid
+      - language_cross_lingual_counterpart_dedup_hybrid

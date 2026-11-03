@@ -1,0 +1,5 @@
+schema_version: relevance_judge_experiment_v1
+judge_experiment_id: thesis_retrieval_primary_judge_v1
+relevance_config_path: configs/thesis/relevance.yaml
+judge_ids:
+  - gemma4_31b

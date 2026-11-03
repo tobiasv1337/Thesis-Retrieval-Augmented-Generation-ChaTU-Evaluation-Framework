@@ -1,0 +1,54 @@
+schema_version: system_config_v2
+system_id: modern_sparse_unicode_bm25
+class_path: thesis_rag.retrieval.system.ModernRetrievalSystem
+settings:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+  pipeline:
+    representation:
+      chunker_id: section_preferred_800_100
+      fields: [text]
+    language_policy: cross_lingual
+    candidate_k: 100
+    dense_global:
+      enabled: false
+      component_id: bge_m3_fp16_dense_v1
+      index_root: outputs/thesis/indexes/dense_bge_m3_fp16
+      normalize: true
+      model:
+        backend: ollama
+        endpoint: http://127.0.0.1:11434
+        model_id: bge-m3:567m-fp16
+        expected_model_artifact_digest: sha256:daec91ffb5dd0c27411bd71f29932917c49cf529a641d0168496c3a501e3062c
+        dimensions: 1024
+        batch_size: 32
+        timeout_seconds: 120.0
+        truncate: true
+    sparse_global:
+      enabled: true
+      component_id: unicode_bm25_v1
+      index_root: outputs/thesis/indexes/sparse_unicode_bm25
+      tokenizer_id: unicode_words_v1
+      k1: 1.5
+      b: 0.75
+      remove_stopwords: true
+      cross_shard_rrf_k: 60
+    content_rrf:
+      enabled: false
+      component_id: ordinary_rrf_k10_v1
+      rank_constant: 10
+    page_routing:
+      enabled: false
+      component_id: page_routing_v1
+      top_p: 10
+    intent_prior:
+      enabled: false
+      component_id: soft_intent_prior_v1
+    reranker:
+      enabled: false
+      component_id: multilingual_reranker_v1
+    context:
+      enabled: false
+      component_id: direct_context_v1
+      policy_id: direct_top20
+      token_budget: 6000
+    config_version: modern_pipeline_config_v2

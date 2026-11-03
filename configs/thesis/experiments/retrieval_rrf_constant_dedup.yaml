@@ -1,0 +1,82 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_retrieval_content_rrf_dedup_top5_development
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 5
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: content_rrf_dedup_k10
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k10_v1
+      settings.pipeline.content_rrf.rank_constant: 10
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+  - experiment_id: content_rrf_dedup_k30
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+  - experiment_id: content_rrf_dedup_k60
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k60_v1
+      settings.pipeline.content_rrf.rank_constant: 60
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+  - experiment_id: content_rrf_dedup_k100
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.config_version: modern_pipeline_config_v3
+      settings.query_language_signal: correct
+      settings.pipeline.representation.chunker_id: section_preferred_800_100
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k100_v1
+      settings.pipeline.content_rrf.rank_constant: 100
+      settings.pipeline.context.policy_id: direct_children
+      settings.pipeline.context.source_top_k: 5
+
+comparisons:
+  - comparison_id: content_rrf_constant_dedup
+    experiment_ids:
+      - content_rrf_dedup_k10
+      - content_rrf_dedup_k30
+      - content_rrf_dedup_k60
+      - content_rrf_dedup_k100

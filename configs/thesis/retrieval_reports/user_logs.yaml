@@ -1,0 +1,61 @@
+schema_version: suite_report_config_v1
+report_config_id: user_logs_development_v2
+comparison_ids: [legacy_routing_ablation, main_nlu_effect, nlu_routing_mode, reranker_effect, parent_routing_effect, legacy_vs_modern]
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: compare_legacy_routing
+    comparison_id: legacy_routing_ablation
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_main_nlu_effect
+    comparison_id: main_nlu_effect
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_nlu_routing_mode
+    comparison_id: nlu_routing_mode
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_reranker_effect
+    comparison_id: reranker_effect
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_parent_routing_effect
+    comparison_id: parent_routing_effect
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 20
+    direction: maximize
+  - policy_id: compare_legacy_vs_modern
+    comparison_id: legacy_vs_modern
+    judgment_view_label: gemma4_31b:judged_only
+    split: development
+    stream: items
+    target_space_id: page
+    metric_name: counterpart_family_ndcg
+    cutoff: 20
+    direction: maximize

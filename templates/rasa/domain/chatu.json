@@ -1,0 +1,31 @@
+{
+    "intents": ["switch","language","start","help","who","blank","feedback_good","feedback_bad"],
+    "entities": ["bot", "button", "message_id"],
+    "actions": ["action_react", "action_restart"],
+    "slots": {
+        "button": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "initial_value": null,
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "button"
+            }]
+        },
+        "bot": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "initial_value": "alle",
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "bot"
+            }]
+        },
+        "message_id": {
+            "type": "rasa.shared.core.slots.TextSlot",
+            "initial_value": null,
+            "mappings": [{
+                "type": "from_entity",
+                "entity": "bot"
+            }]
+        }
+    }
+}

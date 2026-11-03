@@ -1,0 +1,15 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:ce6af3fe44cf7d08e5767084787d3c4e
+report_config_hash: sha256:e7a085d0b556c5618e6947de4f9abb4f856e824035e0e6ef203fc3528177c20c
+decisions:
+  - policy_id: compare_language_policy_language_swap
+    selected_experiment_ids:
+      - language_query_complete_hybrid
+    rationale: >-
+      With translated queries, Query-language complete achieved the highest
+      overall Page-family nDCG@5 and the highest result for the 254 questions
+      whose source exists only in the other language. Final counterpart dedup
+      was better when both language versions existed, while Cross-lingual had
+      higher exact Chunk nDCG@5.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-08-31T17:32:55Z"

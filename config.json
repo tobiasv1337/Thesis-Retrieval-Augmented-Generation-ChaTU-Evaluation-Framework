@@ -1,0 +1,22 @@
+{
+  "production": false,
+  "debug": false,
+  "separator": ":",
+  "participant_ID_prefix": "ID",
+  "unknown_participant_ID_folder": "unknown_ID",
+  "conda_path": "~/miniconda3/etc/profile.d/conda.sh",
+  "data_dir": "data/",
+  "bots_dir": "bots/",
+  "az_data_dir": "data/az/",
+  "logging_dir": "logging/",
+  "experiment_logging_dir": "experiment/logging/",
+  "responses_dir": "templates/responses/",
+  "templates_dir": "templates/",
+  "ports_file": "ports.csv",
+  "qa_llm_url": "http://127.0.0.1:5001/generate",
+  "qa_llm_timeout_seconds": 20,
+  "ignore_bots_with_error_status": false,
+  "conda_rasa_env_name": "rasa3.x",
+  "secret_encryption_key": "change_this_in_your_local_config_file",
+  "match_message_to_buttons": "complete"
+}

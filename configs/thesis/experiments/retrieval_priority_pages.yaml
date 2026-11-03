@@ -1,0 +1,222 @@
+schema_version: retrieval_experiment_suite_v1
+suite_id: thesis_priority_navigation_development_v4
+questions:
+  manifest_path: data/logs/question_sets/priority-development/manifest.json
+  artifact_name: questions
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+defaults:
+  top_k: 20
+  selection_seed: 14731
+  final_evaluation:
+    streams: [items]
+    target_levels: [page]
+    include_in_pool: true
+    compute_metrics: true
+    # K saved root hits plus their descendants; old retrieval runs can be reused.
+    page_scopes:
+      # All real root hits remain mandatory; only additional children use cache-only evidence.
+      judgment_mode: cached_only
+      depths: [0, 1, 2, 3, 4, 5]
+      root_cutoffs: [1, 3, 5, 10, 20]
+experiments:
+  - experiment_id: main_nlu
+    system_config: configs/thesis/systems/main_nlu_page_ranking.yaml
+    splits: [development]
+  - experiment_id: backup_full
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [development]
+  - experiment_id: modern_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+  - experiment_id: modern_nemotron_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+  - experiment_id: page_metadata_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+  - experiment_id: page_summary_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+  - experiment_id: group_metadata_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.parent_level: context_group
+  - experiment_id: group_summary_full
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.parent_level: context_group
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+  - experiment_id: backup_restricted
+    system_config: configs/thesis/systems/backup_nlu.yaml
+    splits: [development]
+    overrides:
+      settings.scope: restricted
+      settings.model_manifest_path: outputs/thesis/nlu/manual_backup/manifest.json
+  - experiment_id: modern_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: modern_nemotron_restricted
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+  - experiment_id: page_metadata_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: page_summary_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+  - experiment_id: group_metadata_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.parent_level: context_group
+  - experiment_id: group_summary_restricted
+    system_config: configs/thesis/systems/parent_page_ranking.yaml
+    splits: [development]
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.representation.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+      settings.parent_level: context_group
+      settings.routing_manifest_path: data/thesis/routing/with_summaries/manifest.json
+      settings.include_summary: true
+  - experiment_id: modern_nemotron_priority_depth5
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits:
+    - development
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_nemotron_1b_v1
+      settings.pipeline.reranker.profile_id: nemotron_1b
+      settings.pipeline.reranker.expected_profile_hash: sha256:7fb4888d663ff34bb1403f4d1b529afc17724b6418daf15e080645eb2b77b44a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: fixed_pages
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.descendant_depth: 5
+      settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  - experiment_id: modern_zerank_full
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits:
+    - development
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+  - experiment_id: modern_zerank_priority_depth5
+    system_config: configs/thesis/systems/modern_page_ranking.yaml
+    splits:
+    - development
+    overrides:
+      settings.pipeline.language_policy: cross_lingual
+      settings.pipeline.counterpart_deduplication: highest_ranked_page
+      settings.pipeline.content_rrf.rank_constant: 30
+      settings.pipeline.content_rrf.component_id: ordinary_rrf_k30_v1
+      settings.pipeline.reranker.enabled: true
+      settings.pipeline.reranker.component_id: private_http_zerank_2_v1
+      settings.pipeline.reranker.profile_id: zerank_2
+      settings.pipeline.reranker.expected_profile_hash: sha256:a82c099787493780a70584d57fce0acffa1726c6af9c835d8e44d4a48396f15a
+      settings.pipeline.reranker.input_format: title_heading_text_v1
+      settings.pipeline.page_routing.enabled: true
+      settings.pipeline.page_routing.mode: fixed_pages
+      settings.pipeline.page_routing.include_global: false
+      settings.pipeline.page_routing.descendant_depth: 5
+      settings.pipeline.page_routing.page_subset_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+comparisons:
+  - comparison_id: full_corpus
+    baseline_experiment_id: main_nlu
+    candidate_experiment_ids: [backup_full, modern_full, modern_nemotron_full, page_metadata_full, page_summary_full, group_metadata_full, group_summary_full]
+  - comparison_id: restricted_corpus
+    baseline_experiment_id: main_nlu
+    candidate_experiment_ids: [backup_restricted, modern_restricted, modern_nemotron_restricted, page_metadata_restricted, page_summary_restricted, group_metadata_restricted, group_summary_restricted]
+  - comparison_id: expanded_priority_retriever
+    baseline_experiment_id: modern_nemotron_full
+    candidate_experiment_ids:
+    - modern_nemotron_restricted
+    - modern_nemotron_priority_depth5
+  - comparison_id: reranker_full
+    baseline_experiment_id: modern_nemotron_full
+    candidate_experiment_ids:
+    - modern_zerank_full
+  - comparison_id: reranker_priority_depth5
+    baseline_experiment_id: modern_nemotron_priority_depth5
+    candidate_experiment_ids:
+    - modern_zerank_priority_depth5

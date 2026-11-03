@@ -1,0 +1,17 @@
+schema_version: suite_report_config_v1
+report_config_id: thesis_content_rrf_development_v1
+comparison_ids:
+  - content_rrf_constant
+bootstrap_samples: 10000
+confidence_level: 0.95
+bootstrap_seed: 14731
+selection_policies:
+  - policy_id: select_content_rrf_constant
+    comparison_id: content_rrf_constant
+    judgment_view_label: gemma4_31b:hybrid
+    split: development
+    stream: items
+    target_space_id: chunk
+    metric_name: ndcg
+    cutoff: 5
+    direction: maximize

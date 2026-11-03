@@ -1,0 +1,20 @@
+schema_version: chunk_artifact_set_config_v1
+base_snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+output_manifest_path: data/thesis/corpus/chunk_sets/section_preferred_lengths.json
+
+chunkers:
+  - chunker_id: section_preferred_600_100
+    mode: section_preferred
+    output_path: data/thesis/corpus/chunks/section_preferred_600_100.jsonl
+    target_chars: 600
+    overlap_chars: 100
+    preferred_min_chars: 400
+    hard_max_chars: 1000
+
+  - chunker_id: section_preferred_1000_100
+    mode: section_preferred
+    output_path: data/thesis/corpus/chunks/section_preferred_1000_100.jsonl
+    target_chars: 1000
+    overlap_chars: 100
+    preferred_min_chars: 400
+    hard_max_chars: 1000

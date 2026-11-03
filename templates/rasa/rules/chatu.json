@@ -1,0 +1,60 @@
+{
+    "rules": [
+        {
+            "rule": "switch",
+            "steps": [
+                {"intent": "switch"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "language",
+            "steps": [
+                {"intent": "language"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "start",
+            "steps": [
+                {"intent": "start"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "help",
+            "steps": [
+                {"intent": "help"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "who",
+            "steps": [
+                {"intent": "who"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "blank",
+            "steps": [
+                {"intent": "blank"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "feedback_good",
+            "steps": [
+                {"intent": "feedback_good"},
+                {"action": "action_react"}
+            ]
+        },
+        {
+            "rule": "feedback_bad",
+            "steps": [
+                {"intent": "feedback_bad"},
+                {"action": "action_react"}
+            ]
+        }
+    ]
+}

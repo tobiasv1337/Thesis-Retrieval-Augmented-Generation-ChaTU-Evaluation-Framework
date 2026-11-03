@@ -1,0 +1,6 @@
+schema_version: system_config_v2
+system_id: main_nlu_page_ranking
+class_path: thesis_rag.adapters.page_benchmark.MainNluPageSystem
+settings:
+  benchmark_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  scope: full

@@ -1,0 +1,1738 @@
+{
+  "schema_version": "thesis_publication_v1",
+  "width_mm": 150,
+  "font_size_pt": 9,
+  "confidence_level": 0.95,
+  "navigation_scope": "all",
+  "navigation_target_expansion": {
+    "mapping_source": "data/az/mapping.csv",
+    "chunker_id": "section_preferred_800_100"
+  },
+  "styles": {
+    "baseline": {
+      "color": "#666666",
+      "marker": "s",
+      "linestyle": "-"
+    },
+    "global": {
+      "color": "#0072B2",
+      "marker": "o",
+      "linestyle": "-"
+    },
+    "priority": {
+      "color": "#E69F00",
+      "marker": "s",
+      "linestyle": "--"
+    },
+    "nlu": {
+      "color": "#009E73",
+      "marker": "^",
+      "linestyle": "-."
+    },
+    "zerank": {
+      "color": "#CC79A7",
+      "marker": "D",
+      "linestyle": "-"
+    },
+    "secondary": {
+      "color": "#6F63A5",
+      "marker": "P",
+      "linestyle": "--"
+    },
+    "sparse": {
+      "color": "#D55E00",
+      "marker": "D",
+      "linestyle": "-."
+    },
+    "dense": {
+      "color": "#7B3F99",
+      "marker": "^",
+      "linestyle": "--"
+    },
+    "hybrid": {
+      "color": "#56B4E9",
+      "marker": "o",
+      "linestyle": ":"
+    },
+    "summary": {
+      "color": "#E69F00",
+      "marker": "D",
+      "linestyle": "-"
+    },
+    "page_metadata": {
+      "color": "#A6761D",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "group_summary": {
+      "color": "#CC79A7",
+      "marker": "P",
+      "linestyle": "-"
+    },
+    "group_metadata": {
+      "color": "#6F63A5",
+      "marker": "X",
+      "linestyle": "--"
+    },
+    "zerank_plain": {
+      "color": "#CC79A7",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "nemotron_plain": {
+      "color": "#0072B2",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "priority_branch": {
+      "color": "#E69F00",
+      "marker": "P",
+      "linestyle": "--"
+    },
+    "priority_scope": {
+      "color": "#7B3F99",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "priority_union_large": {
+      "color": "#D55E00",
+      "marker": "^",
+      "linestyle": "-."
+    },
+    "cross_lingual": {
+      "color": "#7B3F99",
+      "marker": "s",
+      "linestyle": "--"
+    },
+    "query_only": {
+      "color": "#D55E00",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "dedup": {
+      "color": "#009E73",
+      "marker": "D",
+      "linestyle": "-"
+    },
+    "baseline_no_routing": {
+      "color": "#D55E00",
+      "marker": "v",
+      "linestyle": "--"
+    },
+    "oracle": {
+      "color": "#7B3F99",
+      "marker": "D",
+      "linestyle": ":"
+    },
+    "qwen": {
+      "color": "#D55E00",
+      "marker": "^",
+      "linestyle": "-"
+    },
+    "bge": {
+      "color": "#7B3F99",
+      "marker": "s",
+      "linestyle": "-"
+    },
+    "querit": {
+      "color": "#A6761D",
+      "marker": "P",
+      "linestyle": "-"
+    },
+    "gte": {
+      "color": "#009E73",
+      "marker": "D",
+      "linestyle": "-"
+    },
+    "minilm": {
+      "color": "#B39100",
+      "marker": "X",
+      "linestyle": "-"
+    },
+    "mixedbread": {
+      "color": "#56B4E9",
+      "marker": "P",
+      "linestyle": "-"
+    },
+    "jina": {
+      "color": "#6F63A5",
+      "marker": "X",
+      "linestyle": "-"
+    },
+    "nlu_hard": {
+      "color": "#A6761D",
+      "marker": "v",
+      "linestyle": "--"
+    }
+  },
+  "sources": {
+    "chunking": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:3b9c0af07cf42eb3dafedda3a47cd537/reports/suite_comparison_report:c0df0087a7635d7016f01363e9e71544/analyses/retrieval_analysis:68886c9164d456c5e5d11f96a3521e75/manifest.json",
+      "sha256": "sha256:6df0bbd413a14ac6f875761cd5ffa4aa3db8c9a5a8ee5159e033e54f2be4051b",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:3b9c0af07cf42eb3dafedda3a47cd537/manifest.json",
+      "suite_sha256": "sha256:384236c362b85d95d7ba0b249a6a0c0a43e80e819636124a9a4833e7235d2a7d",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "language": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:cd808cbde0f29438dbea9fc5c17a50ea/reports/suite_comparison_report:cffdd48a2d6cfcd3383c6a67633eb2b9/analyses/retrieval_analysis:0897ecd339f65c265012785c286adabf/manifest.json",
+      "sha256": "sha256:0ca52f3d679bc8e209bb45c7c69f22070892b516bdb78ae018321e67cb1e5ebf",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:cd808cbde0f29438dbea9fc5c17a50ea/manifest.json",
+      "suite_sha256": "sha256:f9844cebcd45521a633d33be9429bc27eb77c8fc4f47dc1f2c7f304f7dcf1f05",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "language_translated": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:5a666d12019cb887b81eb0d4e42cd5c7/reports/suite_comparison_report:708fc0f4bbf797c7dc0b2829705f4bcf/analyses/retrieval_analysis:fc8ca3a63f532206b660816fac55cf10/manifest.json",
+      "sha256": "sha256:84e5f2db3dca4db14f178295b3c098cebc4ccfe633fa09eb186eebc1f6b612df",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:5a666d12019cb887b81eb0d4e42cd5c7/manifest.json",
+      "suite_sha256": "sha256:2905a50e547d7b74c0647195add5f641cdf3f0c2afcbfd39058d1b9b0c7ece8f",
+      "n": 1000,
+      "cohort": "Translated synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "language_signal": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:dfeac87e7e3e0825a1a1212f3132ee04/reports/suite_comparison_report:d0b397920e78ad093caa65d937d31016/analyses/retrieval_analysis:26242b53419aee409b6990a728882ae1/manifest.json",
+      "sha256": "sha256:c55bcb9a4c493d1ca34342fcd73fc5e6c68d8a3ff23f4230c3e7fc0216d59f1d",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:dfeac87e7e3e0825a1a1212f3132ee04/manifest.json",
+      "suite_sha256": "sha256:212f4956cf504efee62c7c8fc16556608e7a966825e723f915f1854c10bee198",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "rrf_query": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:bb20a26b5c0f5a27a5cf6516f1db56da/reports/suite_comparison_report:def20a106f131310794e9f42050ed45f/analyses/retrieval_analysis:823ef52a88c80a40363c86870b847f0c/manifest.json",
+      "sha256": "sha256:a346288a23ecda07fff83d53d78d3ab742b62d7756a19caefc2d557c87fa88c5",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:bb20a26b5c0f5a27a5cf6516f1db56da/manifest.json",
+      "suite_sha256": "sha256:52472610ae6716ae6f5a021e3e6c2b37653901dee26da3b4197ff384ed3568b0",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only",
+      "publication_status": "superseded",
+      "superseded_by": "rrf_dedup20",
+      "exclusion_reason": "RRF selection superseded after the language policy and deduplication changed."
+    },
+    "rrf_dedup5": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:5c22a9b022f65aa21f6a210980a9557d/reports/suite_comparison_report:39099f2ca27774844f0cf9a529e97c33/analyses/retrieval_analysis:337cf70e5ce5fad7bd8066017a55f72e/manifest.json",
+      "sha256": "sha256:1d8b66b1ea11a8f02f15b893037a0859c949b46d9abc4cde54125fa6d172d3df",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:5c22a9b022f65aa21f6a210980a9557d/manifest.json",
+      "suite_sha256": "sha256:da9369506153a3434d83e34c43fdcb31878f9b79096e7be8892f7143a988b016",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only",
+      "publication_status": "superseded",
+      "superseded_by": "rrf_dedup20",
+      "exclusion_reason": "Preliminary top-5 sweep superseded by the selected top-20 analysis."
+    },
+    "rrf_dedup20": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:4e7ff9629c5798c84dbce6388837594e/reports/suite_comparison_report:c990824b86ee590e4b3be6a074632af1/analyses/retrieval_analysis:481819ae92405ddfb5c5e325976dcd09/manifest.json",
+      "sha256": "sha256:0b5b72145b752327948b3d459b9cdea8d542c9aeeed815b9b6928a5da55a6ac6",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:4e7ff9629c5798c84dbce6388837594e/manifest.json",
+      "suite_sha256": "sha256:39f7d74d05fa5a805fa4a03927ea42eea3a4fb75ec6473d3ca6f8ad094eeea33",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "architecture": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:1a24c521dc5c7c11ef440c52e407867d/reports/suite_comparison_report:edfaa4cdd2c64599bf9994e70b8b1b15/analyses/retrieval_analysis:0444f3e56d95b6263b5251eb051f18d8/manifest.json",
+      "sha256": "sha256:8fc911c7523d4bd054b9a1ca24cbbfe64ecfc08c806d686595cb8b3813fd611f",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:1a24c521dc5c7c11ef440c52e407867d/manifest.json",
+      "suite_sha256": "sha256:946d4581000122adca7845791bc56d136fd6aaa62eda2162f1c7f2417a2557e3",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "rerankers": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:308ca72c0f9bc51c4f8766ee28f853f8/reports/suite_comparison_report:e7127cea5c19194be866768aa29c68d4/analyses/retrieval_analysis:b7dde28a2a2bb7684b0743f5f1a636a8/manifest.json",
+      "sha256": "sha256:6af1d8dc1ffa61d9380327cef0d73d25a97a873c9059773b4ed593a5fd73a4c8",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:308ca72c0f9bc51c4f8766ee28f853f8/manifest.json",
+      "suite_sha256": "sha256:ffb3fa72fef82e6d75ebd87ff50732e286c770bb15a2698a2cc9f150f21f3d99",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "reranker_pilot": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:c3d9706b8ac27580b002a50160bf4d1d/reports/suite_comparison_report:cc8abc5926ce98007ec9d7cf4b2ef8e4/analyses/retrieval_analysis:5303a5dec3bbd8ab12844246c2cbff69/manifest.json",
+      "sha256": "sha256:e9197fa6b2029555d59a0a1b39690937a0ad2185215a17276ecd146dc9a2f2f7",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:c3d9706b8ac27580b002a50160bf4d1d/manifest.json",
+      "suite_sha256": "sha256:46b0f4fb2d8b86f057aca2ab79c1f96b19362de35324170b526417d1c221f0aa",
+      "n": 100,
+      "cohort": "Synthetic development pilot",
+      "view": "gemma4_31b:judged_only",
+      "publication_status": "superseded",
+      "superseded_by": "rerankers",
+      "exclusion_reason": "Small pilot superseded by the complete development model comparison."
+    },
+    "validation": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:10292860f9069d4a180244b0dd471122/reports/suite_comparison_report:1576e73994627dcf59dd10432486193b/analyses/retrieval_analysis:8529359ef3748f9908431d7c40b56b39/manifest.json",
+      "sha256": "sha256:4c9ca8d5028861e47772a4fc6095b9421358065333dfd57b445103d3e9a8181e",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:10292860f9069d4a180244b0dd471122/manifest.json",
+      "suite_sha256": "sha256:9728327d28c0f3c115fcbc6997bf88dea051305fb5ed90f99e07693ed00fce85",
+      "n": 500,
+      "cohort": "Synthetic validation",
+      "view": "gemma4_31b:judged_only"
+    },
+    "parent_routing": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:1bf0ac873beedd07cbd2266aa3d46204/reports/suite_comparison_report:ff065430e8be1a46e1fff4feb0bba9f4/analyses/retrieval_analysis:5d8ead78b4a2d61ae137b312ca60dc6f/manifest.json",
+      "sha256": "sha256:fe0807492ee56066a2701731eaeb48761345a310aa468a856408dc5fb9e0e5d9",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:1bf0ac873beedd07cbd2266aa3d46204/manifest.json",
+      "suite_sha256": "sha256:1f9884fe98166aa305c70043f58da59397481a20f109ea0668608f93edb3e4c9",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "main_nlu": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:d95b6329e6cbf62c1b3264c85f219f59/reports/suite_comparison_report:ea1022f672b1fca7b15c17d34017980c/analyses/retrieval_analysis:4febe031e9890dc1e7868092502245db/manifest.json",
+      "sha256": "sha256:466a589296e032ca0cc255ffeea907d5a242f3110d509f4d6ce20641860109de",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:d95b6329e6cbf62c1b3264c85f219f59/manifest.json",
+      "suite_sha256": "sha256:7da2d9661de22fec3fcc8e2effa8816d431e1a4a2cbfbd7afafc5273776d712d",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "log_development": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:fc4e025fc84ab1528bfd0c42325f9557/reports/suite_comparison_report:d65cbb52dae3abd4aa9f6c03e16abcb7/analyses/retrieval_analysis:12d67ba3550064cf12f8a3eb7c1dde2a/manifest.json",
+      "sha256": "sha256:b33857395fb7f7e21af431925d1eff3e7b4e675fc2c54ecb09ac78f92ae40f3e",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:fc4e025fc84ab1528bfd0c42325f9557/manifest.json",
+      "suite_sha256": "sha256:299b141e9d3a0c73a5fda4caeb09a786c17794840efee74685bb0f54d67767b0",
+      "n": 250,
+      "cohort": "Log development (original export)",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_downstream": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:9eb9d48e815176227e81fe822b045569/reports/suite_comparison_report:3996fecf557005afd78f29c7829bc285/analyses/retrieval_analysis:8c104aaa506549a51762ac7f154b2b01/manifest.json",
+      "sha256": "sha256:b265241c3307cf2ba84e682ad8c366113b127bca1bcf8f062e95f25d7d170dbf",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:9eb9d48e815176227e81fe822b045569/manifest.json",
+      "suite_sha256": "sha256:9b710408eba008314cbbde58c838d053c71e742f3508c48abdfc98a12f99833d",
+      "n": 250,
+      "cohort": "Priority development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_union": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:83ab399dee2d3a59a96a0742ed489a75/reports/suite_comparison_report:20e2d63bab3e070382f2ce462623a2f0/analyses/retrieval_analysis:b113225b95025d98c7db297fb0822e6f/manifest.json",
+      "sha256": "sha256:c705c1028a251ced5031666a638f4617c248e4cea2bb4912668425a54ddcad05",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:83ab399dee2d3a59a96a0742ed489a75/manifest.json",
+      "suite_sha256": "sha256:bb53ec9fe220e530bbefeeade6cdb5753b06e63946cc6e1a1bab022be8b99b57",
+      "n": 250,
+      "cohort": "Priority development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_navigation": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:e82b6ab84ef48cda9f76921d9fb476de/reports/suite_comparison_report:7ad44d05de07723a2c21f43bd7075465/analyses/retrieval_analysis:436a5471393b572369111fdc91ad0dca/manifest.json",
+      "sha256": "sha256:4d127648f19cedb23281293fd2b94534427423e4f19770befa98a253da7b3311",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:e82b6ab84ef48cda9f76921d9fb476de/manifest.json",
+      "suite_sha256": "sha256:39221f81173ca7a0d59359d23ec8d5eaff14c694826bd5fdb0c1a4424f67a1ce",
+      "n": 250,
+      "cohort": "Priority development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_reservation": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:d3f620456e157a8010c4ae4c5e1e8d62/reports/suite_comparison_report:e306a79c6082ffd8cd4808510b77badf/analyses/retrieval_analysis:f0318acb910605925337ef16323551d8/manifest.json",
+      "sha256": "sha256:c623c6e13bcd51db37f953d8f63787e13ae86361c547b83c7ee2ca6696079c3d",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:d3f620456e157a8010c4ae4c5e1e8d62/manifest.json",
+      "suite_sha256": "sha256:61398c215dae77811d1416f0fa80acc54b491b01ab328e758fdedb831418eac3",
+      "n": 250,
+      "cohort": "Priority development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_synthetic": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:9b628bce57ea2222f288d619c1b0ee0e/reports/suite_comparison_report:692ea43f948472b8c933f2ebc1f4fad5/analyses/retrieval_analysis:b160fc6eb68971ff4424bda9c79ba3d1/manifest.json",
+      "sha256": "sha256:c3073e332043c5681a3937e113535a890576f18ab13cdd2ee6710442400efab3",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:9b628bce57ea2222f288d619c1b0ee0e/manifest.json",
+      "suite_sha256": "sha256:5a3269876527891cd7efb5f54404aa78fc4f534789b4d65edece7f4413433287",
+      "n": 1000,
+      "cohort": "Synthetic development",
+      "view": "gemma4_31b:judged_only"
+    },
+    "priority_logs": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:e56293d79aab72840aa458e247346485/reports/suite_comparison_report:2c29449e506ff44f04d447b3ec2327f0/analyses/retrieval_analysis:9634d988086e765d76f2f1a8ad57735b/manifest.json",
+      "sha256": "sha256:5cb493a1cc1e65aadffb939b3216d2316af084a3c70ad87a3ae10d9f6ad825d1",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:e56293d79aab72840aa458e247346485/manifest.json",
+      "suite_sha256": "sha256:c17884e4d26b83c9e07cdc676d4858ec036099d29d2b9e7fdb3ae61212c7211c",
+      "n": 1000,
+      "cohort": "Log development (original export)",
+      "view": "gemma4_31b:judged_only"
+    },
+    "final_synthetic": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:b7454c2c4291be536ade70ae7858e8e7/reports/suite_comparison_report:ec7b3ec280981f376816a268dba61cc6/analyses/retrieval_analysis:2ec95d2bc593fae35e1fb4b383669181/manifest.json",
+      "sha256": "sha256:23aca7514360152d5174ebfd7c748c95dcaa7159bb965ba726853fa7686084d8",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:b7454c2c4291be536ade70ae7858e8e7/manifest.json",
+      "suite_sha256": "sha256:5394b4c18b500e19a6acf53573af5af2e10fba23a86011e19c7ced961d0353e6",
+      "n": 1000,
+      "cohort": "Synthetic test",
+      "view": "gemma4_31b:judged_only"
+    },
+    "final_logs_interim": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:3ddafbaad8a10fe714262539d2a8e5ab/reports/suite_comparison_report:dc2b8fdbc2b4a645a123fdb93fe02e7b/analyses/retrieval_analysis:69c2902e85907864613220fa7463744e/manifest.json",
+      "sha256": "sha256:57500533fe1630d0faefaea6aaf44026f8fe1c4d73538d970d65bdcc022a296d",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:3ddafbaad8a10fe714262539d2a8e5ab/manifest.json",
+      "suite_sha256": "sha256:8aaf5ad43c37ced4e97349e12763e47b27e2fa39a723d0a259594977cff6e0e7",
+      "n": 1000,
+      "cohort": "Log test (original export; interim)",
+      "publication_status": "superseded",
+      "superseded_by": "final_logs_corrected_1000",
+      "exclusion_reason": "Replaced by the completed 1,000-query evaluation on the corrected log dataset.",
+      "view": "gemma4_31b:judged_only"
+    },
+    "final_logs_corrected_1000": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:9596cc568e48cfe234cef69ad43a13ab/reports/suite_comparison_report:94cf5cacd743892d6ed4394243ec82aa/analyses/retrieval_analysis:c860df4f31ad9b5f51967f6b331943a2/manifest.json",
+      "sha256": "sha256:3ea0f7dcfdc1142aefc8c12111e79d3959ccb741875fa0397bfc914cbae88feb",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:9596cc568e48cfe234cef69ad43a13ab/manifest.json",
+      "suite_sha256": "sha256:468b512389d645c7fa2aa6494984f3da5da7294333dd6d733093d4c34c3111af",
+      "n": 1000,
+      "cohort": "Log test (corrected export; 1,000 queries)",
+      "view": "gemma4_31b:judged_only"
+    },
+    "navigation_manual": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:2dc75e805d50a772338b051db352d782/known_target_report/known_target_report:60a80097eb61a2fe69327421ff872645/manifest.json",
+      "sha256": "sha256:47b8f05f940b45c5e83e750db3ea97ea2f7e3ccf5b451331e7e9a18e5ac0c324",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:2dc75e805d50a772338b051db352d782/manifest.json",
+      "suite_sha256": "sha256:47c54908980947c095ab0a796b6792b8b71072f0cc31a21ac1c24f54b45935bd",
+      "n": 2924,
+      "cohort": "Manual-page benchmark",
+      "view": null
+    },
+    "navigation_tables": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:7a1b53af5049986a18830e8703a9e298/known_target_report/known_target_report:4dd04a79eecf7b15d4d27b95a8b1cbc4/manifest.json",
+      "sha256": "sha256:e315ba0058838b66b6d0cf9ac41391b465a63d04eb39699623502b9c5a31028f",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:7a1b53af5049986a18830e8703a9e298/manifest.json",
+      "suite_sha256": "sha256:8885ef627bfc5fc420f1dd380c059b5883c41f17f0e4cec457684759b8d5ed55",
+      "n": 2924,
+      "cohort": "Manual-page benchmark",
+      "view": null
+    },
+    "navigation_priority": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:fa8b9f05e83c261cb0fe6daaf737cbc7/known_target_report/known_target_report:61840aa49ec0f0348d3987122cb9c3aa/manifest.json",
+      "sha256": "sha256:824d3ff4d4ff481dda06ea5c357e329162836d6ba5df9fe1880933595bd31e81",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:fa8b9f05e83c261cb0fe6daaf737cbc7/manifest.json",
+      "suite_sha256": "sha256:ea93744607a434ee7b4155727ccdce5f8929d49eace2c26af4a2953af83fba2c",
+      "n": 250,
+      "cohort": "Priority development",
+      "view": null
+    },
+    "judge": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:04487a6a247745d3b5f4a1f553d560a0/judge/experiments/thesis_qrel_judge_model_comparison_v1/comparisons/judge_comparison_report:ecb4c02eca35a72dd0fb28f2b98ed055/analyses/judge_analysis:d7bf09e15e5a714e6a72b39ece1ce0ec/manifest.json",
+      "sha256": "sha256:03c81fc4dd273680ba244cad672356591062e1580f643ef881daf1b2e1b1f358",
+      "n": 432,
+      "cohort": "Human-graded judge calibration",
+      "selection_path": "configs/thesis/judge_decisions/relevance_v1.yaml",
+      "selection_sha256": "sha256:e6712a46d90d9214f42ce43acd1554d9fc787a25cb263527d7e2c942d05fda28"
+    },
+    "page_scope": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:e82b6ab84ef48cda9f76921d9fb476de/reports/suite_comparison_report:7ad44d05de07723a2c21f43bd7075465/page_scope_report:2eb4cc8e8534b1864e4362134c2b2e8c/manifest.json",
+      "sha256": "sha256:f61580df5192aefc15178eb4a45b1b8e208c96da53e7139bdee389c9613e6fdb",
+      "n": 250,
+      "cohort": "Priority development"
+    },
+    "datasets": {
+      "files": {
+        "corpus_quality_report.json": {
+          "path": "data/thesis/corpus/corpus_quality_report.json",
+          "sha256": "sha256:4289613d3c97c27143c6e161fee9d757870fefd406baa3c613f3008c426aeec9"
+        },
+        "snapshot_manifest.json": {
+          "path": "data/thesis/corpus/snapshot_manifest.json",
+          "sha256": "sha256:8eb7bf4b1ad50ee56051985128536b0b7f12b6f7c7a24a76f015012f91ee11ea"
+        },
+        "base_question_set_manifest.json": {
+          "path": "data/thesis/eval/base_question_set_manifest.json",
+          "sha256": "sha256:03947bdb01a4fa84998cdfc9f6cae089ee47e6680f498bdaa60ce5b2a52e5e18"
+        },
+        "verification.json": {
+          "path": "data/logs/import_audits/20261011_turn2/verification.json",
+          "sha256": "sha256:7891fcadece2781a95b7833a747b81256e00aa106ac62c5ea45a724765c005bc"
+        },
+        "manifest.json": {
+          "path": "data/logs/question_sets/3caad0a2b795e86a72ef9a5158c25765/manifest.json",
+          "sha256": "sha256:a6b578e32f4be341eb2922b1b7edf07ae2f6e05a676c74bcd3f744b94814a392"
+        }
+      }
+    },
+    "priority_supplement": {
+      "files": {
+        "paired_hit_differences.csv": {
+          "path": "outputs/thesis/suites/development_review_20261004/paired_hit_differences.csv",
+          "sha256": "sha256:a79bfa36b799b9f32eae4567756b40292a66abc6f8624c7d417989aad9ecf530"
+        },
+        "supplementary_ndcg_differences.csv": {
+          "path": "outputs/thesis/suites/development_review_20261004/supplementary_ndcg_differences.csv",
+          "sha256": "sha256:2f6bb2471c08511de2137cd4d7e6d5bfdb8aa76db11460148ff4bc86754a9dc7"
+        }
+      }
+    },
+    "baseline_synthetic": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:554cc1ca0c5bdfabf7d36127b51fc3f3/reports/suite_comparison_report:f611d88fb01d0cd7548fcad5a489c5f8/analyses/retrieval_analysis:3a3c0186b7f1fffa510e6cea796f10b5/manifest.json",
+      "sha256": "sha256:7872740a478a848af0d2dfd5ca23c8c9b963b3c2842d1cb9b47d8aef4a94dbcf",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:554cc1ca0c5bdfabf7d36127b51fc3f3/manifest.json",
+      "suite_sha256": "sha256:68543f4481ef3e3de749a13698672ded87ac06e6716ba73bd02560e0ca756810",
+      "n": 250,
+      "cohort": "Synthetic development (random 250-query cohort)",
+      "view": "gemma4_31b:judged_only"
+    },
+    "baseline_logs": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:5023749ba399334399d273616c816c14/reports/suite_comparison_report:cfce38df5a357973d8823ab277f05f4e/analyses/retrieval_analysis:b90a6896c252ffcfe2f721c206b56325/manifest.json",
+      "sha256": "sha256:4f781a1c8323e742229c31c9574e147d98dd0b3fc36f04472446a2a04daf4fcc",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:5023749ba399334399d273616c816c14/manifest.json",
+      "suite_sha256": "sha256:c3037b5fd491ab336fe914ae277ee35ad4c5ea2dca5e726deb5974728aca546c",
+      "n": 250,
+      "cohort": "Corrected user-log development (random 250-query cohort)",
+      "view": "gemma4_31b:judged_only"
+    },
+    "corpus": {
+      "files": {
+        "index_manifest.json": {
+          "path": "outputs/thesis/indexes/sparse_unicode_bm25/section_preferred_800_100/index_manifest.json",
+          "sha256": "sha256:4c8666572a2ec281efa1bf50af8a3202e2a065c72bfe31d7de2879a0fa9d40cb"
+        }
+      }
+    },
+    "log_development_selection": {
+      "manifest": "outputs/thesis/suites/retrieval_suite:724ec1a7686ae3bc1443fcfe9d9191ba/reports/suite_comparison_report:be413da3a93ab2596949a749a7a12347/analyses/retrieval_analysis:123913f588cc085e9d3cdbe8d3c365de/manifest.json",
+      "sha256": "sha256:e80f8f1a8c03902f53e6d9003340b9bfb7b209e39565ed0703050d9e3e5fb1a9",
+      "suite_manifest": "outputs/thesis/suites/retrieval_suite:724ec1a7686ae3bc1443fcfe9d9191ba/manifest.json",
+      "suite_sha256": "sha256:a332e0b9c29a3a39307177b033a45599acac57118b0d71d8c7b32a76bf52b3d8",
+      "n": 250,
+      "cohort": "Log development (original export)",
+      "view": "gemma4_31b:judged_only"
+    }
+  },
+  "variants": {
+    "chunking": {
+      "chunker_fixed_hybrid": {
+        "label": "Fixed 800/100",
+        "style": "secondary",
+        "config_hash": "sha256:7eafbef8a7b4b00ef8bb4a553072421f2e49cd2043f54f14fefb6b913fff3729"
+      },
+      "chunker_recursive_hybrid": {
+        "label": "Recursive 800/100",
+        "style": "secondary",
+        "config_hash": "sha256:386715088b8c5e867093341fceadfea46e25f57b742590ddc1008871db8a026d"
+      },
+      "chunker_section_strict_hybrid": {
+        "label": "Section strict 800/100",
+        "style": "secondary",
+        "config_hash": "sha256:d287b055e5358da24e8c4d5f4c169322a2fd3e82d146841fe3587db8059e67ee"
+      },
+      "chunker_section_preferred_800_hybrid": {
+        "label": "Section preferred 800/100",
+        "style": "global",
+        "config_hash": "sha256:30d7e400b7007b5073efc9b91e791c1619cb8fc71c4d1f76fec031d8ed1926cc",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/chunking_hybrid.yaml",
+        "selection_sha256": "sha256:3cafe85e8136e4e9038f90669f12f0e591ce925bfc6dd113ad5f078598476336"
+      },
+      "chunker_section_preferred_600_hybrid": {
+        "label": "Section preferred 600/100",
+        "style": "secondary",
+        "config_hash": "sha256:8ee1a4fad9e1bf072e1ecab8ccb09625e4389b3bf1f9df83eafdcc6c187fa180"
+      },
+      "chunker_section_preferred_1000_hybrid": {
+        "label": "Section preferred 1000/100",
+        "style": "secondary",
+        "config_hash": "sha256:599b8fb5f3817b2a85495b3b353de6f47e44a8586a8edfa1d66f0f0958b177c6"
+      }
+    },
+    "language": {
+      "language_same_only_hybrid": {
+        "label": "Query-language only",
+        "style": "query_only",
+        "config_hash": "sha256:11831df6107d9a727ad379c54d8e4ff68a91dac5db083510bc0f11b213453361"
+      },
+      "language_cross_lingual_hybrid": {
+        "label": "Cross-lingual",
+        "style": "cross_lingual",
+        "config_hash": "sha256:30d7e400b7007b5073efc9b91e791c1619cb8fc71c4d1f76fec031d8ed1926cc"
+      },
+      "language_query_complete_hybrid": {
+        "label": "Query complete",
+        "style": "global",
+        "config_hash": "sha256:66d33a3ca260ba521610e70918c91d6e7dfeba44bdd5b6bc9581fb8cd9235c32",
+        "selected": false,
+        "selection_path": "configs/thesis/retrieval_decisions/language_policy.yaml",
+        "selection_sha256": "sha256:e28f8401dbcda6fe0a31cde204b5663a0ec8784462b03f25edbd717f9f8fdcc2"
+      },
+      "language_cross_lingual_counterpart_dedup_hybrid": {
+        "label": "Cross-lingual + dedup.",
+        "style": "dedup",
+        "config_hash": "sha256:d80db9341b6acfbe792fec136ebe46bf8518a2de1fafb2d28a59faa295d43796",
+        "retained_policy": {
+          "source": "language_signal",
+          "experiment": "cross_lingual_dedup_correct",
+          "fields": [
+            "language_policy",
+            "counterpart_deduplication"
+          ]
+        }
+      }
+    },
+    "language_translated": {
+      "language_same_only_hybrid": {
+        "label": "Query-language only",
+        "style": "query_only",
+        "config_hash": "sha256:11831df6107d9a727ad379c54d8e4ff68a91dac5db083510bc0f11b213453361"
+      },
+      "language_cross_lingual_hybrid": {
+        "label": "Cross-lingual",
+        "style": "cross_lingual",
+        "config_hash": "sha256:30d7e400b7007b5073efc9b91e791c1619cb8fc71c4d1f76fec031d8ed1926cc"
+      },
+      "language_query_complete_hybrid": {
+        "label": "Query complete",
+        "style": "global",
+        "config_hash": "sha256:66d33a3ca260ba521610e70918c91d6e7dfeba44bdd5b6bc9581fb8cd9235c32",
+        "selected": false,
+        "selection_path": "configs/thesis/retrieval_decisions/language_policy_language_swap.yaml",
+        "selection_sha256": "sha256:8cea52f8f55eab67efd83631a689d27b12637274d4cb3b292b79d4ecc23d45b9"
+      },
+      "language_cross_lingual_counterpart_dedup_hybrid": {
+        "label": "Cross-lingual + dedup.",
+        "style": "dedup",
+        "config_hash": "sha256:d80db9341b6acfbe792fec136ebe46bf8518a2de1fafb2d28a59faa295d43796",
+        "retained_policy": {
+          "source": "language_signal",
+          "experiment": "cross_lingual_dedup_correct",
+          "fields": [
+            "language_policy",
+            "counterpart_deduplication"
+          ]
+        }
+      }
+    },
+    "language_signal": {
+      "query_complete_correct": {
+        "label": "Query complete / correct",
+        "style": "global",
+        "config_hash": "sha256:3cff6eb28abf4d4e96d0e944f41f5536fddb9439469d290fabba75dea62c0ba3",
+        "selected": false
+      },
+      "query_complete_always_de": {
+        "label": "Query complete / always de",
+        "style": "global",
+        "config_hash": "sha256:96bd4e35d4cbad9f1e9c3a53e51696565ffdd11c8b2da2f849831890aa44d72f",
+        "selected": false
+      },
+      "query_complete_always_en": {
+        "label": "Query complete / always en",
+        "style": "global",
+        "config_hash": "sha256:01b0f71f0e2229261b432868d89c1ee462ae7ba5fe80d0e877ed0d241957d1c7",
+        "selected": false
+      },
+      "query_complete_swapped": {
+        "label": "Query complete / swapped",
+        "style": "global",
+        "config_hash": "sha256:d34a659ace948892414f677d868ff73cae77c87b9a53af0f170d171a81c09fec",
+        "selected": false
+      },
+      "cross_lingual_correct": {
+        "label": "Cross-lingual / correct",
+        "style": "cross_lingual",
+        "config_hash": "sha256:3ff684922deb1caa0ede8b53ce9213f797e5013e010509dcdb274e48edaff509"
+      },
+      "cross_lingual_always_de": {
+        "label": "Cross-lingual / always de",
+        "style": "cross_lingual",
+        "config_hash": "sha256:676d4955b9f7c379a0831179966005a10eaa07a248756d4679ec641cf3b86ec7"
+      },
+      "cross_lingual_always_en": {
+        "label": "Cross-lingual / always en",
+        "style": "cross_lingual",
+        "config_hash": "sha256:392eee70079331fc20999a04d8c78b3e902f48dff2d9a1f9a9e2a63a5831ed2d"
+      },
+      "cross_lingual_swapped": {
+        "label": "Cross-lingual / swapped",
+        "style": "cross_lingual",
+        "config_hash": "sha256:78a89122911a4375c3ef9e93719613309af047c0d1ec006f491a3e1a85879fcb"
+      },
+      "cross_lingual_dedup_correct": {
+        "label": "Cross-lingual + dedup. / correct",
+        "style": "dedup",
+        "config_hash": "sha256:1cb18c33b0c83d7bace4dbe8ab0627b23c30b6c762d65e31c97a9f29142300c9",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/language_signal.yaml",
+        "selection_sha256": "sha256:e1f39f9eb85df3de7edde615e64ac183f363eb3b3f826a50452e81beab2afc7e"
+      },
+      "cross_lingual_dedup_always_de": {
+        "label": "Cross-lingual + dedup. / always de",
+        "style": "dedup",
+        "config_hash": "sha256:a36dfc622b56463477a18f857720553313f7f34ec11d43576d80944e03b84f87"
+      },
+      "cross_lingual_dedup_always_en": {
+        "label": "Cross-lingual + dedup. / always en",
+        "style": "dedup",
+        "config_hash": "sha256:7687b93cb6b725400092673d05a7ddfe188ab03323076c92fd10ae61a0f9f1ec"
+      },
+      "cross_lingual_dedup_swapped": {
+        "label": "Cross-lingual + dedup. / swapped",
+        "style": "dedup",
+        "config_hash": "sha256:a6e72c853dc5b965377a6b33aa7f321316615ed1c6eb820e85238465727929bd"
+      }
+    },
+    "rrf_query": {
+      "content_rrf_k10": {
+        "label": "RRF constant 10",
+        "style": "global",
+        "config_hash": "sha256:26e5c65c21d6c5b8c45f67d1d0306c1858dc2af0fe1e5ba17922fbe7e6b1fc5f",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/rrf_constant.yaml",
+        "selection_sha256": "sha256:5d6ec87af8ae1b64bc26a8d989b4d2afc2500670d299f1d9507ffe493865ae8a"
+      },
+      "content_rrf_k30": {
+        "label": "RRF constant 30",
+        "style": "secondary",
+        "config_hash": "sha256:c9e4e6a729917693b751efad851d2a8c882e82104e9ac48456ef9e2e82c0d131"
+      },
+      "content_rrf_k60": {
+        "label": "RRF constant 60",
+        "style": "secondary",
+        "config_hash": "sha256:66d33a3ca260ba521610e70918c91d6e7dfeba44bdd5b6bc9581fb8cd9235c32"
+      },
+      "content_rrf_k100": {
+        "label": "RRF constant 100",
+        "style": "secondary",
+        "config_hash": "sha256:d4325a91014c78801628cdb8c9233d49c30b6f197e1ca545649ae02870a4c3d2"
+      }
+    },
+    "rrf_dedup5": {
+      "content_rrf_dedup_k10": {
+        "label": "RRF constant 10",
+        "style": "secondary",
+        "config_hash": "sha256:1cb18c33b0c83d7bace4dbe8ab0627b23c30b6c762d65e31c97a9f29142300c9"
+      },
+      "content_rrf_dedup_k30": {
+        "label": "RRF constant 30",
+        "style": "secondary",
+        "config_hash": "sha256:6d0d095bd5a12c324573d1f347017500a72a07d64e3f274ded6decc6c6559b5f"
+      },
+      "content_rrf_dedup_k60": {
+        "label": "RRF constant 60",
+        "style": "secondary",
+        "config_hash": "sha256:c2287d7570d68f597e6510d827880beb4c486671b018e3d601081d546c433629"
+      },
+      "content_rrf_dedup_k100": {
+        "label": "RRF constant 100",
+        "style": "secondary",
+        "config_hash": "sha256:008dd27222fad3e8b57f98312360de3ddda008d3a82f7b65f3c3272955880b21"
+      }
+    },
+    "rrf_dedup20": {
+      "content_rrf_dedup_k10": {
+        "label": "RRF constant 10",
+        "style": "secondary",
+        "config_hash": "sha256:2d66cca749fa2bda359b44b193d8b8ee2ad269c40e7e848997d6187de12dbc50"
+      },
+      "content_rrf_dedup_k30": {
+        "label": "RRF constant 30",
+        "style": "global",
+        "config_hash": "sha256:f006f6bf7b70585864827dc6bc5bae40268427ff62ce44cf04a6bfbb3a2c8e86",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/rrf_constant_dedup_top20.yaml",
+        "selection_sha256": "sha256:591f65d871e48d952a0ffa232ba9dab7f8e5cac89b8113b458c63ebefd739380"
+      },
+      "content_rrf_dedup_k60": {
+        "label": "RRF constant 60",
+        "style": "secondary",
+        "config_hash": "sha256:ea21ac6d73edb0c20941c8f2db8728413b078802819c445922c2b699d5fd14b3"
+      },
+      "content_rrf_dedup_k100": {
+        "label": "RRF constant 100",
+        "style": "secondary",
+        "config_hash": "sha256:8387e1a2e4e2fbec1382fb86abd530df8d0f5f64f36770491e4c96821664be8e"
+      }
+    },
+    "architecture": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      },
+      "legacy_no_routing": {
+        "label": "Baseline, no routing",
+        "style": "baseline_no_routing",
+        "config_hash": "sha256:959ef81e1797fc26fb3f9fafa7aa73130a7db2bdbc39c043ce4f0a83175d3bd4"
+      },
+      "legacy_gold_intent_diagnostic": {
+        "label": "Baseline, oracle intent",
+        "style": "oracle",
+        "config_hash": "sha256:c95c685b225bdca17a65ab63c27e2f8674c51bbc4d4e2668caac01cca3ee72c3"
+      },
+      "modern_dense": {
+        "label": "BGE-M3",
+        "style": "dense",
+        "config_hash": "sha256:65e489263fbd139264b2010ae825eaf7dd338330530dd675be829159e3637181"
+      },
+      "modern_sparse": {
+        "label": "BM25",
+        "style": "sparse",
+        "config_hash": "sha256:6a777700ffc737b184501a315e753004e0880f8c67fb9b774126fc271eec8a7f"
+      },
+      "modern_hybrid_k10": {
+        "label": "Hybrid RRF (10)",
+        "style": "global",
+        "config_hash": "sha256:72ff48a7e4558404b256aeb1b00135ce836ae4c350d8d20eef39e1a4be57e46f"
+      }
+    },
+    "rerankers": {
+      "reranker_none": {
+        "label": "No reranking",
+        "style": "baseline",
+        "config_hash": "sha256:f006f6bf7b70585864827dc6bc5bae40268427ff62ce44cf04a6bfbb3a2c8e86"
+      },
+      "reranker_bge_v2_m3": {
+        "label": "BGE v2-m3",
+        "style": "bge",
+        "config_hash": "sha256:33974bb1677e8de230e771928581b6e343cd0b82b81b1d84b4b65d1303608da2"
+      },
+      "reranker_qwen3_06b": {
+        "label": "Qwen3 0.6B",
+        "style": "qwen",
+        "config_hash": "sha256:98e656a082f91656d6d03352fd89cb37a64bcef03830a010924fbadcc34764d7"
+      },
+      "reranker_qwen3_4b": {
+        "label": "Qwen3 4B",
+        "style": "qwen",
+        "config_hash": "sha256:cdd06e5050b0d831143c5be06b44ac32c6c2720f833594a2c1fd04fe1d316c90"
+      },
+      "reranker_qwen3_8b": {
+        "label": "Qwen3 8B",
+        "style": "qwen",
+        "config_hash": "sha256:ecf356e11abd7f1efef605b2dba738403cec1400f0380566c320e9c5c486aa4d"
+      },
+      "reranker_querit_4b": {
+        "label": "Querit 4B",
+        "style": "querit",
+        "config_hash": "sha256:6bb97c73aa6710941c0f285540b6a9e10d35a53f7ea0920059c05e8928924580"
+      },
+      "reranker_gte_multilingual": {
+        "label": "GTE multilingual",
+        "style": "gte",
+        "config_hash": "sha256:0ba4289841e786d464e5af05ce7a3f6e2928f16c029c66b419dc802f5287cb0c"
+      },
+      "reranker_nemotron_1b": {
+        "label": "Nemotron 1B",
+        "style": "nemotron_plain",
+        "config_hash": "sha256:57d7191a89f249b2c733bef14ca41446f28740618c45440fcc001b1f4b1c1e08"
+      },
+      "reranker_minilm": {
+        "label": "MiniLM",
+        "style": "minilm",
+        "config_hash": "sha256:d0505b4c463ce3ff80a7d224a7782262b80b8eccaa785eb02c48286395718f9d"
+      },
+      "reranker_qwen3_06b_tu": {
+        "label": "Qwen3 0.6B + TU instruction",
+        "style": "qwen",
+        "config_hash": "sha256:b41e9454f6806285c43888a3541cfd6ce0c45e0939998d30d17915efb1d34277",
+        "marker": "v",
+        "linestyle": "--"
+      },
+      "reranker_qwen3_4b_tu": {
+        "label": "Qwen3 4B + TU instruction",
+        "style": "qwen",
+        "config_hash": "sha256:c8efc9ad4c266bebb869847d3b3f42a5a513b87b3e855b40a3b5ec956dd7aeab",
+        "marker": "v",
+        "linestyle": "--"
+      },
+      "reranker_qwen3_8b_tu": {
+        "label": "Qwen3 8B + TU instruction",
+        "style": "qwen",
+        "config_hash": "sha256:fc476043120091733daaa37f7e0425774e1459a4b1136f10c100a395094d193b",
+        "marker": "v",
+        "linestyle": "--"
+      },
+      "reranker_mixedbread_base": {
+        "label": "Mixedbread base",
+        "style": "mixedbread",
+        "config_hash": "sha256:233295a193141a8d129c66e647bb712a61ad50b147846d5ceb77116662130ddf"
+      },
+      "reranker_mixedbread_large": {
+        "label": "Mixedbread large",
+        "style": "mixedbread",
+        "config_hash": "sha256:4673bcc930b1650add6e1b35d3fe83ca35eb0aeda76c5266e39322fff57b72c6"
+      },
+      "reranker_querit_moe": {
+        "label": "Querit MoE",
+        "style": "querit",
+        "config_hash": "sha256:faff3ae7ba876908e9cc2f9b6fb534d7cea2f9135345bba6c5e857d3145c1141"
+      },
+      "reranker_jina_v35": {
+        "label": "Jina v3.5",
+        "style": "jina",
+        "config_hash": "sha256:e0cea710370a932b92bb4543f842d2df656358a315e57b64803c762e2d36e8ff"
+      },
+      "reranker_zerank_2": {
+        "label": "ZeRank-2",
+        "style": "zerank_plain",
+        "config_hash": "sha256:ff7ae9712638758b45f9fe89b245cf2b0de2f6608af0666904bac2695925ceca",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/rerankers.yaml",
+        "selection_sha256": "sha256:f6539bfe5b60ee1bd120f71420e74fe98c57ba1b4397cec96527ad976b990af8"
+      },
+      "reranker_qwen3_06b_metadata": {
+        "label": "Qwen3 0.6B + titles/headings",
+        "style": "qwen",
+        "config_hash": "sha256:b2ebfab79a9f156ead9732de51657c424ffc1bb67a7600a36f65a52ff5dfc9a2",
+        "marker": "D"
+      },
+      "reranker_qwen3_4b_metadata": {
+        "label": "Qwen3 4B + titles/headings",
+        "style": "qwen",
+        "config_hash": "sha256:633fa70ed9a0e3b11fb5c5d8a2679ddb592f8d364e3e0b2567402c1d76a8132b",
+        "marker": "D"
+      },
+      "reranker_zerank_2_metadata": {
+        "label": "ZeRank-2 + titles/headings",
+        "style": "zerank",
+        "config_hash": "sha256:5844fcd4f689f08805a88b902229bc7bbffd022dfe48dbdee628ca5c9d0c60cb",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/rerankers.yaml",
+        "selection_sha256": "sha256:f6539bfe5b60ee1bd120f71420e74fe98c57ba1b4397cec96527ad976b990af8"
+      },
+      "reranker_bge_v2_m3_metadata": {
+        "label": "BGE v2-m3 + titles/headings",
+        "style": "bge",
+        "config_hash": "sha256:ea05415a3db3ede89d537e7c393c6207379987810cc9f763f31a932771ee5c14",
+        "marker": "D"
+      },
+      "reranker_nemotron_1b_metadata": {
+        "label": "Nemotron 1B + titles/headings",
+        "style": "global",
+        "config_hash": "sha256:5d0644fe53b5c9971799a6f3344691122005873d949fe7964e520e00cc397782",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/rerankers.yaml",
+        "selection_sha256": "sha256:f6539bfe5b60ee1bd120f71420e74fe98c57ba1b4397cec96527ad976b990af8"
+      },
+      "reranker_qwen3_4b_tu_metadata": {
+        "label": "Qwen3 4B + TU + titles/headings",
+        "style": "qwen",
+        "config_hash": "sha256:5e69095c191b7ed68fc419a3d83e211ef94f534130ef4c186caa14156e9ad02e",
+        "marker": "P"
+      },
+      "reranker_qwen3_8b_metadata": {
+        "label": "Qwen3 8B + titles/headings",
+        "style": "qwen",
+        "config_hash": "sha256:3c1b9acfe13c7a18344022fd122c061a81dfe6faccee5d03529a608e16518ae3",
+        "marker": "D"
+      }
+    },
+    "reranker_pilot": {
+      "reranker_none": {
+        "label": "No reranking",
+        "style": "baseline",
+        "config_hash": "sha256:f006f6bf7b70585864827dc6bc5bae40268427ff62ce44cf04a6bfbb3a2c8e86"
+      },
+      "reranker_qwen3_06b": {
+        "label": "Qwen3 0.6B",
+        "style": "secondary",
+        "config_hash": "sha256:98e656a082f91656d6d03352fd89cb37a64bcef03830a010924fbadcc34764d7"
+      }
+    },
+    "validation": {
+      "modern_hybrid": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:f006f6bf7b70585864827dc6bc5bae40268427ff62ce44cf04a6bfbb3a2c8e86"
+      },
+      "reranker_zerank_2_metadata": {
+        "label": "ZeRank-2 + titles/headings",
+        "style": "zerank",
+        "config_hash": "sha256:5844fcd4f689f08805a88b902229bc7bbffd022dfe48dbdee628ca5c9d0c60cb"
+      },
+      "reranker_nemotron_1b_metadata": {
+        "label": "Nemotron 1B + titles/headings",
+        "style": "global",
+        "config_hash": "sha256:5d0644fe53b5c9971799a6f3344691122005873d949fe7964e520e00cc397782"
+      },
+      "modern_fixed_hybrid": {
+        "label": "Hybrid, fixed chunks",
+        "style": "secondary",
+        "config_hash": "sha256:bca272e4b4cc4e3ea8c06d28d890d1e6d26a3ce923fb56a8d27f2d42a0fdc432"
+      },
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      }
+    },
+    "parent_routing": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/parent_routing.yaml",
+        "selection_sha256": "sha256:decadb110aa928e90bf41b31070f30fe24095724a197c9c8108a97554048ee69"
+      },
+      "hybrid_page_metadata": {
+        "label": "Global + page metadata",
+        "style": "page_metadata",
+        "config_hash": "sha256:3a2d6355a20765b33c016668f8055d176b219b897925d4d0e4107ef9c768ced2"
+      },
+      "hybrid_page_summary": {
+        "label": "Global + page summaries",
+        "style": "summary",
+        "config_hash": "sha256:5fbc326add396220d96af170eb729fb34c6c3a7ac944a3c4c6ff24bc79372023",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/parent_routing.yaml",
+        "selection_sha256": "sha256:decadb110aa928e90bf41b31070f30fe24095724a197c9c8108a97554048ee69"
+      },
+      "hybrid_group_metadata": {
+        "label": "Global + group metadata",
+        "style": "group_metadata",
+        "config_hash": "sha256:4d3349afb1c30ed5fdc50c1f40e3998d53d6e50e3644a397322ef4a9320b3035"
+      },
+      "hybrid_group_summary": {
+        "label": "Global + group summaries",
+        "style": "group_summary",
+        "config_hash": "sha256:4f13c9411179c940ea1386d2ed0be7df4d7f98fa7a5d28dfe3da40bb91e163a1",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/parent_routing.yaml",
+        "selection_sha256": "sha256:decadb110aa928e90bf41b31070f30fe24095724a197c9c8108a97554048ee69"
+      },
+      "page_only": {
+        "label": "Page routing only",
+        "style": "secondary",
+        "config_hash": "sha256:76332edb948949113f421cbb7bb5ec857ee38f8951dbe987db787d5882ead1d6"
+      },
+      "group_only": {
+        "label": "Group routing only",
+        "style": "secondary",
+        "config_hash": "sha256:6e9b8523f83990a6a0202d2cbc98138c929519bad75986e4d63191172831e886"
+      },
+      "page_group": {
+        "label": "Page + group routing",
+        "style": "secondary",
+        "config_hash": "sha256:f793c4b6930ab2cfcaf86389fa1d7447c32cdb4429e2f5c9dfc2a18ca49900b3"
+      },
+      "hybrid_page_group": {
+        "label": "Global + page + group",
+        "style": "secondary",
+        "config_hash": "sha256:00f1c4b3f1f5cd7b9362081c4ed68a5d97d4eb59f55ac7d59c4570d074924a36"
+      },
+      "hierarchical": {
+        "label": "Hierarchical routing",
+        "style": "secondary",
+        "config_hash": "sha256:ab7a5f913bb24976495f7b54004c8b72c557be6c696d9869735141105c507108"
+      }
+    },
+    "main_nlu": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/main_nlu.yaml",
+        "selection_sha256": "sha256:d553d55c2f7aa2b6defbc52213490b8955b13eb6de6b1c7cdf56dcd9064dfd61"
+      },
+      "main_nlu_hard": {
+        "label": "Main NLU: hard routing",
+        "style": "nlu_hard",
+        "config_hash": "sha256:54a3171af44893791e48b22b2b79603d3debbd9e3f106bce0e054d0191b7357a"
+      },
+      "main_nlu_additive": {
+        "label": "Main NLU + global RRF",
+        "style": "nlu",
+        "config_hash": "sha256:4b7781c60c8e47680df090ec57145a4221e39128d6a27d6d953acc0e6c6b8aa8",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/main_nlu.yaml",
+        "selection_sha256": "sha256:d553d55c2f7aa2b6defbc52213490b8955b13eb6de6b1c7cdf56dcd9064dfd61"
+      }
+    },
+    "log_development": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      },
+      "legacy_no_routing": {
+        "label": "Baseline, no routing",
+        "style": "baseline_no_routing",
+        "config_hash": "sha256:959ef81e1797fc26fb3f9fafa7aa73130a7db2bdbc39c043ce4f0a83175d3bd4"
+      },
+      "hybrid_without_reranker": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:d12ea8d50f751c6155a2eac53989df07077c153058621ba966b8a4615a45081c"
+      },
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c",
+        "retained_policy": {
+          "source": "log_development_selection",
+          "experiment": "global_hybrid",
+          "fields": [
+            "system_id",
+            "top_k",
+            "chunker_id",
+            "representation_fields",
+            "language_policy",
+            "counterpart_deduplication",
+            "candidate_k",
+            "rrf_rank_constant",
+            "page_routing_top_p",
+            "context_policy",
+            "context_token_budget",
+            "enabled_components"
+          ]
+        }
+      },
+      "hybrid_zerank": {
+        "label": "Global ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:279c0d122c2b60d508617d6fc460359df64de79560629230def76cf13c4316a7",
+        "retained_policy": {
+          "source": "log_development_selection",
+          "experiment": "hybrid_zerank",
+          "fields": [
+            "system_id",
+            "top_k",
+            "chunker_id",
+            "representation_fields",
+            "language_policy",
+            "counterpart_deduplication",
+            "candidate_k",
+            "rrf_rank_constant",
+            "page_routing_top_p",
+            "context_policy",
+            "context_token_budget",
+            "enabled_components"
+          ]
+        }
+      },
+      "hybrid_group_summary": {
+        "label": "Global + group summaries",
+        "style": "group_summary",
+        "config_hash": "sha256:4f13c9411179c940ea1386d2ed0be7df4d7f98fa7a5d28dfe3da40bb91e163a1"
+      },
+      "hybrid_page_summary": {
+        "label": "Global + page summaries",
+        "style": "summary",
+        "config_hash": "sha256:5fbc326add396220d96af170eb729fb34c6c3a7ac944a3c4c6ff24bc79372023"
+      },
+      "main_nlu_hard": {
+        "label": "Main NLU: hard routing",
+        "style": "nlu_hard",
+        "config_hash": "sha256:54a3171af44893791e48b22b2b79603d3debbd9e3f106bce0e054d0191b7357a"
+      },
+      "main_nlu_additive": {
+        "label": "Main NLU + global RRF",
+        "style": "nlu",
+        "config_hash": "sha256:4b7781c60c8e47680df090ec57145a4221e39128d6a27d6d953acc0e6c6b8aa8",
+        "retained_policy": {
+          "source": "log_development_selection",
+          "experiment": "main_nlu_additive",
+          "fields": [
+            "system_id",
+            "top_k",
+            "chunker_id",
+            "representation_fields",
+            "language_policy",
+            "counterpart_deduplication",
+            "candidate_k",
+            "rrf_rank_constant",
+            "page_routing_top_p",
+            "context_policy",
+            "context_token_budget",
+            "enabled_components"
+          ]
+        }
+      }
+    },
+    "priority_downstream": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "main_nlu_additive": {
+        "label": "Main NLU + global RRF",
+        "style": "nlu",
+        "config_hash": "sha256:593ad7b46f1240ae693d5c073748703b08f574a23c900f4f6d28776a4a4b9199"
+      },
+      "fixed_topic_branch": {
+        "label": "Priority/global branch",
+        "style": "priority_branch",
+        "config_hash": "sha256:e1265401d726fd50213f01f2bf2f366b760712bbc886d0c0945e952eaa13e44d"
+      },
+      "fixed_topic_only": {
+        "label": "Priority scope only",
+        "style": "priority_scope",
+        "config_hash": "sha256:3106877f7f04a1464f5f8f8945d242cb0a9c28bd197f51b33ed0fa7786eabf1b"
+      },
+      "priority_page_metadata": {
+        "label": "Priority page: metadata",
+        "style": "page_metadata",
+        "config_hash": "sha256:ff3b52b2c9bbd40ed6e9ed625b894241bf7e353c2a74cc2a12eebe5a99e72fbd"
+      },
+      "priority_page_summary": {
+        "label": "Priority page: summaries",
+        "style": "summary",
+        "config_hash": "sha256:e5ded0acb35c1e643d57f601a3010563b07809da37ba46a8a11f18497f170df5"
+      },
+      "priority_group_metadata": {
+        "label": "Priority group: metadata",
+        "style": "group_metadata",
+        "config_hash": "sha256:f48e5299025bb6001b07dde55b7c1e365c0af0358c701bde9db31c694c90b3aa"
+      },
+      "priority_group_summary": {
+        "label": "Priority group: summaries",
+        "style": "group_summary",
+        "config_hash": "sha256:009cfb755958908bd8b43d146b461b87a59e9c79ca46ffef8986d0062cb41200"
+      }
+    },
+    "priority_union": {
+      "global_hybrid": {
+        "label": "Global candidates only",
+        "style": "global",
+        "config_hash": "sha256:508b80573d8c335ee9813eebbe946ec668936e102dc0ac4a79acfacafb58c441"
+      },
+      "fixed_topic_rrf_2_1": {
+        "label": "Priority/global fusion (2:1)",
+        "style": "secondary",
+        "config_hash": "sha256:54464ee8a1c30e27dd24e60352ebed3e7080747e6feed6dcb1c374962c528bb4"
+      },
+      "priority_union_25": {
+        "label": "Global + 25 Priority candidates",
+        "style": "priority",
+        "config_hash": "sha256:06b22242d85b8ce82dafe81305f232458d0d5cd699cc100d1f5589f617cf735f"
+      },
+      "priority_union_100": {
+        "label": "Global + 100 Priority candidates",
+        "style": "priority_union_large",
+        "config_hash": "sha256:c183ac94909c319c9e0caa0ff641fc946b6378f3b36e9e69001536629643f0c4"
+      }
+    },
+    "priority_navigation": {
+      "main_nlu": {
+        "label": "Main NLU",
+        "style": "nlu",
+        "config_hash": "sha256:de2291ebb8d6c30b4c1a0c1f8c62a75f418ed7ec8a80461a9243f910ed3fc199"
+      },
+      "backup_full": {
+        "label": "Backup NLU",
+        "style": "baseline",
+        "config_hash": "sha256:1907d226fa7bdd9c2d261a0cdad6c41c0f5a0499ba2176421f897e25c86679de"
+      },
+      "modern_full": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:33327e06dc0269a8e6e0b442757d29d17791a93dea2571a1d9917c10b6771610"
+      },
+      "modern_nemotron_full": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:23f7b3aedbffbf3a6e516514cf973b1a02786a36f3202311bb83a2c6491a2a5e"
+      },
+      "page_metadata_full": {
+        "label": "Page table: metadata",
+        "style": "page_metadata",
+        "config_hash": "sha256:d7b54afcf2dc8f2b053daaee97ab3dc37526f96ad4435980e91517191dad695e"
+      },
+      "page_summary_full": {
+        "label": "Page table: summaries",
+        "style": "summary",
+        "config_hash": "sha256:89dec4c57c6629d96030b668179bf5a5dd0dfaed17452698283c423ab10883ce"
+      },
+      "group_metadata_full": {
+        "label": "Group table: metadata",
+        "style": "group_metadata",
+        "config_hash": "sha256:59a5820b6e46c5994e0562714b70e6265e1fbcf6066764d722beebd8946a5189"
+      },
+      "group_summary_full": {
+        "label": "Group table: summaries",
+        "style": "group_summary",
+        "config_hash": "sha256:7a4f8620293d78da00b9e81e42bb585d6f66a0b25067e944d46695500fa5b8bb"
+      },
+      "backup_restricted": {
+        "label": "Backup NLU (catalogue)",
+        "style": "baseline",
+        "config_hash": "sha256:5a924fb4e97b923d7bf497bb79d496c9fb4dee99f9a1010aff8d516e011cffa7"
+      },
+      "modern_restricted": {
+        "label": "Hybrid, no reranking (catalogue)",
+        "style": "hybrid",
+        "config_hash": "sha256:ca761387f8833aa28a52fb7fd8d6dfd7a2f8b893f5dc9a226a3e3e59d07b8a3c"
+      },
+      "modern_nemotron_restricted": {
+        "label": "Global Nemotron (catalogue)",
+        "style": "global",
+        "config_hash": "sha256:d497e5738700420a521d056736f11ef86c39e2d3d9a815680695e164e283afeb"
+      },
+      "page_metadata_restricted": {
+        "label": "Page table: metadata (catalogue)",
+        "style": "page_metadata",
+        "config_hash": "sha256:532407d7bdb5be917bf94c79df4eb9c7713cc590e4c060f7f017e18b989e4290"
+      },
+      "page_summary_restricted": {
+        "label": "Page table: summaries (catalogue)",
+        "style": "summary",
+        "config_hash": "sha256:6c1782ba481d459fc11834f7b0824b1810ef332c43b5bf41ebd07248d26f4c6f"
+      },
+      "group_metadata_restricted": {
+        "label": "Group table: metadata (catalogue)",
+        "style": "group_metadata",
+        "config_hash": "sha256:144e73d9e76b6dd5d9c526844fbaf0ec84e2e5c30442426ac89436a471c62a8d"
+      },
+      "group_summary_restricted": {
+        "label": "Group table: summaries (catalogue)",
+        "style": "group_summary",
+        "config_hash": "sha256:bdf4d80d28829d390705d0bd24bcbabf9c4d78c721de5950a5a4f7aeba07951b"
+      },
+      "modern_nemotron_priority_depth5": {
+        "label": "Priority retrieval + Nemotron",
+        "style": "priority",
+        "config_hash": "sha256:a413d9aa967a88e93a81130d1a8dd348982a9585075a0a608c46049b4eb83632"
+      },
+      "modern_zerank_full": {
+        "label": "Global ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:434f7db8c5a5c922a91e9e4267837120b3afb8f4f715737e2404d780b8ec5c32"
+      },
+      "modern_zerank_priority_depth5": {
+        "label": "Priority scope: ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:b57582a81fbbc3f0e76f3d2db4048d57c351e9a316d03ca3d461d13ee604d42e"
+      }
+    },
+    "priority_reservation": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "main_nlu_additive": {
+        "label": "Main NLU + global RRF",
+        "style": "nlu",
+        "config_hash": "sha256:593ad7b46f1240ae693d5c073748703b08f574a23c900f4f6d28776a4a4b9199"
+      },
+      "main_nlu_union_25": {
+        "label": "NLU union: 25 candidates",
+        "style": "nlu",
+        "config_hash": "sha256:6bf301eeb998121b9e8b6ffacfd580530154cd34ee1f8e996b79be7701dc3887"
+      },
+      "main_nlu_protected_3": {
+        "label": "NLU: 3 reserved slots",
+        "style": "nlu",
+        "config_hash": "sha256:6cb66acae2232db2aa0d5d1e06007236ddd197d0d41431b5804622ed6e3649f0"
+      },
+      "group_children_3": {
+        "label": "Group: 3 reserved slots",
+        "style": "secondary",
+        "config_hash": "sha256:f0771c6bb07543cc0162280ed00173044a5ba3c542d055d591f4cd8f4b8ae957"
+      },
+      "fixed_children_3": {
+        "label": "Priority: 3 slots, depth 3",
+        "style": "secondary",
+        "config_hash": "sha256:435db2dc3a8a6371a551e8c151a45a4aae1011ca1aea06dd6c7d62f1b8a83875"
+      },
+      "main_nlu_topic_fallback_3": {
+        "label": "NLU/Priority: 3 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:7828f498f3b45bc2cdfb1613b9b64d18a224aae748ab0c83b59a51b6f40271cf"
+      },
+      "main_nlu_topic_fallback_10": {
+        "label": "NLU/Priority: 10 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:223b13c596de122abf34405f3dc94148cfc8e0f29e24c1a8a928536f992b0f5f"
+      },
+      "fixed_children_depth5_3": {
+        "label": "Global + Priority (3 first)",
+        "style": "priority",
+        "config_hash": "sha256:1c97ab42489288f9555d77f5f59d73dd626d4837cff01224638fff4458e11f50"
+      },
+      "main_nlu_topic_fallback_depth5_10": {
+        "label": "NLU/Priority: 10 slots, depth 5",
+        "style": "nlu",
+        "config_hash": "sha256:50a1934967d5d4083dfa183c3b85241b3a1499c07a29ecced2467d4db66f2431"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:fc2649957e8ae9bf683459d430c96c97f32d0d9b4a8a8dc9418b398717e7d074"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:2b3163473a33e3197996d86ae2e7b1f468775dd69efb6ba884d180acd0edaf64"
+      }
+    },
+    "priority_synthetic": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "main_nlu_topic_fallback_3": {
+        "label": "NLU/Priority: 3 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:7828f498f3b45bc2cdfb1613b9b64d18a224aae748ab0c83b59a51b6f40271cf"
+      },
+      "main_nlu_topic_fallback_10": {
+        "label": "NLU/Priority: 10 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:223b13c596de122abf34405f3dc94148cfc8e0f29e24c1a8a928536f992b0f5f"
+      },
+      "fixed_children_depth5_3": {
+        "label": "Global + Priority (3 first)",
+        "style": "priority",
+        "config_hash": "sha256:1c97ab42489288f9555d77f5f59d73dd626d4837cff01224638fff4458e11f50"
+      },
+      "main_nlu_topic_fallback_depth5_10": {
+        "label": "NLU/Priority: 10 slots, depth 5",
+        "style": "nlu",
+        "config_hash": "sha256:50a1934967d5d4083dfa183c3b85241b3a1499c07a29ecced2467d4db66f2431"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:fc2649957e8ae9bf683459d430c96c97f32d0d9b4a8a8dc9418b398717e7d074"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:2b3163473a33e3197996d86ae2e7b1f468775dd69efb6ba884d180acd0edaf64"
+      }
+    },
+    "priority_logs": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "main_nlu_topic_fallback_3": {
+        "label": "NLU/Priority: 3 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:7828f498f3b45bc2cdfb1613b9b64d18a224aae748ab0c83b59a51b6f40271cf"
+      },
+      "main_nlu_topic_fallback_10": {
+        "label": "NLU/Priority: 10 slots, depth 3",
+        "style": "nlu",
+        "config_hash": "sha256:223b13c596de122abf34405f3dc94148cfc8e0f29e24c1a8a928536f992b0f5f"
+      },
+      "fixed_children_depth5_3": {
+        "label": "Global + Priority (3 first)",
+        "style": "priority",
+        "config_hash": "sha256:1c97ab42489288f9555d77f5f59d73dd626d4837cff01224638fff4458e11f50"
+      },
+      "main_nlu_topic_fallback_depth5_10": {
+        "label": "NLU/Priority: 10 slots, depth 5",
+        "style": "nlu",
+        "config_hash": "sha256:50a1934967d5d4083dfa183c3b85241b3a1499c07a29ecced2467d4db66f2431"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:fc2649957e8ae9bf683459d430c96c97f32d0d9b4a8a8dc9418b398717e7d074"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:2b3163473a33e3197996d86ae2e7b1f468775dd69efb6ba884d180acd0edaf64"
+      }
+    },
+    "final_synthetic": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      },
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "global_priority": {
+        "label": "Global + Priority",
+        "style": "priority",
+        "config_hash": "sha256:684802e62c03cb8e59e491ecc888569e82a79e9b54d81d48bb0268574cfb84a2"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:05a0f39963e90c17671c88d2f0f28767990e33b0ce6bb54c6eef96a5ab74d4a9"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank-2",
+        "style": "zerank",
+        "config_hash": "sha256:32002adf9a2d0f8b7e57ddb766d67ad479da4464de7139b93571e0358ef04a49"
+      }
+    },
+    "final_logs_interim": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:69e9882d62612fd1b9b98aceaacd110a5e988f9976ec5f96dfab4efd7dcd9b32"
+      },
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "global_priority": {
+        "label": "Global + Priority",
+        "style": "priority",
+        "config_hash": "sha256:684802e62c03cb8e59e491ecc888569e82a79e9b54d81d48bb0268574cfb84a2"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:05a0f39963e90c17671c88d2f0f28767990e33b0ce6bb54c6eef96a5ab74d4a9"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank-2",
+        "style": "zerank",
+        "config_hash": "sha256:32002adf9a2d0f8b7e57ddb766d67ad479da4464de7139b93571e0358ef04a49"
+      }
+    },
+    "final_logs_corrected_1000": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      },
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c"
+      },
+      "global_priority": {
+        "label": "Global + Priority",
+        "style": "priority",
+        "config_hash": "sha256:684802e62c03cb8e59e491ecc888569e82a79e9b54d81d48bb0268574cfb84a2"
+      },
+      "nlu_priority_nemotron": {
+        "label": "NLU/Priority Nemotron",
+        "style": "nlu",
+        "config_hash": "sha256:05a0f39963e90c17671c88d2f0f28767990e33b0ce6bb54c6eef96a5ab74d4a9"
+      },
+      "nlu_priority_zerank": {
+        "label": "NLU/Priority ZeRank-2",
+        "style": "zerank",
+        "config_hash": "sha256:32002adf9a2d0f8b7e57ddb766d67ad479da4464de7139b93571e0358ef04a49"
+      }
+    },
+    "navigation_manual": {
+      "backup_full": {
+        "label": "Backup NLU",
+        "style": "baseline",
+        "config_hash": "sha256:1907d226fa7bdd9c2d261a0cdad6c41c0f5a0499ba2176421f897e25c86679de"
+      },
+      "modern_full": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:4abece78952d5a890f74a9dcfad8d4271081dbd740878351bc64311e5b79a25d"
+      },
+      "modern_dense_full": {
+        "label": "BGE-M3",
+        "style": "dense",
+        "config_hash": "sha256:b5e8ca1d6c69faef1b8f8d71777dbf170ecc237ea3b62479a403d6823ac92529"
+      },
+      "modern_bm25_full": {
+        "label": "BM25",
+        "style": "sparse",
+        "config_hash": "sha256:e8f2e7991a0c3478a70306b66df3ccd8e2dd3e19b2446507c3c00b874036aacd"
+      },
+      "backup_restricted": {
+        "label": "Backup NLU (catalogue)",
+        "style": "baseline",
+        "config_hash": "sha256:5a924fb4e97b923d7bf497bb79d496c9fb4dee99f9a1010aff8d516e011cffa7"
+      },
+      "modern_restricted": {
+        "label": "Hybrid, no reranking (catalogue)",
+        "style": "hybrid",
+        "config_hash": "sha256:e14f5e420bae4e74b0b2dbc7ce7b61dbdc712de34d39fdc42adc09c1e914546c"
+      },
+      "modern_dense_restricted": {
+        "label": "BGE-M3 (catalogue)",
+        "style": "dense",
+        "config_hash": "sha256:141cb134e5cac4a3d647dc3c7bea08753ea9e5ed2aa1dfa43eb72117470438a4"
+      },
+      "modern_bm25_restricted": {
+        "label": "BM25 (catalogue)",
+        "style": "sparse",
+        "config_hash": "sha256:b8a1796c883f3ebfdc2a7a924ea3258ed68d5a69d2ac3ea0821b2c7a3a9c6a60"
+      }
+    },
+    "navigation_tables": {
+      "backup_full": {
+        "label": "Backup NLU",
+        "style": "baseline",
+        "config_hash": "sha256:1907d226fa7bdd9c2d261a0cdad6c41c0f5a0499ba2176421f897e25c86679de"
+      },
+      "modern_full": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:4abece78952d5a890f74a9dcfad8d4271081dbd740878351bc64311e5b79a25d"
+      },
+      "page_metadata_full": {
+        "label": "Page table: metadata",
+        "style": "page_metadata",
+        "config_hash": "sha256:68e2a55d9b3dd92bd93928509cf48bd2bd7328fd6ce0252e5f9a9bd5fe9709a9"
+      },
+      "page_summary_full": {
+        "label": "Page table: summaries",
+        "style": "summary",
+        "config_hash": "sha256:cf99ffe0f0d3042abde63753b34d17d9e9c3d886db5564857075df36065058e0"
+      },
+      "backup_restricted": {
+        "label": "Backup NLU (catalogue)",
+        "style": "baseline",
+        "config_hash": "sha256:5a924fb4e97b923d7bf497bb79d496c9fb4dee99f9a1010aff8d516e011cffa7"
+      },
+      "modern_restricted": {
+        "label": "Hybrid, no reranking (catalogue)",
+        "style": "hybrid",
+        "config_hash": "sha256:e14f5e420bae4e74b0b2dbc7ce7b61dbdc712de34d39fdc42adc09c1e914546c"
+      },
+      "page_metadata_restricted": {
+        "label": "Page table: metadata (catalogue)",
+        "style": "page_metadata",
+        "config_hash": "sha256:433cd19019bb67501d37cdd5661175ac5a7dfc745ce5108410d75c922713c736"
+      },
+      "page_summary_restricted": {
+        "label": "Page table: summaries (catalogue)",
+        "style": "summary",
+        "config_hash": "sha256:a29aa0bfcda359dd155d3657f9e7fad500f8969bd418d72f67400effa155e8b5"
+      }
+    },
+    "navigation_priority": {
+      "main_nlu": {
+        "label": "Main NLU",
+        "style": "nlu",
+        "config_hash": "sha256:de2291ebb8d6c30b4c1a0c1f8c62a75f418ed7ec8a80461a9243f910ed3fc199"
+      },
+      "backup_full": {
+        "label": "Backup NLU",
+        "style": "baseline",
+        "config_hash": "sha256:1907d226fa7bdd9c2d261a0cdad6c41c0f5a0499ba2176421f897e25c86679de"
+      },
+      "modern_full": {
+        "label": "Hybrid, no reranking",
+        "style": "hybrid",
+        "config_hash": "sha256:33327e06dc0269a8e6e0b442757d29d17791a93dea2571a1d9917c10b6771610"
+      },
+      "modern_nemotron_full": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:23f7b3aedbffbf3a6e516514cf973b1a02786a36f3202311bb83a2c6491a2a5e"
+      },
+      "page_metadata_full": {
+        "label": "Page table: metadata",
+        "style": "page_metadata",
+        "config_hash": "sha256:d7b54afcf2dc8f2b053daaee97ab3dc37526f96ad4435980e91517191dad695e"
+      },
+      "page_summary_full": {
+        "label": "Page table: summaries",
+        "style": "summary",
+        "config_hash": "sha256:89dec4c57c6629d96030b668179bf5a5dd0dfaed17452698283c423ab10883ce"
+      },
+      "group_metadata_full": {
+        "label": "Group table: metadata",
+        "style": "group_metadata",
+        "config_hash": "sha256:59a5820b6e46c5994e0562714b70e6265e1fbcf6066764d722beebd8946a5189"
+      },
+      "group_summary_full": {
+        "label": "Group table: summaries",
+        "style": "group_summary",
+        "config_hash": "sha256:7a4f8620293d78da00b9e81e42bb585d6f66a0b25067e944d46695500fa5b8bb"
+      },
+      "backup_restricted": {
+        "label": "Backup NLU (catalogue)",
+        "style": "baseline",
+        "config_hash": "sha256:5a924fb4e97b923d7bf497bb79d496c9fb4dee99f9a1010aff8d516e011cffa7"
+      },
+      "modern_restricted": {
+        "label": "Hybrid, no reranking (catalogue)",
+        "style": "hybrid",
+        "config_hash": "sha256:ca761387f8833aa28a52fb7fd8d6dfd7a2f8b893f5dc9a226a3e3e59d07b8a3c"
+      },
+      "modern_nemotron_restricted": {
+        "label": "Global Nemotron (catalogue)",
+        "style": "global",
+        "config_hash": "sha256:d497e5738700420a521d056736f11ef86c39e2d3d9a815680695e164e283afeb"
+      },
+      "page_metadata_restricted": {
+        "label": "Page table: metadata (catalogue)",
+        "style": "page_metadata",
+        "config_hash": "sha256:532407d7bdb5be917bf94c79df4eb9c7713cc590e4c060f7f017e18b989e4290"
+      },
+      "page_summary_restricted": {
+        "label": "Page table: summaries (catalogue)",
+        "style": "summary",
+        "config_hash": "sha256:6c1782ba481d459fc11834f7b0824b1810ef332c43b5bf41ebd07248d26f4c6f"
+      },
+      "group_metadata_restricted": {
+        "label": "Group table: metadata (catalogue)",
+        "style": "group_metadata",
+        "config_hash": "sha256:144e73d9e76b6dd5d9c526844fbaf0ec84e2e5c30442426ac89436a471c62a8d"
+      },
+      "group_summary_restricted": {
+        "label": "Group table: summaries (catalogue)",
+        "style": "group_summary",
+        "config_hash": "sha256:bdf4d80d28829d390705d0bd24bcbabf9c4d78c721de5950a5a4f7aeba07951b"
+      }
+    },
+    "baseline_synthetic": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      }
+    },
+    "baseline_logs": {
+      "legacy_refreshed_nlu": {
+        "label": "Baseline",
+        "style": "baseline",
+        "config_hash": "sha256:2dfd8600fdacc7561acb7216d844d55eaa97fb9ba16ae85ef11143b5692d32dc"
+      }
+    },
+    "log_development_selection": {
+      "global_hybrid": {
+        "label": "Global Nemotron",
+        "style": "global",
+        "config_hash": "sha256:b0b78f0ec93aeb5fbd3be822abed1d96891484f23ae7cbacca2ea9c51a7f1e7c",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/user_logs.yaml",
+        "selection_sha256": "sha256:997ede5ec883af4899a9abc2edae5c0ccc273a9975f3d89f1f236492802da207"
+      },
+      "hybrid_zerank": {
+        "label": "Global ZeRank",
+        "style": "zerank",
+        "config_hash": "sha256:279c0d122c2b60d508617d6fc460359df64de79560629230def76cf13c4316a7",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/user_logs.yaml",
+        "selection_sha256": "sha256:997ede5ec883af4899a9abc2edae5c0ccc273a9975f3d89f1f236492802da207"
+      },
+      "main_nlu_additive": {
+        "label": "Main NLU + global RRF",
+        "style": "nlu",
+        "config_hash": "sha256:4b7781c60c8e47680df090ec57145a4221e39128d6a27d6d953acc0e6c6b8aa8",
+        "selected": true,
+        "selection_path": "configs/thesis/retrieval_decisions/user_logs.yaml",
+        "selection_sha256": "sha256:997ede5ec883af4899a9abc2edae5c0ccc273a9975f3d89f1f236492802da207"
+      }
+    }
+  },
+  "pending": [
+    {
+      "id": "final_logs_corrected_full",
+      "topic": "11_final_user_logs_full",
+      "cohort": "Corrected log test (all 2,093 queries)",
+      "reason": "The 1,000-query test is complete and exported separately; the full 2,093-query evaluation is still pending."
+    },
+    {
+      "id": "context_generation_cases",
+      "topic": "12_context",
+      "cohort": "Exploratory answer-generation diagnostics",
+      "reason": "Qualitative cases need individual review; no systematic answer-quality estimate."
+    }
+  ],
+  "archived_inputs": {
+    "uv.lock": {
+      "path": "configs/thesis/publication/environments/statistics.uv.lock",
+      "sha256": "sha256:ec15ea72d48aac8e1a39f68387b52ed7c4f7ccadef0b4f21d871e0479e323e8d",
+      "reason": "Environment used to prepare the unchanged historical bootstrap summaries, before adding Plotly and Kaleido for corpus figures."
+    }
+  }
+}

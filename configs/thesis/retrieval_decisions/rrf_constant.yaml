@@ -1,0 +1,14 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:603f5861d482cb8e1761014423468e45
+report_config_hash: sha256:8b5453f7a62bc44136dd3363309d99e037b62b3be47bb465f0533a4dd1f7a57c
+decisions:
+  - policy_id: select_content_rrf_constant
+    selected_experiment_ids:
+      - content_rrf_k10
+    rationale: >-
+      I select k=10 because it achieved the highest paired Chunk nDCG@5 of
+      the four prespecified values. Its advantage over k=30, k=60, and k=100
+      remained positive across the 95% query-bootstrap intervals and was
+      supported by higher Page nDCG, hit rates, and pool-relative recall.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-01T18:41:48Z"

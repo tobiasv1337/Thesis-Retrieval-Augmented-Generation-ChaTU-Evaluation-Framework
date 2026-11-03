@@ -1,0 +1,24 @@
+version: rag_runtime_v1
+system_config: ../thesis/systems/priority_hybrid.yaml
+artifact_root: ../..
+titles:
+  mapping_path: data/az/mapping.csv
+  pills: [manual, extracted, corpus]
+  panels: [manual, corpus, extracted]
+top_k: 50
+context_top_k: 20
+context:
+  enabled: true
+  format: plain
+  expansion:
+    - {level: section, top_k: 20, max_unit_tokens: 2000}
+    - {level: context_group, top_k: 10, max_unit_tokens: 3000}
+    - {level: page, top_k: 3, max_unit_tokens: 5000}
+generation:
+  provider: legacy
+  endpoint: http://127.0.0.1:15001/generate
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  tokenizer: Xenova/Meta-Llama-3.1-Tokenizer
+  tokenizer_revision: d49ea33e96b3fcf8738bb79ff9d85da81742fa82
+  prompt_version: legacy_plain_sources_v2
+  max_tokens: 2048

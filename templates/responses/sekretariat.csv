@@ -1,0 +1,33 @@
+name,deutsch,english
+who,Wer bist du,Who are you
+full,Ganzer Satz,Full sentence
+different,anderes Thema,different topic
+try,Versuche es unter ,Try
+which_topic,Zu welchem Thema passt deine Frage?,Which topic matches your question?
+button,(Klick auf einen Button.),(Click the button.)
+about,Es geht um,This is about
+maybe,Geht es um,Is this about
+all,Vorschau dieser Seite,preview of this page
+neither,nichts davon,neither
+subtopics,Dazu habe ich weitere Unterthemen gefunden. Worauf genau bezieht sich deine Frage?,I found additional subtopics. Which one matches your question?
+preview,Vorschau,Preview
+go,direkt zu,go to
+no preview,siehe Webseite,open website
+fallback_nlu,"Zu deiner Anfrage hätte ich einige Vorschläge für dich.","I have some suggestions for you."
+back,vorherige Optionen,previous options
+previous,Das sind die vorherigen Optionen.,These are your previous choices.
+found,Wurdest du fündig?,Is this your answer?
+none,keins davon,none of those
+wrong,anderes Thema,other topics
+success,"Ja, danke!","Yes, thanks!"
+rephrase,Ich konnte nichts weiteres finden. Könntest du das anders formulieren?,I couldn't find anything else. Could you rephrase it?
+successful,"Perfekt! Falls du noch eine Frage hast, stell sie gern. Sonst wünsche ich dir noch einen schönen Tag!",Perfect! You are welcome to ask me another question. Have a nice day!
+repeat,"Es gab leider eine Unterbrechung der Verbindung. Bitte stelle deine Frage noch einmal.","There has sadly been a disconnection. Please ask your question again."
+generated,"Die folgende Antwort wurde aus dem Inhalt der Webseite generiert:","The following answer was generated from the content of the website:"
+generated_hint,"Hinweis: Rechtlich sind nur die Informationen auf der Originalwebseite gültig.","Note: Legally, only the information on the original website is valid."
+no_rag,"Ich konnte keine spezifische Antwort generieren. Versuche z.B. auf 'anderes Thema' zu klicken.'","I was not able to generate a specific answer to your question. Try clicking one of the button suggestion like 'other topics'."
+rag_error_unavailable,"Der Antwortdienst ist gerade nicht verfügbar. Bitte versuche es erneut.","The answer service is unavailable. Please try again."
+rag_error_selection,"Diese Themenauswahl ist nicht mehr gültig. Bitte stelle die Frage erneut.","This topic selection has expired. Please ask the question again."
+rag_error_question,"Bitte stelle eine Frage mit höchstens 6000 Zeichen.","Please enter a question of at most 6000 characters."
+rag_error_sources,"Diese weiteren Themen sind nicht mehr gespeichert. Bitte stelle die Frage erneut.","These additional topics are no longer stored. Please ask the question again."
+rag_error_context,"Die Frage und die benötigten Quellen sind zu umfangreich. Bitte grenze deine Frage etwas ein.","The question and the required sources are too extensive. Please narrow down your question."

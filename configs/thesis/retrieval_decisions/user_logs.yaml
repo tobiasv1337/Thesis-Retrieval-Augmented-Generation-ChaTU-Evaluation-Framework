@@ -1,0 +1,17 @@
+schema_version: suite_selection_decision_config_v1
+metrics_bundle_id: suite_metrics_bundle:5849261d568d786c758409411fcdfb84
+report_config_hash: sha256:a7957d778283d3d430afc098e14afe2e8a1aeb0b4f70cc0ba98545abdff182fb
+decisions:
+  - policy_id: compare_legacy_vs_modern
+    selected_experiment_ids:
+      - legacy_refreshed_nlu
+      - global_hybrid
+      - hybrid_zerank
+      - main_nlu_additive
+    rationale: >-
+      ZeRank-2 gave the best modern retrieval results on Log Development.
+      Nemotron was faster. Retain both with Legacy + NLU as the baseline.
+      Keep Main NLU RRF with Nemotron for the final paired NLU comparison,
+      since its small synthetic gains did not carry over to Log Development.
+    decided_by: tobias_veselsky
+    decided_at_utc: "2026-09-27T13:52:45Z"

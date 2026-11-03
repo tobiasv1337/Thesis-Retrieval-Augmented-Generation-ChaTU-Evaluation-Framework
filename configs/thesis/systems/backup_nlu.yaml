@@ -1,0 +1,9 @@
+schema_version: system_config_v2
+system_id: backup_nlu_page_ranking
+class_path: thesis_rag.adapters.page_benchmark.BackupNluSystem
+settings:
+  benchmark_manifest_path: data/thesis/eval/manual_page_benchmark/manifest.json
+  scope: full
+  conda_environment: rasa3.x
+  startup_timeout_seconds: 600
+  request_timeout_seconds: 120
