@@ -21,24 +21,26 @@ uv sync --locked --group analysis
 
 ### 2. Download the data
 
-Choose a profile. Each level includes the data from the level above it.
+The synthetic datasets and experiment outputs are available from the public download below.
+The complete TU Berlin website corpus is not publicly distributed because of copyright restrictions.
+For access to the corpus and the accompanying retrieval artifacts, contact
+[Tobias Veselsky](mailto:veselsky@tu-berlin.de).
+User-log queries and their associated experiment data cannot be shared for privacy reasons.
 
-| Profile | Data | Results |
+Each profile includes the data from the preceding profile.
+
+| Profile | Contents | Access |
 |---|---|---|
-| `synthetic` | Synthetic/manual queries, judgments and experiment outputs | Synthetic thesis figures and tables |
-| `synthetic-corpus` | Also the website corpus and baseline/routing artifacts | Also corpus statistics and navigation-depth figures |
-| `full` | Also the restricted log datasets and their experiments | Complete thesis export |
+| `synthetic` | Synthetic and curated queries, reference answers, retrieval results, judgments and metrics | Public download |
+| `synthetic-corpus` | Also the frozen website corpus and baseline/routing artifacts for retrieval reruns | On request |
+| `full` | Also user-log queries and results from log-based and mixed experiments | Internal only |
 
-Download the files for your profile from these links:
-
-| Download link | Files | Needed for |
+| Download | Files | Needed for |
 |---|---|---|
-| `<SYNTHETIC_ARCHIVES_URL>` | `synthetic-queries.tar.gz`, `synthetic-experiments.tar.gz` | All profiles |
-| `<CORPUS_ARCHIVES_URL>` | `corpus.tar.gz`, `retrieval-support.tar.gz` | `synthetic-corpus`, `full` |
-| `<LOG_ARCHIVES_URL>` | `private-queries.tar.gz`, `private-experiments.tar.gz` | `full` |
+| [Synthetic archives](https://tubcloud.tu-berlin.de/s/E6Xs6Ex66maTCxa) | `synthetic-queries.tar.gz`, `synthetic-experiments.tar.gz` | `synthetic`, `synthetic-corpus` |
+| [Corpus archives (password required)](https://tubcloud.tu-berlin.de/s/fnSPwjS8G7fMKQ5) | `corpus.tar.gz`, `retrieval-support.tar.gz` | Additional files for `synthetic-corpus` |
 
-Open the links in your browser. For restricted shares, use the access details supplied with the thesis or by the data owner.
-Download the individual `.tar.gz` files and keep their filenames unchanged.
+Download the individual `.tar.gz` files in your browser and keep their filenames unchanged.
 
 Create a folder in the repository and move the downloaded files there:
 
@@ -79,7 +81,8 @@ An optional `--preview` adds an HTML gallery, PDF catalogues and a ZIP reading c
 
 ## Rerun retrieval experiments
 
-Restore `synthetic-corpus` first. Experiments using user logs require `full`.
+Restore `synthetic-corpus` to rerun retrieval. The `synthetic` profile reproduces figures
+and tables from saved evaluation outputs.
 Install the runtime dependencies and configure the model services specified in `configs/thesis/`.
 The legacy baseline also needs the `rasa3.x` Conda environment. Its dependency lists are in `requirements/legacy/`.
 
@@ -233,9 +236,9 @@ specific archived runs through `configs/thesis/publication/catalog.json`.
 
 ### Thesis experiment suites
 
-These suites provide examples for larger studies. Synthetic runs use the
-`synthetic-corpus` profile, log runs use `full`. All need the embedding and judge
-services above. Additional requirements are listed below.
+These suites provide examples for larger studies. Use `synthetic-corpus` for the synthetic
+comparisons. All suites need the embedding and judge services above.
+Additional requirements are listed below.
 
 | Suite configuration | Comparison | Additional requirements |
 |---|---|---|
@@ -301,7 +304,7 @@ uv run --locked --project services/reranker python services/reranker/serve.py \
 
 Use the matching profile and endpoint for each reranker experiment. The service requires
 an NVIDIA GPU and its own locked environment. LLM, embedding and reranker weights
-are separate from the data archives. Keep private log queries on local/private services.
+are separate from the data archives.
 
 ## Repository structure
 

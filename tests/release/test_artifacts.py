@@ -175,6 +175,29 @@ class ArtifactTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "private"):
             artifacts.validate(self.document)
 
+    def test_synthetic_profiles_reject_private_transitive_dependencies(self):
+        self.document['packages']['private-logs'] = dict(
+            privacy='private', redistribution='restricted', requires=[],
+            files=[self.file('data/logs/questions.jsonl', b'private')])
+        self.document['packages']['queries-v1']['requires'] = ['private-logs']
+        for name in ('synthetic', 'synthetic-corpus'):
+            with self.subTest(profile=name):
+                self.document['profiles'] = {name: dict(access='local', packages=['queries-v1'])}
+                with self.assertRaisesRegex(ValueError, 'Synthetic profile depends on private'):
+                    artifacts.validate(self.document)
+
+    def test_private_package_cannot_be_relabelled(self):
+        self.document['packages']['private-logs'] = dict(
+            self.document['packages'].pop('queries-v1'))
+        self.document['profiles'] = {'full': dict(access='local', packages=['private-logs'])}
+        with self.assertRaisesRegex(ValueError, 'Private package must stay private'):
+            artifacts.validate(self.document)
+
+    def test_full_profile_cannot_be_public(self):
+        self.document['profiles'] = {'full': dict(access='public', packages=['queries-v1'])}
+        with self.assertRaisesRegex(ValueError, 'full profile is for local use only'):
+            artifacts.validate(self.document)
+
     def test_file_directory_collision_is_rejected(self):
         self.document["packages"]["queries-v1"]["files"].append(dict(self.record, path="data/thesis"))
         with self.assertRaisesRegex(ValueError, "collision"):

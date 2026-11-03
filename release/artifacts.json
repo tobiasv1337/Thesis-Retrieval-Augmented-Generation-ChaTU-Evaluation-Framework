@@ -1,11 +1,11 @@
 {
   "schema_version": "thesis_artifact_release_v1",
-  "status": "Local archives; publication not configured",
+  "status": "Frozen thesis artifacts",
   "packages": {
     "synthetic-queries": {
-      "privacy": "unreviewed",
+      "privacy": "public",
       "redistribution": "unreviewed",
-      "rights_note": "",
+      "rights_note": "Includes excerpts from TU Berlin webpages.",
       "requires": [],
       "archive": {
         "filename": "synthetic-queries.tar.gz",
@@ -16,9 +16,9 @@
       "unpacked_bytes": 247323733
     },
     "synthetic-experiments": {
-      "privacy": "unreviewed",
+      "privacy": "public",
       "redistribution": "unreviewed",
-      "rights_note": "",
+      "rights_note": "Includes excerpts from TU Berlin webpages.",
       "requires": [
         "synthetic-queries"
       ],
@@ -31,9 +31,9 @@
       "unpacked_bytes": 50938362515
     },
     "corpus": {
-      "privacy": "unreviewed",
+      "privacy": "public",
       "redistribution": "unreviewed",
-      "rights_note": "",
+      "rights_note": "Copyright-restricted website corpus and derived retrieval artifacts.",
       "requires": [
         "synthetic-queries"
       ],
@@ -46,9 +46,9 @@
       "unpacked_bytes": 1895814246
     },
     "retrieval-support": {
-      "privacy": "unreviewed",
+      "privacy": "public",
       "redistribution": "unreviewed",
-      "rights_note": "",
+      "rights_note": "Copyright-restricted website corpus and derived retrieval artifacts.",
       "requires": [
         "corpus"
       ],
@@ -63,7 +63,7 @@
     "private-queries": {
       "privacy": "private",
       "redistribution": "restricted",
-      "rights_note": "",
+      "rights_note": "Not available for privacy reasons.",
       "requires": [
         "synthetic-queries"
       ],
@@ -78,7 +78,7 @@
     "private-experiments": {
       "privacy": "private",
       "redistribution": "restricted",
-      "rights_note": "",
+      "rights_note": "Not available for privacy reasons.",
       "requires": [
         "private-queries",
         "synthetic-experiments"

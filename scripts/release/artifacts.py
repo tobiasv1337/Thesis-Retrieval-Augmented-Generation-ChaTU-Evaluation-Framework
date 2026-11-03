@@ -75,6 +75,8 @@ def validate(document):
             raise ValueError(f"Missing privacy review: {name}")
         if package.get("redistribution") not in {"cleared", "restricted", "unreviewed"}:
             raise ValueError(f"Missing redistribution review: {name}")
+        if name.startswith("private-") and package["privacy"] != "private":
+            raise ValueError(f"Private package must stay private: {name}")
         if "files" in package:
             if not package["files"]:
                 raise ValueError(f"Empty file allowlist: {name}")
@@ -106,6 +108,11 @@ def validate(document):
         selected = resolve(document, profile["packages"])
         if profile.get("access") not in {"public", "local"}:
             raise ValueError(f"Invalid profile access: {name}")
+        if name in {"synthetic", "synthetic-corpus"} and any(
+                packages[p]["privacy"] == "private" for p in selected):
+            raise ValueError(f"Synthetic profile depends on private data: {name}")
+        if name == "full" and profile["access"] != "local":
+            raise ValueError("The full profile is for local use only")
         if profile["access"] == "public" and any(not public(packages[p]) for p in selected):
             raise ValueError(f"Public profile depends on restricted data: {name}")
     resolve(document, list(packages))  # Validate cycles even in unused packages.

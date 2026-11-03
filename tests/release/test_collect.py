@@ -52,6 +52,27 @@ class SelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'private data'):
             self.selection.package_for('data/logs/questions.jsonl', {'synthetic'})
 
+    def test_log_path_cannot_be_misclassified_as_corpus(self):
+        path = 'data/logs/questions.jsonl'
+        self.selection.corpus_metadata.add(path)
+        with self.assertRaisesRegex(ValueError, 'private data'):
+            self.selection.package_for(path, {'synthetic'})
+
+    def test_synthetic_run_rejects_log_origin_or_identifier(self):
+        for question in (
+            {'query_id': 'user_log_query:example', 'metadata': {}},
+            {'query_id': 'opaque', 'metadata': {'query_origin': 'user_log'}},
+        ):
+            with self.subTest(question=question):
+                questions = self.put('data/thesis/eval/questions.jsonl', question)
+                run = self.put('outputs/run/manifest.json', {
+                    'schema_version': 'retrieval_run_manifest_v2',
+                    'status': 'complete', 'query_counts': {'failed': 0},
+                    'questions_path': questions})
+                selection = Selection(self.root, self.root / 'code')
+                with self.assertRaisesRegex(ValueError, 'Synthetic run contains log queries'):
+                    selection.add(run, 'synthetic')
+
     def test_private_output_stays_private_without_log_filename(self):
         self.assertEqual(self.selection.package_for('outputs/thesis/suites/opaque-id/metrics.csv', {'private'}), 'private-experiments')
         self.assertEqual(self.selection.package_for('data/thesis/eval/priority/manifest.json', {'private'}), 'private-queries')

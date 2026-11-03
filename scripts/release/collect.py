@@ -113,8 +113,12 @@ class Selection:
             if audience == 'synthetic':
                 with (self.source / value['questions_path']).open() as questions:
                     for line in questions:
-                        metadata = json.loads(line).get('metadata', {})
-                        if metadata.get('data_classification') == 'private' or metadata.get('source_method') == 'user_log':
+                        question = json.loads(line)
+                        metadata = question.get('metadata', {})
+                        if (metadata.get('data_classification') == 'private'
+                                or metadata.get('source_method') == 'user_log'
+                                or metadata.get('query_origin') in {'log', 'user_log', 'user_logs'}
+                                or question.get('query_id', '').startswith('user_log_query:')):
                             raise ValueError(f'Synthetic run contains log queries: {path}')
             self.run_count += 1
             for key, name in [('config_resolved', 'config_resolved.yaml'),
@@ -168,12 +172,12 @@ class Selection:
                 self.add(str(matched[0].relative_to(self.source)), audience)
 
     def package_for(self, path, audiences):
-        if path in self.corpus_metadata:
-            return 'corpus'
         if path.startswith('data/logs/'):
             if 'synthetic' in audiences:
                 raise ValueError(f'Synthetic dependency reaches private data: {path}')
             return 'private-queries'
+        if path in self.corpus_metadata:
+            return 'corpus'
         if path.startswith('data/thesis/corpus/'):
             # Synthetic analysis also uses snapshot identities and source relationships.
             if Path(path).name in {'snapshot_manifest.json', 'source_relationships.jsonl'}:
