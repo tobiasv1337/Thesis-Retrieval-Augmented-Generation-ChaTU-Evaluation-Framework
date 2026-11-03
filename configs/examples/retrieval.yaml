@@ -1,0 +1,35 @@
+schema_version: retrieval_experiment_suite_v3
+suite_id: example_sparse_dense_hybrid
+
+questions:
+  manifest_path: data/thesis/eval/base_question_set_manifest.json
+  artifact_name: questions_dev
+corpus:
+  snapshot_manifest_path: data/thesis/corpus/snapshot_manifest.json
+
+defaults:
+  top_k: 20
+  stage_evaluation_depth: 20
+  selection_seed: 14731
+  # Optional quick check: query_limit: 10
+  final_evaluation:
+    streams: [items]
+    target_levels: [page, chunk]
+    include_in_pool: true
+    compute_metrics: true
+
+experiments:
+  - experiment_id: sparse
+    system_config: configs/thesis/systems/modern_sparse.yaml
+    splits: [development]
+  - experiment_id: dense
+    system_config: configs/thesis/systems/modern_dense.yaml
+    splits: [development]
+  - experiment_id: hybrid
+    system_config: configs/thesis/systems/modern_hybrid.yaml
+    splits: [development]
+
+comparisons:
+  - comparison_id: retrieval_architecture
+    baseline_experiment_id: sparse
+    candidate_experiment_ids: [dense, hybrid]
