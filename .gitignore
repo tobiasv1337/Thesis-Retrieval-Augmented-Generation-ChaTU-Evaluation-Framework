@@ -38,6 +38,7 @@ nltk_data/
 /outputs/
 /reports/
 /release-artifacts/
+/archives/
 /data/thesis/
 /data/logs/
 /data/logs*.csv

@@ -103,7 +103,9 @@ def build_assets(data: Sources) -> list[Asset]:
     """Select data only. This function does not draw or fit statistics."""
     from thesis_rag.publication.corpus import corpus_specs
     from thesis_rag.publication.evaluation import question_composition_spec
-    assets: list[Asset] = [Asset(**spec) for spec in corpus_specs(data)]
+    assets: list[Asset] = []
+    if data.catalog.get("export_scope", "full") != "synthetic":
+        assets.extend(Asset(**spec) for spec in corpus_specs(data))
     assets.append(Asset(**question_composition_spec(data)))
 
     def add(topic, name, title, rows, *, kind="points", appendix=False, **options):
@@ -119,6 +121,8 @@ def build_assets(data: Sources) -> list[Asset]:
 
     def quality(source, topic, name, title, cutoff, *, experiments=None, target="page",
                 appendix=False, rank_metric=None, ranking_panel=False):
+        if not data.includes(source):
+            return
         ids = experiments or list(data.catalog["variants"][source])
         rank_metric = rank_metric or ("counterpart_family_ndcg" if target == "page" else "ndcg")
         unit = "Page" if target == "page" else "Chunk"
@@ -136,6 +140,8 @@ def build_assets(data: Sources) -> list[Asset]:
                                   rows=select(rows, metric=rank_metric), options={"width_mm": 75}))
 
     def latency(source, topic, name, *, experiments=None, appendix=True):
+        if not data.includes(source):
+            return
         ids = experiments or list(data.catalog["variants"][source])
         rows = []
         for eid in ids:
@@ -148,6 +154,8 @@ def build_assets(data: Sources) -> list[Asset]:
 
     def paired(source, topic, name, *, comparisons=None, cutoff=20, target="page",
                metric="counterpart_family_ndcg", appendix=False):
+        if not data.includes(source):
+            return
         d = data.catalog["sources"][source]
         candidates = select(data.table(source, "paired_differences.csv"), judgment_view=d["view"],
                             stream="items", target_level=target, cutoff=cutoff, metric=metric)
@@ -176,6 +184,8 @@ def build_assets(data: Sources) -> list[Asset]:
 
     def tradeoff(source, topic, name, experiments, *, target="chunk", metric="ndcg", cutoff=20, appendix=False,
                  focus_experiments=None):
+        if not data.includes(source):
+            return
         rows=[]
         for i,eid in enumerate(experiments,1):
             row=data.metric(source,eid,target,metric,cutoff)
@@ -191,6 +201,8 @@ def build_assets(data: Sources) -> list[Asset]:
             rows,kind="tradeoff",appendix=appendix,focus_labels=focus_experiments is not None)
 
     def ranking_views(source,topic,name,experiments,cutoff,*,appendix=True):
+        if not data.includes(source):
+            return
         rows=[]
         for eid in experiments:
             for target,metric,panel in [("chunk","ndcg",f"Chunk\nnDCG@{cutoff}"),
@@ -269,16 +281,18 @@ def build_assets(data: Sources) -> list[Asset]:
 
     # A compact, source-backed dataset table, without exposing question text.
     base = data.json("datasets", "base_question_set_manifest.json")
-    audit = data.json("datasets", "verification.json")
-    data.json("datasets", "manifest.json")
     dataset_rows = []
     for split, n in [("Development", 1000), ("Validation", 500), ("Test", 1000)]:
         dataset_rows.append({"Dataset": "Synthetic", "Split": split, "Queries": n, "Role": "Retrieval evaluation"})
-    for split, n in audit["new_split_counts"].items():
-        dataset_rows.append({"Dataset": "Logs, corrected export", "Split": split.capitalize(),
-                             "Queries": n, "Role": "Development / final evaluation"})
-    dataset_rows += [dict(Dataset="Manual-page benchmark", Split="Diagnostic", Queries=2924, Role="Known-target navigation"),
-                     dict(Dataset="Priority cohort", Split="Development", Queries=250, Role="115 synthetic + 135 logs")]
+    if data.includes("baseline_logs"):
+        audit = data.json("datasets", "verification.json")
+        data.json("datasets", "manifest.json")
+        for split, n in audit["new_split_counts"].items():
+            dataset_rows.append({"Dataset": "Logs, corrected export", "Split": split.capitalize(),
+                                 "Queries": n, "Role": "Development / final evaluation"})
+    dataset_rows.append(dict(Dataset="Manual-page benchmark", Split="Diagnostic", Queries=2924, Role="Known-target navigation"))
+    if data.includes("baseline_logs"):
+        dataset_rows.append(dict(Dataset="Priority cohort", Split="Development", Queries=250, Role="115 synthetic + 135 logs"))
     # Verify synthetic counts against the recorded manifest instead of silently trusting prose.
     if [base["artifact_counts"][key] for key in ["questions_dev", "questions_validation", "questions_test"]] != [1000, 500, 1000]:
         raise ValueError("Synthetic dataset counts changed")
@@ -305,6 +319,8 @@ def build_assets(data: Sources) -> list[Asset]:
         chunk_rows,kind="table",appendix=True,column_format="@{}Xrrrr@{}")
     for source, name, title in [("language", "language_policies", "Language policy: original queries"),
                                 ("language_translated", "translated_queries", "Language policy: translated queries")]:
+        if not data.includes(source):
+            continue
         quality(source, "04_language", name, title, 5, appendix=source.endswith("translated"))
     rows=[]
     for eid in data.catalog["variants"]["language"]:
@@ -392,9 +408,12 @@ def build_assets(data: Sources) -> list[Asset]:
 
     # Known-target navigation reports descriptive estimates for the full cohorts.
     from thesis_rag.publication.navigation import descendant_specs
-    assets.extend(Asset(**spec) for spec in descendant_specs(data))
+    if data.catalog.get("export_scope", "full") != "synthetic":
+        assets.extend(Asset(**spec) for spec in descendant_specs(data))
 
     def known_navigation(source, ids, comparison, topic, name, title, appendix=False, extra=()):
+        if not data.includes(source):
+            return
         rows = []
         for sid, eid in [(source, eid) for eid in ids] + list(extra):
             for k in [1, 5, 20]:
@@ -426,6 +445,8 @@ def build_assets(data: Sources) -> list[Asset]:
         ("navigation_priority", "page_table_hit_curves", "Page and group tables with and without summaries",
          ["main_nlu", "modern_nemotron", "page_metadata", "page_summary", "group_metadata", "group_summary"]),
     ]:
+        if not data.includes(source):
+            continue
         rows = []
         panel_notes = {}
         if name == "backup_nlu_hit_curves":
@@ -472,91 +493,92 @@ def build_assets(data: Sources) -> list[Asset]:
                          "page_summary_full", "group_metadata_full", "group_summary_full"])
     quality("priority_navigation", "07_navigation", "navigation_all_variants", "Navigation scope and reranker ablations", 20, appendix=True)
 
-    # Restore the graded-page comparison, keeping it separate from reference-page hits.
-    scope_report = data.manifest("page_scope")
-    data.json("page_scope", "priority_catalogue.json")
-    scope_rows = data.table("page_scope", "summary.csv")
-    overview = scope_report["priority_config"]["overview_experiment_ids"]
-    scope_labels = {
-        "modern_nemotron_full": "Global Nemotron",
-        "modern_nemotron_restricted": "Priority roots + Nemotron",
-        "modern_nemotron_priority_depth5": "Priority retrieval + Nemotron",
-        "page_summary_restricted": "Page table: summaries",
-        "group_metadata_restricted": "Group table: metadata",
-        "group_summary_restricted": "Group table: summaries",
-    }
-    rows = []
-    for eid in sorted(overview, key=lambda eid: eid != "main_nlu"):
-        for depth in ([0, 5] if eid == "main_nlu" else [0]):
-            values = select(scope_rows, experiment_id=eid, depth=depth, cohort="all",
-                            judgment_view="gemma4_31b:judged_only", threshold=3, policy="cached_only")
-            if len(values) != 5 or {int(r["root_cutoff"]) for r in values} != {1, 3, 5, 10, 20}:
-                raise ValueError(f"Incomplete graded navigation curve: {eid}/depth {depth}")
-            style = data.style("priority_navigation", eid)
-            if eid == "main_nlu":
-                style = {**style, "label": "Main NLU: direct" if depth == 0 else "Main NLU + descendants ≤5",
-                         "linestyle": "-" if depth == 0 else "--"}
-            else:
-                style = {**style, "label": scope_labels[eid]}
-                if eid == "modern_nemotron_restricted":
-                    style["linestyle"] = "--"
-                elif eid == "modern_nemotron_priority_depth5":
-                    style["linestyle"] = "-"
-            for r in sorted(values, key=lambda r: int(r["root_cutoff"])):
-                n = int(r["queries"])
-                if n != data.catalog["sources"]["page_scope"]["n"]:
-                    raise ValueError("Graded navigation must retain the full query cohort")
-                for field, count, panel in [
-                    ("known_source_hit_rate", "known_hits", "All sources"),
-                    ("priority_known_source_hit_rate", "priority_known_hits", "Priority sources"),
-                ]:
-                    if abs(float(r[field]) - int(r[count]) / n) > 1e-12:
-                        raise ValueError("Graded navigation rate does not match its all-query denominator")
-                    rows.append({**r, **style, "source": "page_scope", "x": int(r["root_cutoff"]),
-                                 "panel": panel, "estimate": float(r[field]), "hits": int(r[count]),
-                                 "n": n, "scale": 100, "ci_lower": None, "ci_upper": None})
-    scope_options = dict(kind="curves", xlabel="Initial page-ranking cutoff k",
-        ylabel="Known hit rate (grade 3)", full_percent=True, shared_y=True,
-        xticks=[1, 3, 5, 10, 20], legend_columns=2,
-        panel_note="Only the dashed NLU curve expands roots")
-    focus = {"main_nlu", "modern_nemotron_full", "modern_nemotron_priority_depth5"}
-    scope_inputs = dict(data.asset_used)
-    add("07_navigation", "main_nlu_descendant_hits", "Page retrieval and Main-NLU descendant expansion",
-        [r for r in rows if r["experiment_id"] in focus], **scope_options)
-    data.asset_used.update(scope_inputs)
-    add("07_navigation", "main_nlu_descendant_hits_all", "Page retrieval and Main-NLU expansion: all variants",
-        [{**r, "color": "#8B9097"} if r["experiment_id"] not in focus else dict(r) for r in rows],
-        appendix=True, **scope_options)
+    if data.includes("page_scope"):
+        # Restore the graded-page comparison, keeping it separate from reference-page hits.
+        scope_report = data.manifest("page_scope")
+        data.json("page_scope", "priority_catalogue.json")
+        scope_rows = data.table("page_scope", "summary.csv")
+        overview = scope_report["priority_config"]["overview_experiment_ids"]
+        scope_labels = {
+            "modern_nemotron_full": "Global Nemotron",
+            "modern_nemotron_restricted": "Priority roots + Nemotron",
+            "modern_nemotron_priority_depth5": "Priority retrieval + Nemotron",
+            "page_summary_restricted": "Page table: summaries",
+            "group_metadata_restricted": "Group table: metadata",
+            "group_summary_restricted": "Group table: summaries",
+        }
+        rows = []
+        for eid in sorted(overview, key=lambda eid: eid != "main_nlu"):
+            for depth in ([0, 5] if eid == "main_nlu" else [0]):
+                values = select(scope_rows, experiment_id=eid, depth=depth, cohort="all",
+                                judgment_view="gemma4_31b:judged_only", threshold=3, policy="cached_only")
+                if len(values) != 5 or {int(r["root_cutoff"]) for r in values} != {1, 3, 5, 10, 20}:
+                    raise ValueError(f"Incomplete graded navigation curve: {eid}/depth {depth}")
+                style = data.style("priority_navigation", eid)
+                if eid == "main_nlu":
+                    style = {**style, "label": "Main NLU: direct" if depth == 0 else "Main NLU + descendants ≤5",
+                             "linestyle": "-" if depth == 0 else "--"}
+                else:
+                    style = {**style, "label": scope_labels[eid]}
+                    if eid == "modern_nemotron_restricted":
+                        style["linestyle"] = "--"
+                    elif eid == "modern_nemotron_priority_depth5":
+                        style["linestyle"] = "-"
+                for r in sorted(values, key=lambda r: int(r["root_cutoff"])):
+                    n = int(r["queries"])
+                    if n != data.catalog["sources"]["page_scope"]["n"]:
+                        raise ValueError("Graded navigation must retain the full query cohort")
+                    for field, count, panel in [
+                        ("known_source_hit_rate", "known_hits", "All sources"),
+                        ("priority_known_source_hit_rate", "priority_known_hits", "Priority sources"),
+                    ]:
+                        if abs(float(r[field]) - int(r[count]) / n) > 1e-12:
+                            raise ValueError("Graded navigation rate does not match its all-query denominator")
+                        rows.append({**r, **style, "source": "page_scope", "x": int(r["root_cutoff"]),
+                                     "panel": panel, "estimate": float(r[field]), "hits": int(r[count]),
+                                     "n": n, "scale": 100, "ci_lower": None, "ci_upper": None})
+        scope_options = dict(kind="curves", xlabel="Initial page-ranking cutoff k",
+            ylabel="Known hit rate (grade 3)", full_percent=True, shared_y=True,
+            xticks=[1, 3, 5, 10, 20], legend_columns=2,
+            panel_note="Only the dashed NLU curve expands roots")
+        focus = {"main_nlu", "modern_nemotron_full", "modern_nemotron_priority_depth5"}
+        scope_inputs = dict(data.asset_used)
+        add("07_navigation", "main_nlu_descendant_hits", "Page retrieval and Main-NLU descendant expansion",
+            [r for r in rows if r["experiment_id"] in focus], **scope_options)
+        data.asset_used.update(scope_inputs)
+        add("07_navigation", "main_nlu_descendant_hits_all", "Page retrieval and Main-NLU expansion: all variants",
+            [{**r, "color": "#8B9097"} if r["experiment_id"] not in focus else dict(r) for r in rows],
+            appendix=True, **scope_options)
 
-    data.asset_used.update(scope_inputs)
-    size_rows = [{**r, "estimate": float(r["mean_scope_pages"]), "scale": 1,
-                  "panel": "Mean scope size (pages)", "bounded": False}
-                 for r in rows if r["panel"] == "All sources"]
-    add("07_navigation", "main_nlu_scope_size", "Pages considered before and after NLU expansion",
-        size_rows, kind="scope_size", xlabel="Initial page-ranking cutoff k")
+        data.asset_used.update(scope_inputs)
+        size_rows = [{**r, "estimate": float(r["mean_scope_pages"]), "scale": 1,
+                      "panel": "Mean scope size (pages)", "bounded": False}
+                     for r in rows if r["panel"] == "All sources"]
+        add("07_navigation", "main_nlu_scope_size", "Pages considered before and after NLU expansion",
+            size_rows, kind="scope_size", xlabel="Initial page-ranking cutoff k")
 
-    # The scope diagnostic is descriptive: unjudged descendants are not negative evidence.
-    rows = []
-    for eid in ["main_nlu", "backup_full", "modern_nemotron_full", "page_summary_full"]:
-        for depth in range(6):
-            matches = select(data.table("page_scope", "summary.csv"), cohort="all", depth=depth, experiment_id=eid,
-                             judgment_view="gemma4_31b:judged_only", threshold=2, root_cutoff=5, policy="cached_only")
-            r = exactly_one(matches)
-            if int(r["queries"]) != 250:
-                raise ValueError("The expansion diagnostic requires the complete 250-query cohort")
-            for key, panel, scale in [("known_source_hit_rate", "Known relevant hit (%)", 100), ("mean_scope_pages", "Mean scope size (pages)", 1)]:
-                rows.append(styled("priority_navigation", eid, dict(r, source="page_scope", experiment_id=eid,
-                    x=depth, panel=panel, estimate=float(r[key]), ci_lower=None, ci_upper=None, scale=scale,
-                    queries=int(r["queries"]), unresolved_queries=int(r["unresolved_queries"]),
-                    mean_unknown_scope_pages=float(r["mean_unknown_scope_pages"])), linestyle="-"))
-    add("07_navigation", "descendant_scope", "Descendant expansion: coverage and scope size",
-        rows, kind="curves", xlabel="Descendant depth (0 = roots only)", appendix=True,
-        panel_titles={"Known relevant hit (%)": "Evidence coverage", "Mean scope size (pages)": "Search-space size"},
-        panel_ylabels={"Known relevant hit (%)": "Known hit rate (grade ≥2)", "Mean scope size (pages)": "Pages per query (mean)"},
-        panel_note="Top 5 roots; all methods expanded",
-        percent_panels=["Known relevant hit (%)"],
-        panel_limits={"Mean scope size (pages)": [0, 250]},
-        panel_ticks={"Mean scope size (pages)": [0, 50, 100, 150, 200, 250]})
+        # The scope diagnostic is descriptive: unjudged descendants are not negative evidence.
+        rows = []
+        for eid in ["main_nlu", "backup_full", "modern_nemotron_full", "page_summary_full"]:
+            for depth in range(6):
+                matches = select(data.table("page_scope", "summary.csv"), cohort="all", depth=depth, experiment_id=eid,
+                                 judgment_view="gemma4_31b:judged_only", threshold=2, root_cutoff=5, policy="cached_only")
+                r = exactly_one(matches)
+                if int(r["queries"]) != 250:
+                    raise ValueError("The expansion diagnostic requires the complete 250-query cohort")
+                for key, panel, scale in [("known_source_hit_rate", "Known relevant hit (%)", 100), ("mean_scope_pages", "Mean scope size (pages)", 1)]:
+                    rows.append(styled("priority_navigation", eid, dict(r, source="page_scope", experiment_id=eid,
+                        x=depth, panel=panel, estimate=float(r[key]), ci_lower=None, ci_upper=None, scale=scale,
+                        queries=int(r["queries"]), unresolved_queries=int(r["unresolved_queries"]),
+                        mean_unknown_scope_pages=float(r["mean_unknown_scope_pages"])), linestyle="-"))
+        add("07_navigation", "descendant_scope", "Descendant expansion: coverage and scope size",
+            rows, kind="curves", xlabel="Descendant depth (0 = roots only)", appendix=True,
+            panel_titles={"Known relevant hit (%)": "Evidence coverage", "Mean scope size (pages)": "Search-space size"},
+            panel_ylabels={"Known relevant hit (%)": "Known hit rate (grade ≥2)", "Mean scope size (pages)": "Pages per query (mean)"},
+            panel_note="Top 5 roots; all methods expanded",
+            percent_panels=["Known relevant hit (%)"],
+            panel_limits={"Mean scope size (pages)": [0, 250]},
+            panel_ticks={"Mean scope size (pages)": [0, 50, 100, 150, 200, 250]})
 
     quality("parent_routing", "08_routing", "page_group_downstream", "Downstream retrieval after page and group routing", 20,
             ranking_panel=True)
@@ -572,6 +594,8 @@ def build_assets(data: Sources) -> list[Asset]:
         ("priority_synthetic", "synthetic_generalization", "Priority transfer to synthetic development", True),
         ("priority_logs", "log_generalization", "Priority transfer to log development", False),
     ]:
+        if not data.includes(source):
+            continue
         quality(source, "09_priority", name, title, 20, target="chunk", appendix=appendix)
         rows = []
         for eid in ["global_hybrid", "fixed_children_depth5_3", "nlu_priority_nemotron", "nlu_priority_zerank"]:
@@ -588,6 +612,8 @@ def build_assets(data: Sources) -> list[Asset]:
     # Corrected replay changes ordering only; its top-20 membership must stay invariant.
     rows = []
     for source, panel in [("priority_synthetic", "Synthetic development"), ("priority_logs", "Log development")]:
+        if not data.includes(source):
+            continue
         totals = set()
         for ordering, label, color, marker in [("protected_prefix", "All reserved first", "#666666", "s"),
             ("nlu_prefix_3", "NLU prefix (3)", "#009E73", "^"), ("reranker", "Reranker order", "#0072B2", "o")]:
@@ -602,27 +628,30 @@ def build_assets(data: Sources) -> list[Asset]:
             raise ValueError("Ordering replay changes top-20 membership")
     add("09_priority", "reserved_evidence_ordering", "Ordering of reserved evidence",
         rows, kind="curves", xlabel="Retrieval cutoff k", ylabel="Chunk Hit@k (grade 3, %)")
-    supplement = data.table("priority_supplement", "paired_hit_differences.csv")
-    rows = []
-    for r in supplement:
-        if r["cutoff"] not in ["1", "5", "20"] or r["grade"] != "3":
-            continue
-        source = {"priority":"priority_reservation", "synthetic":"priority_synthetic", "logs":"priority_logs"}.get(r["cohort"])
-        if not source:
-            raise ValueError(f"Unknown supplement cohort: {r['cohort']}")
-        rows.append({"Cohort": r["cohort"], "Comparison": data.style(source,r["right"])["label"] + " − " + data.style(source,r["left"])["label"],
-                     "Source": r["criterion"], "k":r["cutoff"], "Δ (pp)":f"{100*float(r['delta']):+.1f}",
-                     "95% CI (pp)":f"[{100*float(r['ci_low']):+.1f}, {100*float(r['ci_high']):+.1f}]"})
-    # Split long supplement tables into readable cohort-specific tables.
-    for cohort in dict.fromkeys(r["Cohort"] for r in rows):
-        data.table("priority_supplement", "paired_hit_differences.csv")
-        add("09_priority", "paired_priority_hits_"+cohort, "Paired Priority hit-rate differences",
-            [{k:v for k,v in r.items() if k != "Cohort"} for r in rows if r["Cohort"] == cohort],
-            kind="table", appendix=True, column_format="@{}Xlrrr@{}")
+    if data.includes("priority_supplement"):
+        supplement = data.table("priority_supplement", "paired_hit_differences.csv")
+        rows = []
+        for r in supplement:
+            if r["cutoff"] not in ["1", "5", "20"] or r["grade"] != "3":
+                continue
+            source = {"priority":"priority_reservation", "synthetic":"priority_synthetic", "logs":"priority_logs"}.get(r["cohort"])
+            if not source:
+                raise ValueError(f"Unknown supplement cohort: {r['cohort']}")
+            rows.append({"Cohort": r["cohort"], "Comparison": data.style(source,r["right"])["label"] + " − " + data.style(source,r["left"])["label"],
+                         "Source": r["criterion"], "k":r["cutoff"], "Δ (pp)":f"{100*float(r['delta']):+.1f}",
+                         "95% CI (pp)":f"[{100*float(r['ci_low']):+.1f}, {100*float(r['ci_high']):+.1f}]"})
+        # Split long supplement tables into readable cohort-specific tables.
+        for cohort in dict.fromkeys(r["Cohort"] for r in rows):
+            data.table("priority_supplement", "paired_hit_differences.csv")
+            add("09_priority", "paired_priority_hits_"+cohort, "Paired Priority hit-rate differences",
+                [{k:v for k,v in r.items() if k != "Cohort"} for r in rows if r["Cohort"] == cohort],
+                kind="table", appendix=True, column_format="@{}Xlrrr@{}")
 
     # Final test results use the frozen synthetic and corrected 1,000-query log cohorts.
     for source, topic, title in [("final_synthetic", "10_final_synthetic", "Final comparison on synthetic test queries"),
                                  ("final_logs_corrected_1000", "11_final_user_logs", "Final comparison on corrected log test queries (n = 1,000)")]:
+        if not data.includes(source):
+            continue
         quality(source, topic, "system_quality", title, 20)
         latency(source, topic, "system_latency", appendix=False)
         paired(source, topic, "paired_system_differences")
@@ -713,6 +742,8 @@ def build_assets(data: Sources) -> list[Asset]:
     for source,name,bindings in [
         ("navigation_manual","manual_navigation_ranking",[("navigation_manual",e) for e in ["backup_full","modern_bm25_full","modern_dense_full","modern_full"]]+[("navigation_tables",e) for e in ["page_metadata_full","page_summary_full"]]),
         ("navigation_priority","priority_navigation_ranking",[("navigation_priority",e) for e in ["main_nlu","backup_full","modern_nemotron_full","page_metadata_full","page_summary_full","group_metadata_full","group_summary_full"]])]:
+        if not data.includes(source):
+            continue
         rows=[]
         for sid,eid in bindings:
             r=exactly_one(data.table(sid,"metrics.csv"),comparison_id="full_corpus",experiment_id=eid,scope="all",target_view="exact_page",cutoff=20,metric="mrr")
@@ -723,6 +754,8 @@ def build_assets(data: Sources) -> list[Asset]:
     # Hit gains/losses use the existing query-paired diagnostic, including its intervals.
     for source,topic in [("main_nlu","08_routing"),("log_development","08_routing"),
                          ("final_synthetic","10_final_synthetic"),("final_logs_corrected_1000","11_final_user_logs")]:
+        if not data.includes(source):
+            continue
         rows=[];counts=[]
         for r in select(data.table(source,"nlu_diagnostic__paired_summary.csv"),target="chunk",k=20,cohort="all_evaluated"):
             eid=r["experiment_id"]
@@ -746,6 +779,8 @@ def build_assets(data: Sources) -> list[Asset]:
         ("priority_navigation","07_navigation",["main_nlu","backup_full","modern_nemotron_full","page_summary_full","group_summary_full"]),
         ("final_synthetic","10_final_synthetic",list(data.catalog["variants"]["final_synthetic"])),
         ("final_logs_corrected_1000","11_final_user_logs",list(data.catalog["variants"]["final_logs_corrected_1000"]))]:
+        if not data.includes(source):
+            continue
         rows=[];target="page" if source=="priority_navigation" else "chunk"
         for eid in ids:
             for criterion,panel in [("general","All sources"),("priority","Priority sources")]:
@@ -760,6 +795,8 @@ def build_assets(data: Sources) -> list[Asset]:
             xlabel="Retrieval cutoff k",ylabel=f"{target.capitalize()} Hit@k (grade 3, %)",appendix=True)
     rows=[];branch_rows=[]
     for source,cohort in [("priority_synthetic","Synthetic dev."),("priority_logs","Log dev.")]:
+        if not data.includes(source):
+            continue
         for branch,label in [("main_nlu","Main NLU"),("priority_fallback","Priority fallback")]:
             r=exactly_one(data.table(source,"priority_diagnostic__protected_evidence.csv"),experiment="nlu_priority_nemotron",branch=branch)
             n=int(r["branch_queries"]);grade2=int(r["queries_with_grade2"]);grade3=int(r["queries_with_grade3"])
@@ -771,11 +808,15 @@ def build_assets(data: Sources) -> list[Asset]:
                 branch_rows.append({"Cohort / branch":cohort+": "+label,"Grade":grade,"n":q["queries"],"Global hits":q["baseline_hits"],"Hits":q["candidate_hits"],"Gained":q["gained"],"Lost":q["lost"]})
     add("09_priority","protected_evidence_quality","Relevance of reserved evidence by routing branch",
         rows,kind="stacked",xlabel="Questions in routing branch (%)",appendix=True)
-    for s in ["priority_synthetic","priority_logs"]:data.table(s,"priority_diagnostic__branch_effects.csv")
+    for s in ["priority_synthetic","priority_logs"]:
+        if data.includes(s):
+            data.table(s,"priority_diagnostic__branch_effects.csv")
     add("09_priority","priority_branch_gains_losses","Priority hit changes by routing branch",
         branch_rows,kind="table",appendix=True,column_format="@{}Xrrrrrr@{}")
     direct_rows=[];rescue_rows=[]
     for source,cohort in [("log_development","Log dev."),("final_synthetic","Synthetic test"),("final_logs_corrected_1000","Log test (1,000)")]:
+        if not data.includes(source):
+            continue
         for r in data.table(source,"direct_context__legacy_refreshed_nlu__incremental.csv"):
             direct_rows.append({"Cohort":cohort,"Grade":r["Threshold"],"n":r["Queries"],"Without":r["Without page"],"With":r["With page"],"Gained":r["Gained"],"Lost":r["Lost"]})
         for r in select(data.table(source,"nlu_diagnostic__direct_cohorts.csv"),cohort="legacy_rescued",k=20):
@@ -783,10 +824,14 @@ def build_assets(data: Sources) -> list[Asset]:
             rescue_rows.append({"Cohort":cohort,"Variant":data.style(source,r["experiment_id"])["label"],"Grade":r["grade"],"n":r["n"],"Chunk hits":int(float(r['chunk_grade_'+r['grade']])),"Page hits":int(float(r['page_grade_'+r['grade']]))})
     add("02_baseline","direct_page_incremental","Incremental contribution of direct-page injection",
         direct_rows,kind="table",appendix=True,column_format="@{}Xrrrrrr@{}")
-    for s in ["log_development","final_synthetic","final_logs_corrected_1000"]:data.table(s,"nlu_diagnostic__direct_cohorts.csv")
+    for s in ["log_development","final_synthetic","final_logs_corrected_1000"]:
+        if data.includes(s):
+            data.table(s,"nlu_diagnostic__direct_cohorts.csv")
     add("02_baseline","direct_page_rescue_coverage","Modern retrieval on Baseline direct-page rescue cases",
         rescue_rows,kind="table",appendix=True,column_format="@{}XXrrrr@{}")
     for source,topic in [("final_synthetic","10_final_synthetic"),("final_logs_corrected_1000","11_final_user_logs")]:
+        if not data.includes(source):
+            continue
         tradeoff(source,topic,"system_tradeoff",list(data.catalog["variants"][source]),target="page",metric="counterpart_family_ndcg",appendix=True)
         rows=[]
         for eid in data.catalog["variants"][source]:
@@ -830,6 +875,8 @@ def build_assets(data: Sources) -> list[Asset]:
         rows,kind="table",appendix=True,column_format="@{}Xlrrr@{}")
     for source,topic,cutoff in [("language","04_language",5),("final_synthetic","10_final_synthetic",20),
                                 ("final_logs_corrected_1000","11_final_user_logs",20)]:
+        if not data.includes(source):
+            continue
         rows=[]
         for eid in data.catalog["variants"][source]:
             r=exactly_one(data.table(source,"language_alignment.csv"),experiment_id=eid,
@@ -861,6 +908,8 @@ def build_assets(data: Sources) -> list[Asset]:
         target="page",metric="counterpart_family_ndcg",appendix=True)
     for source,topic,cutoff in [("chunking","03_chunking",5),("language","04_language",5),
                               ("architecture","05_retrieval",15),("validation","06_reranking",20)]:
+        if not data.includes(source):
+            continue
         rows=[];seen=set()
         for r in select(data.table(source,"paired_differences.csv"),judgment_view=data.catalog["sources"][source]["view"],
                         stream="items",target_level="page",metric="counterpart_family_ndcg",cutoff=cutoff):
@@ -988,12 +1037,13 @@ def build_assets(data: Sources) -> list[Asset]:
             matrix,kind='direct_cooccurrence',query_count=total,appendix=True)
 
     baseline_stages('baseline_synthetic', '', 'synthetic development')
-    baseline_stages('baseline_logs', '_logs', 'corrected user-log development')
+    if data.includes("baseline_logs"):
+        baseline_stages('baseline_logs', '_logs', 'corrected user-log development')
 
-    add('02_baseline','baseline_synthetic_vs_logs','Baseline retrieval on synthetic and user-log queries',
-        baseline_cohort_rows(data),kind='curves',shared_y=True,full_percent=True,panel_n=250,
-        xlabel='Retrieval cutoff k',ylabel='Chunk Hit@k',interval_style='band',legend_columns=2,
-        endpoint_labels=True,table_row_header='Dataset / grade')
+        add('02_baseline','baseline_synthetic_vs_logs','Baseline retrieval on synthetic and user-log queries',
+            baseline_cohort_rows(data),kind='curves',shared_y=True,full_percent=True,panel_n=250,
+            xlabel='Retrieval cutoff k',ylabel='Chunk Hit@k',interval_style='band',legend_columns=2,
+            endpoint_labels=True,table_row_header='Dataset / grade')
 
     # Remove duplicate presentations, retaining the source CSVs through the retained comparisons.
     redundant = {
@@ -1015,7 +1065,8 @@ def build_assets(data: Sources) -> list[Asset]:
                 r["panel"] = r["panel"].replace("grade <2", "other")
 
     from thesis_rag.publication.comparisons import comparison_assets
-    assets.extend(comparison_assets(assets))
+    if data.includes("baseline_logs"):
+        assets.extend(comparison_assets(assets))
 
     # Main-text candidates form a compact narrative; the complete library remains searchable.
     main_names={"corpus_overview","corpus_priority_overlay","corpus_languages","corpus_page_lengths","corpus_inventory",
@@ -1028,6 +1079,8 @@ def build_assets(data: Sources) -> list[Asset]:
         "backup_nlu_target_depth_full", "chunking_algorithms_ranking", "chunking_length_ranking",
         "validation_transfer_ranking", "page_group_downstream_ranking", "original_log_development_ranking",
         "final_priority_comparison"}
+    if not data.includes("baseline_logs"):
+        main_names.add("system_quality")
     for asset in assets:
         asset.placement="main candidate" if asset.name in main_names else "appendix candidate"
     return assets
@@ -1669,7 +1722,7 @@ def write_asset(asset, output, plt, catalog):
             "placement":asset.placement,"files":[str(p.relative_to(output)) for p in written]}
 
 
-def write_coverage_audit(output, assets, catalog, root):
+def write_coverage_audit(output, assets, catalog, root, *, preview=False):
     """Map source report figures to thesis exports and record omitted figures."""
     families={
         "metric_overview":("points","categorical"),"counterpart_aware_quality_overview":("points","categorical"),
@@ -1729,6 +1782,7 @@ def write_coverage_audit(output, assets, catalog, root):
     }
     rows=[]
     for source,definition in catalog["sources"].items():
+        if source not in catalog.get("included_sources", catalog["sources"]):continue
         if "manifest" not in definition:continue
         directory=Path(definition["manifest"]).parent
         related=[a for a in assets if any(str(p).startswith(str(directory)+"/") for p in a.inputs)]
@@ -1753,7 +1807,9 @@ def write_coverage_audit(output, assets, catalog, root):
                 thesis_assets=";".join(a.topic+"/"+a.name for a in matches),reason=reason))
     audit=output/"review";audit.mkdir(exist_ok=True)
     with (audit/"report_plot_coverage.csv").open("w",newline="") as handle:
-        writer=csv.DictWriter(handle,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
+        writer=csv.DictWriter(handle,fieldnames=list(rows[0]) if rows else ["source", "family", "old_figure", "status", "thesis_assets", "reason"]);writer.writeheader();writer.writerows(rows)
+    if not preview:
+        return
     groups={}
     for r in rows:
         key=(r["source"],r["family"],r["status"])
@@ -1774,7 +1830,10 @@ def write_coverage_audit(output, assets, catalog, root):
         +"".join(body)+'</tbody></table></html>')
 
 
-def write_index(output, records, catalog):
+def write_index(output, records, catalog, *, preview=False):
+    (output/"index.json").write_text(json.dumps({"schema_version":"thesis_export_v2","assets":records,"pending":catalog["pending"]},indent=2)+"\n")
+    if not preview:
+        return
     topics=list(dict.fromkeys(r["topic"] for r in records))
     nav=" · ".join(f'<a href="#{topic}">{html.escape(topic.replace("_"," "))}</a>' for topic in sorted(topics))
     sections=[]
@@ -1815,7 +1874,6 @@ document.querySelectorAll('section').forEach(s=>s.hidden=!Array.from(s.querySele
 document.querySelector('#placement').addEventListener('change',filter);document.querySelector('#search').addEventListener('input',filter);filter();
 </script></html>'''
     (output/"index.html").write_text(page)
-    (output/"index.json").write_text(json.dumps({"schema_version":"thesis_export_v2","assets":records,"pending":catalog["pending"]},indent=2)+"\n")
 
 
 def write_portable(output, records, assets):
@@ -1901,13 +1959,25 @@ def write_bundle(output):
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog",type=Path,default=Path("configs/thesis/publication/catalog.json"))
-    parser.add_argument("--output",type=Path,default=Path("outputs/thesis/publication"))
+    parser.add_argument("--output",type=Path)
+    parser.add_argument("--scope", choices=("synthetic", "synthetic-corpus", "full"), default="full",
+                        help="Select synthetic results, add corpus figures, or include private log evaluations.")
     parser.add_argument("--prepare-statistics",action="store_true",help="Explicitly fill missing summaries via the existing analysis bootstrap before rendering.")
+    parser.add_argument("--preview", action="store_true",
+                        help="Also create an HTML gallery, PDF catalogues and a ZIP reading copy (requires pdflatex).")
     args=parser.parse_args(argv)
-    root=Path(__file__).resolve().parents[2];catalog_path=root/args.catalog;output=root/args.output
+    root=Path(__file__).resolve().parents[2];catalog_path=root/args.catalog
+    output=root/(args.output or Path("outputs/thesis/publication" if args.scope == "full" else "outputs/thesis/publication-" + args.scope))
     catalog=json.loads(catalog_path.read_text())
     if catalog["schema_version"]!="thesis_publication_v1" or catalog["navigation_scope"]!="all":
         raise ValueError("Unsupported catalog or navigation cohort")
+    if args.scope != "full":
+        from thesis_rag.publication.data import scoped_catalog
+        catalog = scoped_catalog(root, catalog, args.scope)
+    if (output/"catalog.json").exists():
+        previous = json.loads((output/"catalog.json").read_text())
+        if previous.get("export_scope", "full") != args.scope:
+            raise ValueError("Choose a separate output directory for each scope")
     output.mkdir(parents=True,exist_ok=True)
     (output/"catalog.json").write_text(json.dumps(catalog,indent=2)+"\n")
     statistics_path=output/"statistics.json"
@@ -1928,11 +1998,12 @@ def main(argv=None):
         print(f"Exporting {asset.topic}/{asset.name}",flush=True)
         records.append(write_asset(asset,output,plt,catalog))
     records.sort(key=lambda record: (record['topic'],record['placement']!='main candidate'))
-    write_coverage_audit(output,assets,catalog,root)
-    write_index(output,records,catalog)
-    write_portable(output,records,assets)
-    write_bundle(output)
-    print(f"Exported {sum(r['kind']!='table' for r in records)} figures and {len(assets)} tables: {output/'preview.html'}")
+    write_coverage_audit(output,assets,catalog,root,preview=args.preview)
+    write_index(output,records,catalog,preview=args.preview)
+    if args.preview:
+        write_portable(output,records,assets)
+        write_bundle(output)
+    print(f"Exported {sum(r['kind']!='table' for r in records)} figures and {len(assets)} tables: {output}")
 
 
 if __name__=="__main__":

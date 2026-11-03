@@ -1,0 +1,124 @@
+{
+  "schema_version": "thesis_artifact_release_v1",
+  "status": "Local archives; publication not configured",
+  "packages": {
+    "synthetic-queries": {
+      "privacy": "unreviewed",
+      "redistribution": "unreviewed",
+      "rights_note": "",
+      "requires": [],
+      "archive": {
+        "filename": "synthetic-queries.tar.gz",
+        "bytes": 72030422,
+        "sha256": "sha256:78de5894dfe58082031b9d36555d2ff68e8b67b53fa8db72e5575b5fdc48a471"
+      },
+      "file_count": 36,
+      "unpacked_bytes": 247323733
+    },
+    "synthetic-experiments": {
+      "privacy": "unreviewed",
+      "redistribution": "unreviewed",
+      "rights_note": "",
+      "requires": [
+        "synthetic-queries"
+      ],
+      "archive": {
+        "filename": "synthetic-experiments.tar.gz",
+        "bytes": 7276053480,
+        "sha256": "sha256:7c821634f3fc07efc84b475a76576b46fb56436e0a4c8d2000f001f21d9f56fd"
+      },
+      "file_count": 4640,
+      "unpacked_bytes": 50938362515
+    },
+    "corpus": {
+      "privacy": "unreviewed",
+      "redistribution": "unreviewed",
+      "rights_note": "",
+      "requires": [
+        "synthetic-queries"
+      ],
+      "archive": {
+        "filename": "corpus.tar.gz",
+        "bytes": 400983141,
+        "sha256": "sha256:f943ef14b455ae6f21f82f2b8c6c4a332283f3f638b59af2289e8c2af215ad92"
+      },
+      "file_count": 21362,
+      "unpacked_bytes": 1895814246
+    },
+    "retrieval-support": {
+      "privacy": "unreviewed",
+      "redistribution": "unreviewed",
+      "rights_note": "",
+      "requires": [
+        "corpus"
+      ],
+      "archive": {
+        "filename": "retrieval-support.tar.gz",
+        "bytes": 1748398961,
+        "sha256": "sha256:386d84a3bfa41d557ceefa7b19ab600ac057267a64d01b0e92e9b6566d89030a"
+      },
+      "file_count": 50,
+      "unpacked_bytes": 1949264627
+    },
+    "private-queries": {
+      "privacy": "private",
+      "redistribution": "restricted",
+      "rights_note": "",
+      "requires": [
+        "synthetic-queries"
+      ],
+      "archive": {
+        "filename": "private-queries.tar.gz",
+        "bytes": 2462234,
+        "sha256": "sha256:5f659672d5be385cf7940abc3155b344894f845a2854c109bda667e0cc568d3a"
+      },
+      "file_count": 9,
+      "unpacked_bytes": 12491532
+    },
+    "private-experiments": {
+      "privacy": "private",
+      "redistribution": "restricted",
+      "rights_note": "",
+      "requires": [
+        "private-queries",
+        "synthetic-experiments"
+      ],
+      "archive": {
+        "filename": "private-experiments.tar.gz",
+        "bytes": 3730261018,
+        "sha256": "sha256:438a5d7ffec443e0a552b9eabe62e2d2d718ae80bf520add3546c2fa9dea4a04"
+      },
+      "file_count": 4973,
+      "unpacked_bytes": 26681739699
+    }
+  },
+  "profiles": {
+    "synthetic": {
+      "access": "local",
+      "packages": [
+        "synthetic-queries",
+        "synthetic-experiments"
+      ]
+    },
+    "synthetic-corpus": {
+      "access": "local",
+      "packages": [
+        "synthetic-queries",
+        "synthetic-experiments",
+        "corpus",
+        "retrieval-support"
+      ]
+    },
+    "full": {
+      "access": "local",
+      "packages": [
+        "synthetic-queries",
+        "synthetic-experiments",
+        "corpus",
+        "retrieval-support",
+        "private-queries",
+        "private-experiments"
+      ]
+    }
+  }
+}

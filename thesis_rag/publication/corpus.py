@@ -69,7 +69,7 @@ def corpus_specs(data):
         raise ValueError("Invalid corpus inventory")
     if any(r["corpus_hash"] != snapshot["corpus_hash"] for r in pages + quality):
         raise ValueError("Mixed corpus snapshots")
-    catalogue = data.json("page_scope", "priority_catalogue.json")
+    catalogue = data.json("corpus_priority" if "corpus_priority" in data.catalog["sources"] else "page_scope", "priority_catalogue.json")
     bm = json.loads(data.verify(catalogue["catalogue_manifest_path"], catalogue["catalogue_manifest_hash"]).read_text())
     if bm["corpus_hash"] != snapshot["corpus_hash"]:
         raise ValueError("Priority catalogue belongs to another corpus")

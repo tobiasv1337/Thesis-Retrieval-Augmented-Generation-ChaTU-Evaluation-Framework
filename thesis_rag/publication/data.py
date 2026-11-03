@@ -51,6 +51,9 @@ class Sources:
         self.supplement = supplement or {"schema_version": "thesis_statistics_v1", "statistics": {}}
         self._calculation = None
 
+    def includes(self, source: str) -> bool:
+        return source in self.catalog.get("included_sources", self.catalog["sources"])
+
     def calculation(self) -> dict:
         if self._calculation is None:
             import inspect
@@ -81,6 +84,8 @@ class Sources:
         return file
 
     def manifest(self, source: str) -> dict:
+        if not self.includes(source):
+            raise ValueError(f"Source excluded by export scope: {source}")
         definition = self.catalog["sources"][source]
         if not definition.get("manifest"):
             raise ValueError(f"No completed source bound for {source}")
@@ -102,6 +107,8 @@ class Sources:
         return self._manifests[source]
 
     def file(self, source: str, name: str) -> Path:
+        if not self.includes(source):
+            raise ValueError(f"Source excluded by export scope: {source}")
         definition = self.catalog["sources"][source]
         if "files" in definition:
             entry = definition["files"][name]
@@ -261,3 +268,24 @@ class Sources:
                     bootstrap_samples=10000 if method.startswith("prepared_") else int(row["bootstrap_samples"]),
                     confidence_level=.95 if method.startswith("prepared_") else float(row["confidence_level"]),
                     resampling_unit="query")
+
+
+def scoped_catalog(root: Path, catalog: dict, scope: str) -> dict:
+    """Configure source selection for a synthetic export scope."""
+    import copy
+    import json
+    if scope not in {"synthetic", "synthetic-corpus"}:
+        raise ValueError(f"Unknown public export scope: {scope}")
+    catalog = copy.deepcopy(catalog)
+    policy = json.loads((root / "configs/thesis/publication/archive_sources.json").read_text())
+    catalog["export_scope"] = scope
+    catalog["included_sources"] = policy["synthetic"] + ["datasets"]
+    catalog["sources"]["datasets"]["files"] = {
+        name: value for name, value in catalog["sources"]["datasets"]["files"].items()
+        if not value["path"].startswith("data/logs/")}
+    if scope == "synthetic-corpus":
+        catalog["sources"]["corpus_priority"] = json.loads(
+            (root / "configs/thesis/publication/corpus_catalogue.json").read_text())
+        catalog["included_sources"] += ["corpus", "corpus_priority"]
+    catalog["pending"] = [p for p in catalog["pending"] if "logs" not in p["id"]]
+    return catalog

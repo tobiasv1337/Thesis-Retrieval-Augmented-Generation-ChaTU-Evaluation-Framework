@@ -1,0 +1,48 @@
+{
+  "synthetic": [
+    "architecture",
+    "baseline_synthetic",
+    "chunking",
+    "final_synthetic",
+    "judge",
+    "language",
+    "language_signal",
+    "language_translated",
+    "main_nlu",
+    "navigation_manual",
+    "navigation_tables",
+    "parent_routing",
+    "priority_synthetic",
+    "rerankers",
+    "rrf_dedup20",
+    "validation"
+  ],
+  "private": [
+    "baseline_logs",
+    "final_logs_corrected_1000",
+    "log_development",
+    "log_development_selection",
+    "navigation_priority",
+    "page_scope",
+    "priority_downstream",
+    "priority_logs",
+    "priority_navigation",
+    "priority_reservation",
+    "priority_supplement",
+    "priority_union"
+  ],
+  "runtime_inputs": [
+    {
+      "path": "indexes/thesis/legacy_faiss/legacy_index_manifest.json",
+      "sha256": "sha256:70a11f7ccec83771769a49a737b64cc39f6a73833a4893a8240a5ad5ae3129f9"
+    },
+    {
+      "path": "data/az/cache/keyword_vectorizer_deutsch.pickle",
+      "sha256": "sha256:09c4dfdd40326aa708f9edf278a0a82f31beb8360073dc2b82951614fcfc61fa"
+    },
+    {
+      "path": "data/az/cache/keyword_vectorizer_english.pickle",
+      "sha256": "sha256:001bf02814c7f889ee983e3fbbc412fecd747e00f964f6443aa9c038ea618607"
+    }
+  ]
+}
